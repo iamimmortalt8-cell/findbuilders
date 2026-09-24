@@ -17,6 +17,30 @@ export interface UniversalEmailProps {
   appUrl?: string;
 }
 
+/**
+ * Canonical FindBuilders logo asset.
+ *
+ * Always absolute HTTPS on the live production frontend origin.
+ * Never derive this from APP_URL — findbuilders.app is NOT live/verified and
+ * would render a broken image in email clients.
+ */
+export const FINDBUILDERS_LOGO_URL = 'https://findbuilders.pages.dev/findbuilderslogo.png';
+
+/** The only app origin we link to while findbuilders.app is unverified. */
+export const FINDBUILDERS_APP_URL = 'https://findbuilders.pages.dev';
+
+/**
+ * Resolves the app origin for links inside emails.
+ * Ignores APP_URL values pointing at the unverified/dead findbuilders.app domain.
+ */
+export function resolveAppUrl(configured?: string | null): string {
+  const cleaned = (configured || '').trim().replace(/\/+$/, '');
+  if (cleaned && !cleaned.includes('findbuilders.app')) {
+    return cleaned;
+  }
+  return FINDBUILDERS_APP_URL;
+}
+
 export function escapeHtml(str: string): string {
   if (!str) return '';
   return str
@@ -28,7 +52,7 @@ export function escapeHtml(str: string): string {
 }
 
 export function renderUniversalEmailHtml(props: UniversalEmailProps): string {
-  const appUrl = (props.appUrl || process.env.APP_URL || 'https://findbuilders.app').replace(/\/+$/, '');
+  const appUrl = resolveAppUrl(props.appUrl || process.env.APP_URL);
   const previewTitle = escapeHtml(props.previewTitle || props.title || 'FindBuilders');
   const eyebrow = escapeHtml(props.eyebrow);
   const title = escapeHtml(props.title);
@@ -117,7 +141,7 @@ export function renderUniversalEmailHtml(props: UniversalEmailProps): string {
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: 0 auto;">
                                 <tr>
                                     <td align="center" style="vertical-align: middle; padding-bottom: 8px;">
-                                        <img src="${appUrl}/findbuilderslogo.png" width="36" height="36" alt="FindBuilders Logo" style="display: block; width: 36px; height: 36px; max-width: 36px; max-height: 36px; border: 0; outline: none; text-decoration: none; margin: 0 auto;" />
+                                        <img src="${FINDBUILDERS_LOGO_URL}" width="36" height="36" alt="FindBuilders Logo" style="display: block; width: 36px; height: 36px; max-width: 36px; max-height: 36px; border: 0; outline: none; text-decoration: none; margin: 0 auto;" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -280,7 +304,7 @@ export function renderUniversalEmailHtml(props: UniversalEmailProps): string {
 }
 
 export function renderUniversalEmailText(props: UniversalEmailProps): string {
-  const appUrl = (props.appUrl || process.env.APP_URL || 'https://findbuilders.app').replace(/\/+$/, '');
+  const appUrl = resolveAppUrl(props.appUrl || process.env.APP_URL);
   const lines: string[] = [
     'FindBuilders',
     '----------------------------------------',

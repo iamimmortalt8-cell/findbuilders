@@ -76,9 +76,34 @@ export function resolveActualRecipient(
   };
 }
 
+/**
+ * Deterministic Resend idempotency key for a logical email event.
+ *
+ * Derived ONLY from the permanent logical event key (never random, never a
+ * timestamp), so retries of the same logical email reuse the same key and
+ * Resend collapses them into a single delivery:
+ *
+ *   WELCOME:<user_id>            -> welcome/<user_id>
+ *   PRODUCT_SUBMITTED:<id>       -> product-submitted/<id>
+ *   PRODUCT_APPROVED:<id>        -> product-approved/<id>
+ *   PRODUCT_REJECTED:<id>        -> product-rejected/<id>
+ *
+ * Resend constraint: 1-256 characters, retained for 24 hours.
+ */
+export function idempotencyKeyForEvent(eventKey: string): string {
+  const separatorIndex = eventKey.indexOf(':');
+  if (separatorIndex === -1) {
+    return eventKey.toLowerCase().replace(/_/g, '-').substring(0, 256);
+  }
+  const type = eventKey.substring(0, separatorIndex).toLowerCase().replace(/_/g, '-');
+  const id = eventKey.substring(separatorIndex + 1);
+  return `${type}/${id}`.substring(0, 256);
+}
+
 export class EmailService {
   private resend: Resend | null = null;
   private emailFrom: string;
+  private replyTo?: string;
   private appUrl: string;
 
   constructor() {
@@ -91,6 +116,11 @@ export class EmailService {
     this.emailFrom = configuredFrom && !configuredFrom.includes('findbuilders.app')
       ? configuredFrom
       : 'FindBuilders <onboarding@resend.dev>';
+    // Optional Reply-To (env-controlled; only set when configured).
+    const configuredReplyTo = process.env.EMAIL_REPLY_TO?.trim();
+    if (configuredReplyTo && configuredReplyTo.includes('@')) {
+      this.replyTo = configuredReplyTo;
+    }
     this.appUrl = (process.env.APP_URL || 'https://findbuilders.pages.dev').replace(/\/+$/, '');
   }
 
@@ -152,14 +182,23 @@ export class EmailService {
 
       console.log(`[EmailService] Delivering ${eventType} (${eventKey})...`);
 
+      // Deterministic idempotency key derived from the logical event key:
+      // Resend collapses duplicate attempts of the SAME logical email within 24h,
+      // even if our guard state was lost or a retry races a successful send.
+      const idempotencyKey = idempotencyKeyForEvent(eventKey);
+
       // Dispatch to Resend (delivery recipient only; event metadata keeps original)
-      const { data, error } = await this.resend.emails.send({
-        from: this.emailFrom,
-        to: resolved.recipient,
-        subject,
-        html,
-        text,
-      });
+      const { data, error } = await this.resend.emails.send(
+        {
+          from: this.emailFrom,
+          to: resolved.recipient,
+          subject,
+          html,
+          text,
+          ...(this.replyTo ? { replyTo: this.replyTo } : {}),
+        },
+        { idempotencyKey }
+      );
 
       // Step 6: Handle provider response
       if (error) {
@@ -269,14 +308,13 @@ export class EmailService {
 
   // ══════════════════════════════════════════════════════════════
   // EMAIL 2 — PRODUCT SUBMITTED
-  // Idempotency Identity: PRODUCT_SUBMITTED:<product_id>:<transition_timestamp>
+  // Idempotency Identity: PRODUCT_SUBMITTED:<product_id>  (permanent — no timestamps)
   // ══════════════════════════════════════════════════════════════
   async sendProductSubmittedEmail(
     product: Pick<Product, 'id' | 'name' | 'maker_id' | 'updated_at'>,
     makerId?: string
   ): Promise<SendResult> {
-    const timestamp = product.updated_at || new Date().toISOString();
-    const eventKey = `PRODUCT_SUBMITTED:${product.id}:${timestamp}`;
+    const eventKey = `PRODUCT_SUBMITTED:${product.id}`;
 
     try {
       const ownerId = makerId || product.maker_id;
@@ -315,13 +353,12 @@ export class EmailService {
 
   // ══════════════════════════════════════════════════════════════
   // EMAIL 3 — PRODUCT APPROVED
-  // Idempotency Identity: PRODUCT_APPROVED:<product_id>:<transition_timestamp>
+  // Idempotency Identity: PRODUCT_APPROVED:<product_id>  (permanent — no timestamps)
   // ══════════════════════════════════════════════════════════════
   async sendProductApprovedEmail(
     product: Pick<Product, 'id' | 'name' | 'maker_id' | 'updated_at'>
   ): Promise<SendResult> {
-    const timestamp = product.updated_at || new Date().toISOString();
-    const eventKey = `PRODUCT_APPROVED:${product.id}:${timestamp}`;
+    const eventKey = `PRODUCT_APPROVED:${product.id}`;
 
     try {
       const maker = await this.resolveUser(product.maker_id);
@@ -354,14 +391,13 @@ export class EmailService {
 
   // ══════════════════════════════════════════════════════════════
   // EMAIL 4 — PRODUCT REJECTED
-  // Idempotency Identity: PRODUCT_REJECTED:<product_id>:<transition_timestamp>
+  // Idempotency Identity: PRODUCT_REJECTED:<product_id>  (permanent — no timestamps)
   // ══════════════════════════════════════════════════════════════
   async sendProductRejectedEmail(
     product: Pick<Product, 'id' | 'name' | 'maker_id' | 'updated_at'>,
     rejectionReason: string
   ): Promise<SendResult> {
-    const timestamp = product.updated_at || new Date().toISOString();
-    const eventKey = `PRODUCT_REJECTED:${product.id}:${timestamp}`;
+    const eventKey = `PRODUCT_REJECTED:${product.id}`;
 
     try {
       const maker = await this.resolveUser(product.maker_id);

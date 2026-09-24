@@ -49,6 +49,12 @@ export class AuthService {
       throw new AppError(401, 'Authentication failed');
     }
 
+    // signInWithPassword attaches the user's session to the shared admin client,
+    // which would make every later query run as that user (RLS blocks email_events
+    // inserts -> silent email failures). Clear the in-memory session only; the
+    // user's Supabase tokens stay valid server-side.
+    await supabaseAdmin.auth.signOut({ scope: 'local' });
+
     const tokens = generateTokens({
       sub: data.user.id,
       email: data.user.email!,

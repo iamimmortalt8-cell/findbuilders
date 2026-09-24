@@ -2,7 +2,7 @@ import { buildWelcomeEmail, type WelcomeEmailData } from './templates/WelcomeEma
 import { buildProductSubmittedEmail, type ProductSubmittedEmailData } from './templates/ProductSubmittedEmail.js';
 import { buildProductApprovedEmail, type ProductApprovedEmailData } from './templates/ProductApprovedEmail.js';
 import { buildProductRejectedEmail, type ProductRejectedEmailData } from './templates/ProductRejectedEmail.js';
-import { renderUniversalEmailHtml, renderUniversalEmailText, type UniversalEmailProps } from './components/UniversalEmailTemplate.js';
+import { renderUniversalEmailHtml, renderUniversalEmailText, resolveAppUrl, type UniversalEmailProps } from './components/UniversalEmailTemplate.js';
 
 export interface EmailRenderResult {
   subject: string;
@@ -14,7 +14,9 @@ export class EmailRenderer {
   private appUrl: string;
 
   constructor(appUrl?: string) {
-    this.appUrl = (appUrl || process.env.APP_URL || 'https://findbuilders.pages.dev').replace(/\/+$/, '');
+    // Ignores unverified/dead origins (findbuilders.app) and falls back to the
+    // live FindBuilders frontend so no email ever links to a dead domain.
+    this.appUrl = resolveAppUrl(appUrl || process.env.APP_URL);
   }
 
   renderWelcome(data: WelcomeEmailData): EmailRenderResult {
