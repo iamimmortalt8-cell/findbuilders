@@ -18,6 +18,26 @@ class ApiClient {
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
+  private async parseBody(response: Response): Promise<any> {
+    const text = await response.text();
+    if (!text) return null;
+    try {
+      return JSON.parse(text);
+    } catch {
+      return null;
+    }
+  }
+
+  private toError(response: Response, data: any): Error {
+    const message =
+      data?.error ||
+      data?.message ||
+      (response.ok ? 'Request failed' : `Request failed with status ${response.status}`);
+    const err: any = new Error(message);
+    err.status = response.status;
+    return err;
+  }
+
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       ...options,
@@ -28,15 +48,13 @@ class ApiClient {
       },
     });
 
-    const data = await response.json();
+    const data = await this.parseBody(response);
 
     if (!response.ok) {
-      const err: any = new Error(data?.error || data?.message || 'Request failed');
-      err.status = response.status;
-      throw err;
+      throw this.toError(response, data);
     }
 
-    return data.data;
+    return data?.data;
   }
 
   private async requestFull<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
@@ -49,12 +67,10 @@ class ApiClient {
       },
     });
 
-    const data = await response.json();
+    const data = await this.parseBody(response);
 
     if (!response.ok) {
-      const err: any = new Error(data?.error || data?.message || 'Request failed');
-      err.status = response.status;
-      throw err;
+      throw this.toError(response, data);
     }
 
     return data;
@@ -70,15 +86,13 @@ class ApiClient {
       body: formData,
     });
 
-    const data = await response.json();
+    const data = await this.parseBody(response);
 
     if (!response.ok) {
-      const err: any = new Error(data?.error || data?.message || 'Request failed');
-      err.status = response.status;
-      throw err;
+      throw this.toError(response, data);
     }
 
-    return data.data;
+    return data?.data;
   }
 
   // Auth

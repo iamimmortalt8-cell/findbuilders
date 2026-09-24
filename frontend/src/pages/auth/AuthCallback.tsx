@@ -21,7 +21,19 @@ export default function AuthCallback() {
       }
 
       try {
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        let { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+        // PKCE: if detectSessionInUrl has not consumed ?code= yet, exchange explicitly.
+        const code = searchParams.get('code');
+        if (!session?.access_token && code) {
+          const { data: exchangeData, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+          if (!exchangeError) {
+            session = exchangeData.session;
+            sessionError = null;
+          } else {
+            sessionError = exchangeError;
+          }
+        }
 
         if (sessionError) {
           console.error('Session error:', sessionError);

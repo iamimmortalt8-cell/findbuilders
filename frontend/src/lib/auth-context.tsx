@@ -116,12 +116,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const initializeAuth = useCallback(async () => {
     if (initPromiseRef.current) {
-      return initPromiseRef.current;
+      const prior = initPromiseRef.current;
+      await prior;
+      const hasTokens = !!(localStorage.getItem(TOKEN_KEY) || localStorage.getItem(REFRESH_TOKEN_KEY));
+      if (!hasTokens) return prior;
+      if (initPromiseRef.current) return initPromiseRef.current;
+      // Tokens appeared after the prior run started; fall through to a fresh run.
     }
 
     const runInit = async () => {
       let token = localStorage.getItem(TOKEN_KEY);
-      const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+      let refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
+      // OAuth may land on the Site URL (homepage) instead of /auth/callback when
+      // redirect_to is not allowlisted. If Supabase has a session but we have no
+      // backend tokens, exchange here so the navbar can authenticate.
+      if (!token && !refreshToken) {
+        try {
+          const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+          if (!sessionError && session?.access_token) {
+            const tokens = await api.exchangeSupabaseToken(session.access_token);
+            if (tokens?.access_token && tokens?.refresh_token) {
+              localStorage.setItem(TOKEN_KEY, tokens.access_token);
+              localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
+              token = tokens.access_token;
+              refreshToken = tokens.refresh_token;
+            }
+          }
+        } catch {
+          // No usable Supabase session; remain signed out.
+        }
+      }
 
       if (!token && !refreshToken) {
         setLoading(false);
