@@ -143,7 +143,7 @@ const modalSteps = [
 ];
 const TEXT_LOOP_INTERVAL = 1.5;
 
-const DefaultLogo = () => ( <div className="bg-[#214C37] text-[#D8C7A5] rounded-md p-1.5 shadow-sm"> <Gem className="h-4 w-4" /> </div> );
+const DefaultLogo = () => ( <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="h-7 w-7 object-contain" /> );
 
 interface AuthComponentProps {
   logo?: React.ReactNode;

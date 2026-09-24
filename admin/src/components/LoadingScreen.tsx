@@ -16,9 +16,16 @@ export default function LoadingScreen({ children }: { children: React.ReactNode 
         return (
             <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0B0F19]">
                 <ShaderAnimation />
-                <span className="absolute pointer-events-none z-10 text-center text-5xl md:text-7xl leading-none font-semibold tracking-tighter whitespace-pre-wrap text-white drop-shadow-lg">
-                    FIND BUILDERS
-                </span>
+                <div className="absolute pointer-events-none z-10 flex flex-col items-center gap-4">
+                    <img
+                        src="/findbuilderslogo.png"
+                        alt="FindBuilders Logo"
+                        className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]"
+                    />
+                    <span className="text-center text-5xl md:text-7xl leading-none font-semibold tracking-tighter whitespace-pre-wrap text-white drop-shadow-lg">
+                        FIND BUILDERS
+                    </span>
+                </div>
             </div>
         );
     }

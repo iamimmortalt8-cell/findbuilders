@@ -96,7 +96,12 @@ export default function Navbar() {
                         }`}
                     >
                         {/* Logo */}
-                        <Link to="/" className="flex items-center gap-2 shrink-0">
+                        <Link to="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0 group">
+                            <img
+                                src="/findbuilderslogo.png"
+                                alt="FindBuilders Logo"
+                                className="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0"
+                            />
                             <span className={`text-lg sm:text-xl md:text-2xl font-bold tracking-tight ${isHome ? "text-white" : "text-[#F5F1E8]"}`}>
                                 <span className={isHome ? "text-white" : "text-[#D8C7A5]"}>F</span>ind<span className={isHome ? "text-white" : "text-[#D8C7A5]"}>B</span>uilders
                             </span>

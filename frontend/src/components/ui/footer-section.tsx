@@ -23,7 +23,8 @@ export function Footer() {
 
                 {/* LOGO + BRAND */}
                 <AnimatedContainer className="space-y-4 md:w-1/2">
-                    <div className="relative">
+                    <div className="flex items-center gap-2.5">
+                        <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-7 h-7 object-contain shrink-0" />
                         <span className="text-2xl font-bold tracking-tight text-[#F5F1E8]">
                             <span className="text-[#D8C7A5]">F</span>ind<span className="text-[#D8C7A5]">B</span>uilders
                         </span>

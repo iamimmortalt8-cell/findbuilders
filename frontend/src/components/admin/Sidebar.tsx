@@ -43,9 +43,12 @@ export default function Sidebar() {
             {/* Logo */}
             <div className="px-5 py-6 border-b border-[#202A25]">
                 <div className="flex items-center justify-between">
-                    <NavLink to="/" className="text-lg font-bold tracking-tight group">
-                        <span className="text-[#D8C7A5] group-hover:text-[#E5D5B5] transition-colors font-serif">Find</span>
-                        <span className="text-[#F5F1E8]">Builders</span>
+                    <NavLink to="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight group">
+                        <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-7 h-7 object-contain shrink-0" />
+                        <span>
+                            <span className="text-[#D8C7A5] group-hover:text-[#E5D5B5] transition-colors font-serif">Find</span>
+                            <span className="text-[#F5F1E8]">Builders</span>
+                        </span>
                     </NavLink>
                     <button onClick={() => setMobileOpen(false)} className="lg:hidden p-1.5 rounded-lg text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#151D19] transition-all duration-300">
                         <X className="w-5 h-5" />
