@@ -22,6 +22,60 @@ export interface SendResult {
   error?: string;
 }
 
+export interface TestModeConfig {
+  enabled: boolean;
+  testRecipient: string;
+}
+
+export type ResolvedRecipient =
+  | {
+      ok: true;
+      recipient: string;
+      originalRecipient: string;
+      testMode: boolean;
+      testRecipient: string | null;
+    }
+  | { ok: false; error: string };
+
+export function getTestModeConfig(env: NodeJS.ProcessEnv = process.env): TestModeConfig {
+  const enabled = String(env.EMAIL_TEST_MODE ?? '').trim().toLowerCase() === 'true';
+  const testRecipient = String(env.EMAIL_TEST_RECIPIENT ?? '').trim();
+  return { enabled, testRecipient };
+}
+
+export function resolveActualRecipient(
+  originalRecipient: string,
+  env: NodeJS.ProcessEnv = process.env
+): ResolvedRecipient {
+  const { enabled, testRecipient } = getTestModeConfig(env);
+
+  if (!enabled) {
+    return {
+      ok: true,
+      recipient: originalRecipient,
+      originalRecipient,
+      testMode: false,
+      testRecipient: null,
+    };
+  }
+
+  if (!testRecipient || !testRecipient.includes('@')) {
+    return {
+      ok: false,
+      error:
+        'EMAIL_TEST_MODE is enabled but EMAIL_TEST_RECIPIENT is missing or invalid. Refusing to send.',
+    };
+  }
+
+  return {
+    ok: true,
+    recipient: testRecipient,
+    originalRecipient,
+    testMode: true,
+    testRecipient,
+  };
+}
+
 export class EmailService {
   private resend: Resend | null = null;
   private emailFrom: string;
@@ -43,7 +97,8 @@ export class EmailService {
   /**
    * Unified, guarded transactional email dispatcher.
    *
-   * 1. Validates event inputs.
+   * 1. Validates event inputs and resolves the Resend delivery recipient
+   *    (optional EMAIL_TEST_MODE redirect; event key/recipient in DB stay original).
    * 2. Atomically reserves the event in the persistent PostgreSQL database (UNIQUE constraint).
    * 3. Blocks immediately if already SENT, IN_FLIGHT, or invalid.
    * 4. Dispatches via Resend.
@@ -65,7 +120,15 @@ export class EmailService {
         return { success: false, error: 'Invalid recipient address' };
       }
 
-      // Step 2 & 3: Persistent atomic reservation via database guard
+      const resolved = resolveActualRecipient(recipient);
+      if (!resolved.ok) {
+        console.error('[EmailService] Email test mode: ENABLED');
+        console.error(`[EmailService] Original recipient: ${recipient}`);
+        console.error(`[EmailService] Cannot deliver ${eventKey}: ${resolved.error}`);
+        return { success: false, error: resolved.error };
+      }
+
+      // Step 2 & 3: Persistent atomic reservation via database guard (original recipient)
       const reservation = await emailGuard.reserve(eventKey, eventType, recipient, metadata);
       if (!reservation.allowed) {
         console.log(`[EmailService] Dispatch blocked by persistent guard for ${eventKey} (reason: ${reservation.reason})`);
@@ -79,12 +142,20 @@ export class EmailService {
         return { success: false, error: 'RESEND_API_KEY is not configured' };
       }
 
-      console.log(`[EmailService] Delivering ${eventType} (${eventKey}) to <${recipient}>...`);
+      if (resolved.testMode) {
+        console.log('[EmailService] Email test mode: ENABLED');
+        console.log(`[EmailService] Original recipient: ${resolved.originalRecipient}`);
+        console.log(`[EmailService] Test recipient: ${resolved.testRecipient}`);
+      } else {
+        console.log('[EmailService] Email test mode: DISABLED');
+      }
 
-      // Dispatch to Resend
+      console.log(`[EmailService] Delivering ${eventType} (${eventKey})...`);
+
+      // Dispatch to Resend (delivery recipient only; event metadata keeps original)
       const { data, error } = await this.resend.emails.send({
         from: this.emailFrom,
-        to: recipient,
+        to: resolved.recipient,
         subject,
         html,
         text,
@@ -98,7 +169,16 @@ export class EmailService {
       }
 
       // Provider accepted email!
-      console.log(`[EmailService] Successfully sent ${eventType} (${eventKey}) to <${recipient}>, id: ${data?.id}`);
+      if (resolved.testMode) {
+        console.log(
+          `[EmailService] Resend accepted delivery for ${eventType} (${eventKey}) to test recipient <${resolved.recipient}>, id: ${data?.id}`
+        );
+        console.log(`[EmailService] Original recipient remains: ${resolved.originalRecipient}`);
+      } else {
+        console.log(
+          `[EmailService] Resend accepted delivery for ${eventType} (${eventKey}) to <${resolved.recipient}>, id: ${data?.id}`
+        );
+      }
       await emailGuard.markSent(eventKey, data?.id);
       return { success: true, messageId: data?.id };
     } catch (err: any) {
