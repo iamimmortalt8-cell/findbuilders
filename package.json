@@ -1,0 +1,18 @@
+{
+  "name": "findbuilders",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:admin": "cd admin && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:admin\" \"npm run dev:backend\"",
+    "build:frontend": "cd frontend && npm run build",
+    "build:admin": "cd admin && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build": "npm run build:frontend && npm run build:admin && npm run build:backend",
+    "install:all": "cd frontend && npm install && cd ../admin && npm install && cd ../backend && npm install",
+    "preview:frontend": "cd frontend && npm run preview",
+    "preview:admin": "cd admin && npm run preview"
+  }
+}
