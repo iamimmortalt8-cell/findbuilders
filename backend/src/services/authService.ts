@@ -59,8 +59,16 @@ export class AuthService {
   }
 
   async signInWithOAuth(provider: 'google'): Promise<{ url: string }> {
-    const frontendUrls = process.env.FRONTEND_URL?.split(',') || ['http://localhost:3000'];
-    const redirectUrl = `${frontendUrls[0]}/auth/callback`;
+    const frontendUrls = (process.env.FRONTEND_URL?.split(',') || ['http://localhost:3000'])
+      .map((url) => url.trim().replace(/\/+$/, ''))
+      .filter(Boolean);
+
+    // Production origin for the OAuth callback (pages.dev until custom domain is live).
+    // Local dev keeps FRONTEND_URL[0] = http://localhost:3000.
+    const oauthOrigin = (process.env.OAUTH_REDIRECT_ORIGIN || frontendUrls[0] || 'http://localhost:3000')
+      .trim()
+      .replace(/\/+$/, '');
+    const redirectUrl = `${oauthOrigin}/auth/callback`;
 
     const { data, error } = await supabaseAdmin.auth.signInWithOAuth({
       provider,
