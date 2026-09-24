@@ -14,7 +14,7 @@ export class EmailRenderer {
   private appUrl: string;
 
   constructor(appUrl?: string) {
-    this.appUrl = (appUrl || process.env.APP_URL || 'https://findbuilders.app').replace(/\/+$/, '');
+    this.appUrl = (appUrl || process.env.APP_URL || 'https://findbuilders.pages.dev').replace(/\/+$/, '');
   }
 
   renderWelcome(data: WelcomeEmailData): EmailRenderResult {

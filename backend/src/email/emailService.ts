@@ -32,8 +32,12 @@ export class EmailService {
     if (apiKey) {
       this.resend = new Resend(apiKey);
     }
-    this.emailFrom = process.env.EMAIL_FROM?.trim() || 'FindBuilders <hello@findbuilders.app>';
-    this.appUrl = (process.env.APP_URL || 'https://findbuilders.app').replace(/\/+$/, '');
+    const configuredFrom = process.env.EMAIL_FROM?.trim();
+    // findbuilders.app is not verified in Resend; never send from it.
+    this.emailFrom = configuredFrom && !configuredFrom.includes('findbuilders.app')
+      ? configuredFrom
+      : 'FindBuilders <onboarding@resend.dev>';
+    this.appUrl = (process.env.APP_URL || 'https://findbuilders.pages.dev').replace(/\/+$/, '');
   }
 
   /**
