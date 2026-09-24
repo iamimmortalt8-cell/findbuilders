@@ -7,7 +7,7 @@
     "dev": "tsx watch --require ./dotenv-preload.ts src/server.ts",
     "build": "tsc",
     "start": "node --require ./dotenv-preload.ts dist/server.js",
-    "test": "tsx --require ./dotenv-preload.ts --test tests/emailTestMode.test.ts tests/emailGuard.test.ts"
+    "test": "tsx --require ./dotenv-preload.ts --test tests/emailTestMode.test.ts tests/emailGuard.test.ts tests/accountDeletion.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.0",

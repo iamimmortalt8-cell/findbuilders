@@ -142,6 +142,14 @@ export const categorySchema = z.object({
   }),
 });
 
+export const deleteAccountSchema = z.object({
+  body: z.object({
+    confirmation: z
+      .string({ required_error: 'Confirmation is required' })
+      .refine(value => value === 'DELETE', { message: 'Confirmation must be exactly DELETE' }),
+  }),
+});
+
 export const categoryUpdateSchema = z.object({
   body: z.object({
     name: z.string().min(1).max(50).optional(),

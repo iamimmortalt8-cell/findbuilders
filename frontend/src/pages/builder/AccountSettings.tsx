@@ -1,13 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Shield, FileText, LifeBuoy, LogOut, Trash2, ChevronRight, AlertTriangle, X, Pencil, Mail } from "lucide-react";
+import { Shield, FileText, LifeBuoy, LogOut, Trash2, ChevronRight, AlertTriangle, X, Pencil } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/lib/auth-context";
+import { useToast } from "@/lib/toast-context";
+import { api } from "@/lib/api";
+import {
+    DELETE_CONFIRMATION,
+    DELETE_STEP_ONE_TITLE,
+    DELETE_STEP_ONE_MESSAGE,
+    DELETE_STEP_ONE_CONTINUE,
+    DELETE_STEP_ONE_CANCEL,
+    DELETE_STEP_TWO_TITLE,
+    DELETE_STEP_TWO_HINT,
+    DELETE_STEP_TWO_BUTTON,
+    DELETE_LOADING_LABEL,
+    DELETE_SUCCESS_MESSAGE,
+    DELETE_FAILURE_MESSAGE,
+    isDeleteConfirmed,
+    clearStoredAuthTokens,
+} from "@/lib/account-deletion";
 
 export default function AccountSettings() {
     const { user, profile, loading, signOut } = useAuth();
     const navigate = useNavigate();
+    const { success: toastSuccess, error: toastError } = useToast();
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [deleteStep, setDeleteStep] = useState<1 | 2>(1);
+    const [confirmText, setConfirmText] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         if (!loading && !user) {
@@ -15,14 +36,43 @@ export default function AccountSettings() {
         }
     }, [loading, user, navigate]);
 
+    const closeDeleteModal = () => {
+        if (isDeleting) return;
+        setIsDeleteOpen(false);
+        setDeleteStep(1);
+        setConfirmText("");
+    };
+
     useEffect(() => {
         if (!isDeleteOpen) return;
         const onKey = (e: KeyboardEvent) => {
-            if (e.key === "Escape") setIsDeleteOpen(false);
+            if (e.key === "Escape") closeDeleteModal();
         };
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
-    }, [isDeleteOpen]);
+    }, [isDeleteOpen, isDeleting]);
+
+    const openDeleteModal = () => {
+        setDeleteStep(1);
+        setConfirmText("");
+        setIsDeleteOpen(true);
+    };
+
+    const handleDeleteAccount = async () => {
+        if (isDeleting || !isDeleteConfirmed(confirmText)) return;
+        setIsDeleting(true);
+        try {
+            await api.deleteAccount();
+            clearStoredAuthTokens();
+            toastSuccess(DELETE_SUCCESS_MESSAGE);
+            await signOut();
+            navigate("/");
+        } catch {
+            toastError(DELETE_FAILURE_MESSAGE);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
 
     const handleSignOut = async () => {
         await signOut();
@@ -149,7 +199,7 @@ export default function AccountSettings() {
                             </button>
                             <button
                                 type="button"
-                                onClick={() => setIsDeleteOpen(true)}
+                                onClick={openDeleteModal}
                                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-[#C97878]/40 text-[#C97878] hover:bg-[#321C1C]/60 text-sm font-semibold transition-colors"
                             >
                                 <Trash2 className="w-4 h-4" />
@@ -160,7 +210,7 @@ export default function AccountSettings() {
                 </div>
             </div>
 
-            {/* Delete Account confirmation modal */}
+            {/* Delete Account confirmation modal (two-step, type DELETE) */}
             <AnimatePresence>
                 {isDeleteOpen && (
                     <div className="fixed inset-0 z-[150] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="delete-account-title">
@@ -168,7 +218,7 @@ export default function AccountSettings() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setIsDeleteOpen(false)}
+                            onClick={closeDeleteModal}
                             className="fixed inset-0 bg-black/80 backdrop-blur-md"
                         />
                         <motion.div
@@ -184,13 +234,15 @@ export default function AccountSettings() {
                                         <AlertTriangle className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <h2 id="delete-account-title" className="text-xl font-bold text-[#F5F1E8] tracking-tight">Delete Account?</h2>
+                                        <h2 id="delete-account-title" className="text-xl font-bold text-[#F5F1E8] tracking-tight">
+                                            {deleteStep === 1 ? DELETE_STEP_ONE_TITLE : DELETE_STEP_TWO_TITLE}
+                                        </h2>
                                         <p className="text-xs text-[#8C958E] mt-0.5">Permanent action • Requires confirmation</p>
                                     </div>
                                 </div>
                                 <button
                                     type="button"
-                                    onClick={() => setIsDeleteOpen(false)}
+                                    onClick={closeDeleteModal}
                                     aria-label="Close"
                                     className="p-2 rounded-xl text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-colors"
                                 >
@@ -198,32 +250,74 @@ export default function AccountSettings() {
                                 </button>
                             </div>
 
-                            <div className="bg-[#321C1C]/60 border border-[#C97878]/25 rounded-2xl p-4 mb-5 text-sm text-[#C5C8C1] leading-relaxed space-y-3">
-                                <p>
-                                    <strong className="text-[#C97878] font-semibold">Deleting your account is permanent.</strong> When your account is deleted, we remove your profile, products, comments, and votes. Residual copies may remain in system backups for a limited period, and we cannot remove copies of public information that other people saved independently before deletion.
-                                </p>
-                                <p className="text-[#8C958E]">
-                                    Account deletion is handled by our support team — there is no self-service delete button. Requesting deletion opens an email to our support address.
-                                </p>
-                            </div>
+                            {deleteStep === 1 ? (
+                                <>
+                                    <div className="bg-[#321C1C]/60 border border-[#C97878]/25 rounded-2xl p-4 mb-5 text-sm text-[#C5C8C1] leading-relaxed whitespace-pre-line">
+                                        {DELETE_STEP_ONE_MESSAGE}
+                                    </div>
 
-                            <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-2">
-                                <button
-                                    type="button"
-                                    onClick={() => setIsDeleteOpen(false)}
-                                    className="px-5 py-2.5 rounded-xl text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-colors"
-                                >
-                                    Cancel
-                                </button>
-                                <a
-                                    href="mailto:support@findbuilders.app?subject=Account%20Deletion%20Request"
-                                    onClick={() => setIsDeleteOpen(false)}
-                                    className="flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl bg-[#C97878] hover:bg-[#d48989] text-[#1A1A16] transition-colors"
-                                >
-                                    <Mail className="w-4 h-4" />
-                                    Request deletion via email
-                                </a>
-                            </div>
+                                    <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-2">
+                                        <button
+                                            type="button"
+                                            onClick={closeDeleteModal}
+                                            className="px-5 py-2.5 rounded-xl text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-colors"
+                                        >
+                                            {DELETE_STEP_ONE_CANCEL}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setDeleteStep(2)}
+                                            className="flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl bg-[#C97878] hover:bg-[#d48989] text-[#1A1A16] transition-colors"
+                                        >
+                                            {DELETE_STEP_ONE_CONTINUE}
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="bg-[#321C1C]/60 border border-[#C97878]/25 rounded-2xl p-4 mb-5 text-sm text-[#C5C8C1] leading-relaxed">
+                                        <p>
+                                            <strong className="text-[#C97878] font-semibold">Deleting your account is permanent.</strong>{" "}
+                                            Your profile, products, comments, votes, follows, uploaded images, and other account-owned data
+                                            will be permanently removed. This action cannot be undone.
+                                        </p>
+                                    </div>
+
+                                    <label htmlFor="delete-account-confirmation" className="block text-xs font-medium text-[#8C958E] mb-1.5">
+                                        {DELETE_STEP_TWO_HINT}
+                                    </label>
+                                    <input
+                                        id="delete-account-confirmation"
+                                        type="text"
+                                        autoComplete="off"
+                                        spellCheck={false}
+                                        value={confirmText}
+                                        onChange={(e) => setConfirmText(e.target.value)}
+                                        disabled={isDeleting}
+                                        placeholder={DELETE_CONFIRMATION}
+                                        className="w-full bg-[#0B100E] border border-[#C97878]/40 rounded-xl px-4 py-2.5 text-sm text-[#F5F1E8] outline-none focus:border-[#C97878] disabled:opacity-60 disabled:cursor-not-allowed mb-5"
+                                    />
+
+                                    <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-2">
+                                        <button
+                                            type="button"
+                                            onClick={closeDeleteModal}
+                                            disabled={isDeleting}
+                                            className="px-5 py-2.5 rounded-xl text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                                        >
+                                            {DELETE_STEP_ONE_CANCEL}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleDeleteAccount}
+                                            disabled={isDeleting || !isDeleteConfirmed(confirmText)}
+                                            className="flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl bg-[#C97878] hover:bg-[#d48989] text-[#1A1A16] transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#C97878]"
+                                        >
+                                            {isDeleting ? DELETE_LOADING_LABEL : DELETE_STEP_TWO_BUTTON}
+                                        </button>
+                                    </div>
+                                </>
+                            )}
                         </motion.div>
                     </div>
                 )}

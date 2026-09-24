@@ -153,6 +153,13 @@ class ApiClient {
     return this.request('/auth/signout', { method: 'POST' });
   }
 
+  async deleteAccount(): Promise<{ deleted: boolean }> {
+    return this.request('/account', {
+      method: 'DELETE',
+      body: JSON.stringify({ confirmation: 'DELETE' }),
+    });
+  }
+
   // Categories
   async getCategories(): Promise<Category[]> {
     return this.request('/categories');
