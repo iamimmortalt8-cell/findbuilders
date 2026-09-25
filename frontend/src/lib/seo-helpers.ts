@@ -42,6 +42,7 @@ export function toAbsoluteUrl(pathOrUrl?: string): string {
 export const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": `${SITE_URL}#organization`,
   name: "FindBuilders",
   url: SITE_URL,
   logo: `${SITE_URL}/findbuilderslogo.png`,
@@ -50,19 +51,51 @@ export const ORGANIZATION_SCHEMA = {
   founders: [
     {
       "@type": "Person",
+      "@id": `${SITE_URL}#/schema/person/bharath-thommandru`,
       name: "Bharath Thommandru",
-      jobTitle: "Founder & AI Engineer"
+      givenName: "Bharath",
+      familyName: "Thommandru",
+      jobTitle: "Founder & Lead Developer",
+      url: `${SITE_URL}/about`,
+      image: `${SITE_URL}/bharath.png`,
+      email: "bharathtommandru1@gmail.com",
+      sameAs: [
+        "https://github.com/bharath-dev8668",
+        "https://www.linkedin.com/in/bharath-thommandru",
+        "https://x.com/BTommandru81787"
+      ],
+      worksFor: {
+        "@type": "Organization",
+        name: "FindBuilders",
+        url: SITE_URL
+      },
+      knowsAbout: [
+        "React",
+        "TypeScript",
+        "Full-Stack Development",
+        "UI/UX Design",
+        "Artificial Intelligence",
+        "Web Development"
+      ]
     },
     {
       "@type": "Person",
+      "@id": `${SITE_URL}#/schema/person/rishi-chowdary-karumanchi`,
       name: "Rishi Chowdary Karumanchi",
-      jobTitle: "Founder & SDE Engineer"
+      jobTitle: "Founder & SDE Engineer",
+      url: `${SITE_URL}/about`,
+      image: `${SITE_URL}/Rishi.png`,
+      worksFor: {
+        "@type": "Organization",
+        name: "FindBuilders",
+        url: SITE_URL
+      }
     }
   ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
-    email: "support@findbuilders.app"
+    email: "bharathtommandru1@gmail.com"
   }
 };
 

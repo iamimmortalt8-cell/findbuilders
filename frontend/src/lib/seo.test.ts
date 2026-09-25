@@ -42,11 +42,24 @@ test('Organization schema contains verified founder and entity information', () 
   assert.equal(ORGANIZATION_SCHEMA.name, 'FindBuilders');
   assert.equal(ORGANIZATION_SCHEMA.url, 'https://findbuilders.pages.dev');
   assert.equal(ORGANIZATION_SCHEMA.logo, 'https://findbuilders.pages.dev/findbuilderslogo.png');
-  assert.equal(ORGANIZATION_SCHEMA.contactPoint.email, 'support@findbuilders.app');
+  assert.equal(ORGANIZATION_SCHEMA.contactPoint.email, 'bharathtommandru1@gmail.com');
 
   const founderNames = ORGANIZATION_SCHEMA.founders.map(f => f.name);
   assert.ok(founderNames.includes('Bharath Thommandru'));
   assert.ok(founderNames.includes('Rishi Chowdary Karumanchi'));
+
+  const bharath = ORGANIZATION_SCHEMA.founders.find(f => f.name === 'Bharath Thommandru') as any;
+  assert.equal(bharath.givenName, 'Bharath');
+  assert.equal(bharath.familyName, 'Thommandru');
+  assert.equal(bharath.jobTitle, 'Founder & Lead Developer');
+  assert.equal(bharath.email, 'bharathtommandru1@gmail.com');
+  assert.deepEqual(bharath.sameAs, [
+    'https://github.com/bharath-dev8668',
+    'https://www.linkedin.com/in/bharath-thommandru',
+    'https://x.com/BTommandru81787'
+  ]);
+  assert.equal(bharath.worksFor.name, 'FindBuilders');
+  assert.ok(Array.isArray(bharath.knowsAbout));
 });
 
 test('WebSite schema defines valid SearchAction', () => {
