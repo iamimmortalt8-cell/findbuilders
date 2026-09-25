@@ -124,6 +124,14 @@ export default function AboutPage() {
                                         <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-[15px]">
                                             Bharath is a curious builder who enjoys turning ideas into products that people can actually use. He is driven by the process of experimenting, learning, and creating from the ground up, with a strong belief that good ideas deserve a place to be seen and explored.
                                         </p>
+                                        <div className="pt-4 mt-4 border-t border-[#202A25]/60">
+                                            <Link
+                                                to="/about-founder"
+                                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D8C7A5] hover:text-[#F5F1E8] transition-colors"
+                                            >
+                                                Meet the Founder &rarr;
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>

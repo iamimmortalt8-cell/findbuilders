@@ -9,6 +9,7 @@ import ProductDetail from "@/pages/public/ProductDetail";
 import PublicProfile from "@/pages/public/PublicProfile";
 import Features from "@/pages/public/Features";
 import About from "@/pages/public/About";
+import AboutFounder from "@/pages/public/AboutFounder";
 import Terms from "@/pages/public/Terms";
 import PrivacyPolicy from "@/pages/public/PrivacyPolicy";
 import Support from "@/pages/public/Support";
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/profile/:id" element={<ClientLayout><PublicProfile /></ClientLayout>} />
                 <Route path="/features" element={<ClientLayout><Features /></ClientLayout>} />
                 <Route path="/about" element={<ClientLayout><About /></ClientLayout>} />
+                <Route path="/about-founder" element={<ClientLayout><AboutFounder /></ClientLayout>} />
                 <Route path="/faq" element={<ClientLayout><FAQ /></ClientLayout>} />
                 <Route path="/terms" element={<ClientLayout><Terms /></ClientLayout>} />
                 <Route path="/privacy-policy" element={<ClientLayout><PrivacyPolicy /></ClientLayout>} />

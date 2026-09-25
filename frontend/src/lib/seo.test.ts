@@ -161,6 +161,7 @@ test('sitemap.xml exists, is valid XML, uses production domain and excludes priv
   assert.ok(content.includes('<loc>https://findbuilders.pages.dev/products</loc>'));
   assert.ok(content.includes('<loc>https://findbuilders.pages.dev/features</loc>'));
   assert.ok(content.includes('<loc>https://findbuilders.pages.dev/about</loc>'));
+  assert.ok(content.includes('<loc>https://findbuilders.pages.dev/about-founder</loc>'));
   assert.ok(content.includes('<loc>https://findbuilders.pages.dev/faq</loc>'));
   assert.ok(content.includes('<loc>https://findbuilders.pages.dev/categories/ai</loc>'));
 

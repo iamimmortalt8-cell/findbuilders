@@ -76,6 +76,11 @@ export function Footer() {
                                 </Link>
                             </li>
                             <li>
+                                <Link to="/about-founder" className="hover:text-[#F5F1E8] transition-colors">
+                                    About the Founder
+                                </Link>
+                            </li>
+                            <li>
                                 <Link to="/support" className="hover:text-[#F5F1E8] transition-colors">
                                     Support &amp; Help
                                 </Link>
@@ -101,7 +106,11 @@ export function Footer() {
                     &copy; {new Date().getFullYear()} FindBuilders. All Rights Reserved.
                 </p>
                 <p className="text-[#69736C] text-xs font-medium text-center md:text-right">
-                    Founded by Bharath Thommandru &amp; Rishi Chowdary Karumanchi.
+                    Founded by{" "}
+                    <Link to="/about-founder" className="text-[#8C958E] hover:text-[#D8C7A5] transition-colors underline decoration-[#202A25] hover:decoration-[#D8C7A5]">
+                        Bharath Thommandru
+                    </Link>{" "}
+                    &amp; Rishi Chowdary Karumanchi.
                 </p>
             </div>
         </footer>
