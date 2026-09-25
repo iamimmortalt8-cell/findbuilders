@@ -1,0 +1,33 @@
+# FindBuilders transactional email — environment variables (ARCHIVED REFERENCE)
+#
+# Copy the needed lines into backend/.env when re-enabling email.
+# SECURITY: only variable NAMES and placeholder values live in this archive.
+# Never put real secrets (API keys, tokens, passwords) in this folder.
+
+# Master switch. STRICT boolean: ONLY the exact value "true" enables email.
+# Everything else (false, FALSE, 0, empty, missing) keeps email disabled.
+# Production default: missing => DISABLED (fail-safe).
+EMAIL_ENABLED=false
+
+# Resend API key (leave empty in the archive; fill in backend/.env only).
+RESEND_API_KEY=
+
+# Sender identity. Must use a RESEND-VERIFIED domain once a domain is purchased:
+#   EMAIL_FROM=FindBuilders <no-reply@your-verified-domain.com>
+# While no domain is verified, Resend only accepts onboarding@resend.dev
+# (delivery restricted to the account owner / official test recipients).
+EMAIL_FROM=
+
+# Public frontend origin used for links and logo in emails.
+APP_URL=https://findbuilders.pages.dev
+
+# Test mode: when "true", delivery is redirected to EMAIL_TEST_RECIPIENT while
+# event keys / templates / email_events keep the original recipient.
+EMAIL_TEST_MODE=false
+EMAIL_TEST_RECIPIENT=
+
+# Optional Reply-To (only set once a verified domain exists).
+# EMAIL_REPLY_TO=
+
+# Original backend test script (after the email tests are restored to backend/tests/):
+#   "test": "tsx --require ./dotenv-preload.ts --test tests/emailTestMode.test.ts tests/emailEnabledSwitch.test.ts tests/emailGuard.test.ts tests/accountDeletion.test.ts tests/emailExactlyOnce.test.ts"
