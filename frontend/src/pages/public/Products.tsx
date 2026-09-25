@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     Search,
@@ -20,9 +20,50 @@ import {
 import { fetchProducts, fetchCategories, searchProfiles } from "@/lib/api";
 import { parseBio } from "@/lib/types";
 import { Reveal, StaggerContainer, StaggerItem } from "@/components/Reveal";
+import SEO, { buildCollectionSchema } from "@/components/SEO";
 import type { Product, Category, Profile } from "@/lib/types";
 
+const CATEGORY_DESCRIPTIONS: Record<string, { title: string; metaDescription: string; intro: string }> = {
+    ai: {
+        title: "AI Tools & Machine Learning Products | FindBuilders",
+        metaDescription: "Discover top AI products, machine learning applications, and generative AI software built by indie makers on FindBuilders.",
+        intro: "Explore cutting-edge artificial intelligence products, intelligent automation apps, and developer-first ML tools created by independent makers and startup founders."
+    },
+    "developer-tools": {
+        title: "Developer Tools, APIs & CLI Utilities | FindBuilders",
+        metaDescription: "Discover curated developer tools, SDKs, open-source libraries, and engineering utilities built by developers for developers.",
+        intro: "A curated collection of developer tools, CLI utilities, libraries, and frameworks built to streamline coding, debugging, testing, and shipping."
+    },
+    productivity: {
+        title: "Productivity Apps & Workflow Software | FindBuilders",
+        metaDescription: "Find innovative productivity tools, task managers, and workflow utilities created by makers to help you accomplish more.",
+        intro: "Modern productivity software designed to organize your personal workflows, automate repetitive tasks, and keep teams and creators focused on what matters."
+    },
+    education: {
+        title: "Education & Learning Software | FindBuilders",
+        metaDescription: "Explore educational platforms, interactive learning apps, and skill-building software built by indie educators and developers.",
+        intro: "Educational platforms, interactive coding exercises, and study tools created to empower learners, self-taught engineers, and educators worldwide."
+    },
+    design: {
+        title: "Design Tools, UI Kits & Creative Assets | FindBuilders",
+        metaDescription: "Discover design tools, UI resources, prototyping apps, and creative utilities crafted by indie designers on FindBuilders.",
+        intro: "Creative software, prototyping tools, icon libraries, and design systems built to empower digital designers and creative professionals."
+    },
+    business: {
+        title: "Business Software & Micro-SaaS Products | FindBuilders",
+        metaDescription: "Discover business software, micro-SaaS products, and startup tools designed by indie founders to run and grow modern businesses.",
+        intro: "Software solutions and utilities tailored for founders, operators, and small businesses—spanning analytics, customer growth, and billing."
+    },
+    other: {
+        title: "Unique Tools & Experimental Projects | FindBuilders",
+        metaDescription: "Explore unique experiments, creative tech projects, and unconventional products built by indie makers across the web.",
+        intro: "Interesting and experimental software projects that challenge conventional categories, built by makers exploring new creative boundaries."
+    }
+};
+
 export default function Products() {
+    const { categorySlug } = useParams<{ categorySlug?: string }>();
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
@@ -53,10 +94,23 @@ export default function Products() {
     };
 
     const search = searchParams.get("search") || "";
-    const category = searchParams.get("category") || "";
+    const categoryParam = searchParams.get("category") || "";
     const sort = (searchParams.get("sort") as "newest" | "popular" | "oldest") || "newest";
     const page = parseInt(searchParams.get("page") || "1");
     const limit = 12;
+
+    // Resolve category from route slug or query parameter
+    const activeCategory = categories.find((c) => {
+        if (categorySlug) {
+            return c.slug.toLowerCase() === categorySlug.toLowerCase() || c.name.toLowerCase() === categorySlug.toLowerCase();
+        }
+        if (categoryParam) {
+            return c.id === categoryParam || c.slug.toLowerCase() === categoryParam.toLowerCase() || c.name.toLowerCase() === categoryParam.toLowerCase();
+        }
+        return false;
+    });
+
+    const effectiveCategoryId = activeCategory ? activeCategory.id : (categoryParam.length === 36 ? categoryParam : "");
 
     useEffect(() => {
         fetchCategories().then(setCategories).catch(console.error);
@@ -64,14 +118,14 @@ export default function Products() {
 
     useEffect(() => {
         setLoading(true);
-        fetchProducts({ search, category, sort, page, limit })
+        fetchProducts({ search, category: effectiveCategoryId, sort, page, limit })
             .then(({ data: p, count }) => {
                 setProducts(p);
                 setTotalCount(count || 0);
             })
             .catch(console.error)
             .finally(() => setLoading(false));
-    }, [search, category, sort, page]);
+    }, [search, effectiveCategoryId, sort, page]);
 
     // Handle User Search debouncing
     useEffect(() => {
@@ -145,7 +199,7 @@ export default function Products() {
     const totalPages = Math.ceil(totalCount / limit);
 
     // Selected labels for custom dropdowns
-    const selectedCategoryName = categories.find((c) => c.id === category)?.name || "All Categories";
+    const selectedCategoryName = activeCategory ? activeCategory.name : "All Categories";
     const sortLabels: Record<string, string> = {
         newest: "Newest",
         popular: "Most Popular",
@@ -153,21 +207,100 @@ export default function Products() {
     };
     const selectedSortLabel = sortLabels[sort] || "Newest";
 
+    const categoryDetails = activeCategory ? (CATEGORY_DESCRIPTIONS[activeCategory.slug.toLowerCase()] || null) : null;
+
+    const seoTitle = activeCategory
+        ? (categoryDetails?.title || `${activeCategory.name} Products & Tools | FindBuilders`)
+        : (search ? `Results for "${search}" | FindBuilders` : "Discover Products & Developer Tools Built by Indie Makers | FindBuilders");
+
+    const seoDescription = activeCategory
+        ? (categoryDetails?.metaDescription || `Explore emerging ${activeCategory.name} products, tools, and apps built by indie makers on FindBuilders.`)
+        : "Explore the directory of new startup products, developer tools, AI apps, and SaaS projects launched by indie makers on FindBuilders.";
+
+    const canonicalUrl = activeCategory
+        ? `/categories/${activeCategory.slug}`
+        : "/products";
+
+    const breadcrumbs = activeCategory
+        ? [
+            { name: "Home", url: "/" },
+            { name: "Categories", url: "/categories" },
+            { name: activeCategory.name, url: `/categories/${activeCategory.slug}` }
+          ]
+        : [
+            { name: "Home", url: "/" },
+            { name: "Products", url: "/products" }
+          ];
+
+    const collectionSchema = buildCollectionSchema(
+        activeCategory ? `${activeCategory.name} Products` : "FindBuilders Products Directory",
+        seoDescription,
+        canonicalUrl
+    );
+
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] min-h-screen">
+            <SEO
+                title={seoTitle}
+                description={seoDescription}
+                canonical={canonicalUrl}
+                breadcrumbs={breadcrumbs}
+                structuredData={collectionSchema}
+            />
+
             <div className="max-w-6xl mx-auto px-6 py-12">
                 {/* Header */}
                 <Reveal>
-                    <div className="mb-10">
-                        <div className="flex items-center gap-3 mb-4">
+                    <div className="mb-6">
+                        <div className="flex items-center gap-3 mb-2">
                             <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-[#2E6549] to-[#214C37]" />
                             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-[#F5F1E8]">
-                                {search ? `Results for "${search}"` : "Discover Products"}
+                                {activeCategory
+                                    ? `Discover ${activeCategory.name} Products`
+                                    : search
+                                    ? `Results for "${search}"`
+                                    : "Discover Products Built by Makers"}
                             </h1>
                         </div>
-                        <p className="text-[#8C958E] text-base ml-5">
-                            {totalCount} {totalCount === 1 ? "product" : "products"} found
+                        <p className="text-[#8C958E] text-base ml-5 max-w-2xl mb-2">
+                            {activeCategory && categoryDetails
+                                ? categoryDetails.intro
+                                : "Explore curated software, developer tools, AI apps, and SaaS projects launched by indie creators."}
                         </p>
+                        <p className="text-[#789181] text-xs font-mono ml-5">
+                            {totalCount} {totalCount === 1 ? "product" : "products"} available
+                        </p>
+                    </div>
+
+                    {/* Quick Category Navigation Pills */}
+                    <div className="flex flex-wrap gap-2 mb-8 items-center">
+                        <span className="text-xs text-[#8C958E] font-medium mr-1">Categories:</span>
+                        <Link
+                            to="/products"
+                            className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                                !activeCategory
+                                    ? "bg-[#D8C7A5] text-[#1A1A16] font-bold shadow-[0_0_15px_rgba(216,199,165,0.2)]"
+                                    : "bg-[#151D19] text-[#8C958E] border border-[#202A25] hover:text-[#F5F1E8] hover:border-[#2E6549]"
+                            }`}
+                        >
+                            All Products
+                        </Link>
+                        {categories.map((cat) => {
+                            const isActive = activeCategory?.id === cat.id;
+                            return (
+                                <Link
+                                    key={cat.id}
+                                    to={`/categories/${cat.slug}`}
+                                    className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+                                        isActive
+                                            ? "bg-[#D8C7A5] text-[#1A1A16] font-bold shadow-[0_0_15px_rgba(216,199,165,0.2)]"
+                                            : "bg-[#151D19] text-[#8C958E] border border-[#202A25] hover:text-[#F5F1E8] hover:border-[#2E6549]"
+                                    }`}
+                                >
+                                    {cat.name}
+                                </Link>
+                            );
+                        })}
                     </div>
                 </Reveal>
 
@@ -339,26 +472,34 @@ export default function Products() {
                                         <button
                                             type="button"
                                             onClick={() => {
-                                                updateParam("category", "");
+                                                if (categorySlug) {
+                                                    navigate("/products");
+                                                } else {
+                                                    updateParam("category", "");
+                                                }
                                                 setIsCategoryOpen(false);
                                             }}
                                             className={`w-full text-left px-3 py-1.5 rounded-xl text-xs sm:text-sm transition-colors flex items-center justify-between cursor-pointer ${
-                                                category === ""
+                                                !activeCategory
                                                     ? "text-[#D8C7A5] bg-[#214C37] font-semibold border border-[#2E6549]"
                                                     : "text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#202B25]"
                                             }`}
                                         >
                                             <span>All Categories</span>
-                                            {category === "" && <Check className="w-3.5 h-3.5 text-[#D8C7A5]" />}
+                                            {!activeCategory && <Check className="w-3.5 h-3.5 text-[#D8C7A5]" />}
                                         </button>
                                         {categories.map((cat) => {
-                                            const isSelected = category === cat.id;
+                                            const isSelected = activeCategory?.id === cat.id;
                                             return (
                                                 <button
                                                     key={cat.id}
                                                     type="button"
                                                     onClick={() => {
-                                                        updateParam("category", cat.id);
+                                                        if (categorySlug) {
+                                                            navigate(`/categories/${cat.slug}`);
+                                                        } else {
+                                                            updateParam("category", cat.id);
+                                                        }
                                                         setIsCategoryOpen(false);
                                                     }}
                                                     className={`w-full text-left px-3 py-1.5 rounded-xl text-xs sm:text-sm transition-colors flex items-center justify-between cursor-pointer ${
@@ -481,7 +622,7 @@ export default function Products() {
                                             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(ellipse_at_top,rgba(216,199,165,0.06)_0%,transparent_60%)] pointer-events-none" />
                                             <div className="w-full aspect-[16/9] bg-transparent overflow-hidden relative rounded-t-2xl">
                                                 {product.image_url ? (
-                                                    <img src={product.image_url} alt={product.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-out" />
+                                                    <img src={product.image_url} alt={`${product.name} - ${product.tagline || 'Product logo'}`} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-out" />
                                                 ) : (
                                                     <div className="w-full h-full flex items-center justify-center">
                                                         <Layers className="w-10 h-10 text-[#69736C]" />

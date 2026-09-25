@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Shield, Eye, Globe, Package, Settings, Share2, Cloud, Trash2, Lock, UserCheck, Link, RefreshCw, Mail } from "lucide-react";
 import LegalSection from "@/components/LegalSection";
+import SEO from "@/components/SEO";
 
 const pageVariants = {
   hidden: { opacity: 0 },
@@ -233,6 +234,15 @@ export default function PrivacyPolicy() {
 
   return (
     <main className="flex-1 w-full flex flex-col bg-[#0B100E] pt-32 pb-24 px-6 md:px-12 lg:px-24 font-[Inter,system-ui,sans-serif] antialiased">
+      <SEO
+        title="Privacy Policy | FindBuilders"
+        description="Learn how FindBuilders collects, protects, and respects your account, product, and profile information."
+        canonical="/privacy-policy"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Privacy Policy", url: "/privacy-policy" }
+        ]}
+      />
       <div className="max-w-4xl mx-auto w-full">
         <motion.div
           initial="hidden"
@@ -258,7 +268,7 @@ export default function PrivacyPolicy() {
           <div className="space-y-8">
             <section className="space-y-4">
               <p className="text-white/70 leading-relaxed">
-                FindBuilders is a platform where builders can create profiles and showcase their products, and visitors can discover products and the people who build them. It is available at <a href="https://findbuilders.app" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] hover:underline">findbuilders.app</a>.
+                FindBuilders is a platform where builders can create profiles and showcase their products, and visitors can discover products and the people who build them. It is available at <a href="https://findbuilders.pages.dev" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] hover:underline">findbuilders.pages.dev</a>.
               </p>
               <p className="text-white/70 leading-relaxed">
                 This Privacy Policy explains what information we collect when you use FindBuilders, how we use and protect it, and the choices you have. By using FindBuilders, you agree to the practices described here. If you do not agree, please do not use the service.

@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Rocket, Search, MessageCircle, Heart, Sprout } from "lucide-react";
+import { Rocket, Search, MessageCircle, Heart, Sprout, ArrowRight } from "lucide-react";
 import { WebGLShader } from "@/components/ui/web-gl-shader";
 import { Reveal, StaggerContainer, StaggerItem } from "@/components/Reveal";
+import SEO, { ORGANIZATION_SCHEMA } from "@/components/SEO";
 
 const whatWeDo = [
     {
@@ -37,6 +39,17 @@ const whatWeDo = [
 export default function AboutPage() {
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] font-[family-name:var(--font-heading)] min-h-screen">
+            <SEO
+                title="About FindBuilders - The Product Discovery Platform for Makers"
+                description="Learn about FindBuilders, our mission to help indie makers get their products discovered, and the founding team Bharath Thommandru and Rishi Chowdary Karumanchi."
+                canonical="/about"
+                breadcrumbs={[
+                    { name: "Home", url: "/" },
+                    { name: "About", url: "/about" }
+                ]}
+                structuredData={ORGANIZATION_SCHEMA}
+            />
+
             <WebGLShader />
 
             {/* Hero */}
@@ -101,7 +114,7 @@ export default function AboutPage() {
                                     <div className="w-full aspect-[4/3] bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
                                         <img
                                             src="/bharath.png"
-                                            alt="Bharath Thommandru"
+                                            alt="Bharath Thommandru - Founder & AI Engineer at FindBuilders"
                                             className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                                         />
                                     </div>
@@ -128,7 +141,7 @@ export default function AboutPage() {
                                     <div className="w-full aspect-[4/3] bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
                                         <img
                                             src="/Rishi.png"
-                                            alt="Karumanchi Rishi Chowdary"
+                                            alt="Karumanchi Rishi Chowdary - Founder & SDE Engineer at FindBuilders"
                                             className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                                         />
                                     </div>
@@ -188,16 +201,44 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Mission */}
+            {/* Mission & Internal Links */}
             <section className="relative z-10 py-32 px-6 border-t border-[#202A25]">
                 <div className="max-w-4xl mx-auto text-center">
                     <Reveal>
                         <span className="inline-block px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-8">
                             OUR MISSION
                         </span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent mb-12">
                             Make great products easier to discover.
                         </h2>
+
+                        <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+                            <Link
+                                to="/products"
+                                className="px-6 py-3 rounded-full bg-[#D8C7A5] text-[#1A1A16] font-semibold text-sm hover:bg-[#E5D5B5] transition-all flex items-center gap-2"
+                            >
+                                Discover Products
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
+                            <Link
+                                to="/features"
+                                className="px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all"
+                            >
+                                Platform Features
+                            </Link>
+                            <Link
+                                to="/faq"
+                                className="px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all"
+                            >
+                                Read FAQ
+                            </Link>
+                            <Link
+                                to="/support"
+                                className="px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all"
+                            >
+                                Get in Touch
+                            </Link>
+                        </div>
                     </Reveal>
                 </div>
             </section>

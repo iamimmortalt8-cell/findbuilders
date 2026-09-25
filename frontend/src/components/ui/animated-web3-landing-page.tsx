@@ -127,8 +127,11 @@ export function Web3HeroAnimated() {
                             Where Builders Build, and Great Products Get Discovered
                         </motion.span>
 
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-[-0.025em] leading-[1.08] bg-gradient-to-br from-white via-[#F5F5F2] to-[#D5D8D4] bg-clip-text text-transparent min-h-[90px] sm:min-h-[115px] lg:min-h-[140px] max-w-4xl">
-                            {displayText}
+                        <h1
+                            className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-[-0.025em] leading-[1.08] bg-gradient-to-br from-white via-[#F5F5F2] to-[#D5D8D4] bg-clip-text text-transparent min-h-[90px] sm:min-h-[115px] lg:min-h-[140px] max-w-4xl"
+                            aria-label={typeText}
+                        >
+                            {displayText || <span className="opacity-0">{typeText}</span>}
                         </h1>
 
                         <motion.p
@@ -137,7 +140,7 @@ export function Web3HeroAnimated() {
                             transition={{ duration: 0.6, delay: 1.2 }}
                             className="mx-auto max-w-2xl text-[#F5F5F2] text-sm sm:text-base md:text-lg font-[family-name:var(--font-body)] leading-relaxed"
                         >
-                            FindBuilders is a platform where builders showcase their products and get discovered by people looking for what's new.
+                            FindBuilders is a product discovery platform where indie makers showcase developer tools, AI apps, and software to get discovered by early adopters looking for what's new.
                         </motion.p>
 
                         <motion.div
@@ -157,6 +160,31 @@ export function Web3HeroAnimated() {
                                     Launch Your Product
                                 </Link>
                             </MagneticButton>
+                        </motion.div>
+
+                        {/* SEO Discovery Topics */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 1.6 }}
+                            className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs text-[#8C958E]"
+                        >
+                            <span className="font-semibold text-[#A5B5A8] tracking-wide">Popular Topics:</span>
+                            <Link to="/products?category=AI" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
+                                AI Tools
+                            </Link>
+                            <Link to="/products?category=Developer+Tools" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
+                                Developer Tools
+                            </Link>
+                            <Link to="/products?category=Productivity" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
+                                Productivity
+                            </Link>
+                            <Link to="/features" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
+                                Features
+                            </Link>
+                            <Link to="/about" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
+                                About
+                            </Link>
                         </motion.div>
                     </motion.div>
                 </motion.div>

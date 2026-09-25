@@ -1,10 +1,21 @@
 "use client";
 
 import React from "react";
+import SEO from "@/components/SEO";
 
 export default function Support() {
     return (
         <main className="bg-[#0B100E] text-[#F5F1E8] px-6 md:px-12 py-24 min-h-screen">
+            <SEO
+                title="Support & Help Center | FindBuilders"
+                description="Contact the FindBuilders support team for product submission inquiries, maker assistance, or platform feedback."
+                canonical="/support"
+                breadcrumbs={[
+                    { name: "Home", url: "/" },
+                    { name: "Support", url: "/support" }
+                ]}
+            />
+
             <div className="max-w-4xl mx-auto">
 
                 {/* HEADER */}

@@ -5,6 +5,7 @@ import { parseBio, Profile, Product } from "@/lib/types";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/lib/toast-context";
 import { supabaseProfileService } from "@/lib/supabase-profiles";
+import SEO, { buildProfileSchema } from "@/components/SEO";
 
 export default function PublicProfile() {
     const { user } = useAuth();
@@ -122,6 +123,11 @@ export default function PublicProfile() {
     if (error || !profile) {
         return (
             <div className="bg-[#0B100E] min-h-screen pt-32 pb-20 flex flex-col items-center justify-center text-center px-4">
+                <SEO
+                    title="Profile Not Found | FindBuilders"
+                    description="The requested maker profile could not be found. Discover other creators and their products on FindBuilders."
+                    noindex={true}
+                />
                 <h2 className="text-2xl font-bold text-[#F5F1E8] mb-2">Profile Not Found</h2>
                 <p className="text-[#8C958E] mb-6">{error || "This user doesn't exist or has been removed."}</p>
                 <Link to="/" className="px-6 py-2 bg-[#1B2520] text-[#F5F1E8] border border-[#29342E] rounded-full hover:bg-[#202B25] transition">
@@ -161,8 +167,32 @@ export default function PublicProfile() {
     const isOwnProfile = user?.id === profile.id;
     const hasContactInfo = Boolean(extendedBio.contact?.email || extendedBio.contact?.whatsapp || extendedBio.contact?.phone);
 
+    const profileSchema = buildProfileSchema({
+        id: profile.id,
+        name: profile.display_name,
+        headline: extendedBio.headline,
+        bio: cleanBioText || extendedBio.headline,
+        avatar_url: profile.avatar_url
+    });
+
+    const breadcrumbs = [
+        { name: "Home", url: "/" },
+        { name: "Builders", url: "/products" },
+        { name: profile.display_name, url: `/profile/${profile.id}` }
+    ];
+
     return (
         <div className="bg-[#0B100E] min-h-screen pt-28 md:pt-32 pb-24 relative text-[#F5F1E8]">
+            <SEO
+                title={`${profile.display_name}${extendedBio.username ? ` (@${extendedBio.username})` : ""} - Maker Profile | FindBuilders`}
+                description={`${profile.display_name} is an indie maker on FindBuilders. ${extendedBio.headline || cleanBioText || `Discover products created by ${profile.display_name}.`}`}
+                canonical={`/profile/${profile.id}`}
+                ogImage={profile.avatar_url || undefined}
+                ogType="profile"
+                breadcrumbs={breadcrumbs}
+                structuredData={profileSchema}
+            />
+
             <div className="max-w-3xl mx-auto px-6">
                 
                 {/* 1. PROFILE HEADER */}
@@ -172,7 +202,7 @@ export default function PublicProfile() {
                         {profile.avatar_url ? (
                             <img 
                                 src={profile.avatar_url} 
-                                alt={profile.display_name} 
+                                alt={`${profile.display_name} - Maker profile avatar`} 
                                 className="w-full h-full object-cover" 
                             />
                         ) : (

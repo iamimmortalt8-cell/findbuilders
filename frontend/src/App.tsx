@@ -12,6 +12,8 @@ import About from "@/pages/public/About";
 import Terms from "@/pages/public/Terms";
 import PrivacyPolicy from "@/pages/public/PrivacyPolicy";
 import Support from "@/pages/public/Support";
+import FAQ from "@/pages/public/FAQ";
+import NotFound from "@/pages/public/NotFound";
 
 // Auth Pages
 import Login from "@/pages/auth/Login";
@@ -39,10 +41,14 @@ function App() {
                 {/* Public Routes (with ClientLayout - Navbar + Footer) */}
                 <Route path="/" element={<ClientLayout><Home /></ClientLayout>} />
                 <Route path="/products" element={<ClientLayout><Products /></ClientLayout>} />
+                <Route path="/categories" element={<ClientLayout><Products /></ClientLayout>} />
+                <Route path="/categories/:categorySlug" element={<ClientLayout><Products /></ClientLayout>} />
+                <Route path="/category/:categorySlug" element={<ClientLayout><Products /></ClientLayout>} />
                 <Route path="/product/:id" element={<ClientLayout><ProductDetail /></ClientLayout>} />
                 <Route path="/profile/:id" element={<ClientLayout><PublicProfile /></ClientLayout>} />
                 <Route path="/features" element={<ClientLayout><Features /></ClientLayout>} />
                 <Route path="/about" element={<ClientLayout><About /></ClientLayout>} />
+                <Route path="/faq" element={<ClientLayout><FAQ /></ClientLayout>} />
                 <Route path="/terms" element={<ClientLayout><Terms /></ClientLayout>} />
                 <Route path="/privacy-policy" element={<ClientLayout><PrivacyPolicy /></ClientLayout>} />
                 <Route path="/support" element={<ClientLayout><Support /></ClientLayout>} />
@@ -58,6 +64,9 @@ function App() {
                 <Route path="/builder/product/:id/edit" element={<EditProduct />} />
                 <Route path="/settings/profile" element={<ClientLayout><ProfileSettings /></ClientLayout>} />
                 <Route path="/settings/account" element={<ClientLayout><AccountSettings /></ClientLayout>} />
+
+                {/* 404 Catch-All Route */}
+                <Route path="*" element={<ClientLayout><NotFound /></ClientLayout>} />
             </Routes>
         </Suspense>
     );

@@ -2,13 +2,82 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FindBuilders - Discover Products Built by Makers</title>
+    <meta name="description" content="A curated product discovery platform where indie makers showcase their products. Discover developer tools, AI apps, and startup products built by creators." />
+    <meta name="theme-color" content="#0B100E" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://findbuilders.pages.dev/" />
+
+    <!-- Favicons & App Icons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FindBuilders - Discover Products Built by Makers</title>
-    <meta name="description" content="A curated platform where indie makers showcase their products. Discover tools, apps, and projects before they blow up." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FindBuilders" />
+    <meta property="og:url" content="https://findbuilders.pages.dev/" />
+    <meta property="og:title" content="FindBuilders - Discover Products Built by Makers" />
+    <meta property="og:description" content="A curated product discovery platform where indie makers showcase their products. Discover developer tools, AI apps, and startup products built by creators." />
+    <meta property="og:image" content="https://findbuilders.pages.dev/findbuilderslogo.png" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://findbuilders.pages.dev/" />
+    <meta name="twitter:title" content="FindBuilders - Discover Products Built by Makers" />
+    <meta name="twitter:description" content="A curated product discovery platform where indie makers showcase their products. Discover developer tools, AI apps, and startup products built by creators." />
+    <meta name="twitter:image" content="https://findbuilders.pages.dev/findbuilderslogo.png" />
+
+    <!-- Initial Organization & WebSite Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "FindBuilders",
+          "url": "https://findbuilders.pages.dev",
+          "logo": "https://findbuilders.pages.dev/findbuilderslogo.png",
+          "description": "FindBuilders is a curated product discovery platform where indie makers showcase their products and connect with early adopters.",
+          "founders": [
+            {
+              "@type": "Person",
+              "name": "Bharath Thommandru",
+              "jobTitle": "Founder & AI Engineer"
+            },
+            {
+              "@type": "Person",
+              "name": "Rishi Chowdary Karumanchi",
+              "jobTitle": "Founder & SDE Engineer"
+            }
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "support@findbuilders.app"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "name": "FindBuilders",
+          "url": "https://findbuilders.pages.dev",
+          "description": "Discover new startup products, developer tools, AI tools, and SaaS apps built by indie makers.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://findbuilders.pages.dev/products?search={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="dark">
     <div id="root"></div>

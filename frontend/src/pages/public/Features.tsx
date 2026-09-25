@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
     Server,
@@ -16,40 +17,42 @@ import {
     Palette,
     Briefcase,
     HelpCircle,
+    ArrowRight,
 } from "lucide-react";
 import { WebGLShader } from "@/components/ui/web-gl-shader";
 import { Reveal, StaggerContainer, StaggerItem } from "@/components/Reveal";
+import SEO, { buildCollectionSchema } from "@/components/SEO";
 
 const features = [
     {
         icon: Server,
         title: "Product Discovery",
-        description: "Browse curated products from indie makers.",
+        description: "Browse curated products and innovative tools launched by independent makers and developers.",
     },
     {
         icon: Key,
         title: "Upvote & Community",
-        description: "Vote for products you love and join the conversation.",
+        description: "Vote for the products you love and help surface exceptional tools to the wider tech community.",
     },
     {
         icon: Layers,
         title: "Maker Profiles",
-        description: "Showcase your products and your work as a maker.",
+        description: "Showcase your portfolio, social links, bio, and all the digital products you have built.",
     },
     {
         icon: Database,
         title: "Product Categories",
-        description: "Discover products organized by category.",
+        description: "Discover products organized by intuitive categories including AI, Developer Tools, and SaaS.",
     },
     {
         icon: Terminal,
         title: "Moderation & Review",
-        description: "Products are reviewed before they become publicly discoverable.",
+        description: "Every submission is verified before going live to keep the platform clean, high-quality, and spam-free.",
     },
     {
         icon: Activity,
         title: "New & Trending",
-        description: "Discover newly launched and trending products.",
+        description: "Follow real-time launches and spot trending projects gaining community traction early.",
     },
 ];
 
@@ -57,37 +60,44 @@ const categories = [
     {
         icon: BrainCircuit,
         title: "AI",
-        description: "Explore products built with artificial intelligence and machine learning.",
+        query: "AI",
+        description: "Explore products built with artificial intelligence, machine learning, and automation.",
     },
     {
         icon: Code,
         title: "Developer Tools",
-        description: "Discover tools that help developers build, test, deploy, and ship faster.",
+        query: "Developer Tools",
+        description: "Discover tools that help developers write, test, debug, and ship software faster.",
     },
     {
         icon: Clock,
         title: "Productivity",
-        description: "Find apps and tools designed to help you work and organize better.",
+        query: "Productivity",
+        description: "Find apps, task managers, and utilities designed to organize workflows and save time.",
     },
     {
         icon: GraduationCap,
         title: "Education",
-        description: "Discover products built for learning, teaching, and education.",
+        query: "Education",
+        description: "Discover interactive tools and platforms built for learning, teaching, and skill building.",
     },
     {
         icon: Palette,
         title: "Design",
-        description: "Explore creative tools and products for designers and creators.",
+        query: "Design",
+        description: "Explore UI kits, creative utilities, design assets, and styling resources for creators.",
     },
     {
         icon: Briefcase,
         title: "Business",
-        description: "Discover products built to help businesses, teams, and makers grow.",
+        query: "Business",
+        description: "Discover software and micro-SaaS built to help founders, operators, and small teams grow.",
     },
     {
         icon: HelpCircle,
         title: "Other",
-        description: "Explore interesting products that do not fit into another category.",
+        query: "Other",
+        description: "Explore unique utilities, unconventional projects, and experiments by indie builders.",
     },
 ];
 
@@ -111,6 +121,21 @@ const cardVariants = {
 export default function FeaturesPage() {
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] font-[family-name:var(--font-heading)] min-h-screen">
+            <SEO
+                title="Platform Features - Product Discovery, Upvotes & Maker Showcase | FindBuilders"
+                description="Explore FindBuilders platform features: curated product discovery, community upvotes, maker profiles, category navigation, and quality moderation."
+                canonical="/features"
+                breadcrumbs={[
+                    { name: "Home", url: "/" },
+                    { name: "Features", url: "/features" }
+                ]}
+                structuredData={buildCollectionSchema(
+                    "FindBuilders Platform Features",
+                    "Explore product discovery, community upvoting, maker profiles, and categories on FindBuilders.",
+                    "/features"
+                )}
+            />
+
             <WebGLShader />
 
             {/* Hero */}
@@ -133,7 +158,7 @@ export default function FeaturesPage() {
                     transition={{ duration: 0.6, delay: 0.15 }}
                     className="text-lg md:text-xl text-[#8C958E] font-[family-name:var(--font-body)] leading-relaxed max-w-3xl mx-auto"
                 >
-                    Everything is designed to help makers showcase their products and help people discover what is being built. From submission to discovery, we keep the experience simple and focused.
+                    Everything is designed to help makers showcase their products and help people discover what is being built. From submission to discovery, we keep the experience simple, fast, and community-focused.
                 </motion.p>
             </section>
 
@@ -170,7 +195,7 @@ export default function FeaturesPage() {
                     <Reveal>
                         <div className="text-center mb-16">
                             <span className="inline-block px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-8">
-                                Discover Products
+                                DISCOVER PRODUCTS
                             </span>
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
                                 Browse by Category
@@ -195,21 +220,66 @@ export default function FeaturesPage() {
                                     key={category.title}
                                     variants={cardVariants}
                                     whileHover={{ y: -6 }}
-                                    className="group relative p-8 rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90"
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
-                                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
-                                    <div className="relative z-10">
-                                        <div className="w-14 h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
-                                            <Icon className="w-6 h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
+                                    <Link
+                                        to={`/products?category=${encodeURIComponent(category.query)}`}
+                                        className="block group relative p-8 rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
+                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
+                                        <div className="relative z-10">
+                                            <div className="w-14 h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
+                                                <Icon className="w-6 h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
+                                            </div>
+                                            <div className="flex items-center justify-between mb-3">
+                                                <h3 className="text-xl font-bold text-[#F5F1E8] tracking-tight">{category.title}</h3>
+                                                <ArrowRight className="w-4 h-4 text-[#789181] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                            </div>
+                                            <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-[15px]">{category.description}</p>
                                         </div>
-                                        <h3 className="text-xl font-bold text-[#F5F1E8] mb-3 tracking-tight">{category.title}</h3>
-                                        <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-[15px]">{category.description}</p>
-                                    </div>
+                                    </Link>
                                 </motion.div>
                             );
                         })}
                     </motion.div>
+                </div>
+            </section>
+
+            {/* Bottom CTA & Links */}
+            <section className="relative z-10 py-24 px-6 border-t border-[#202A25]">
+                <div className="max-w-4xl mx-auto text-center">
+                    <Reveal>
+                        <span className="inline-block px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-8">
+                            GET STARTED
+                        </span>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#F5F1E8] mb-6">
+                            Ready to explore or showcase your product?
+                        </h2>
+                        <p className="text-[#8C958E] max-w-xl mx-auto mb-8 font-[family-name:var(--font-body)]">
+                            Join other indie makers, discover emerging startup products, and share your work with an active community.
+                        </p>
+                        <div className="flex flex-wrap items-center justify-center gap-4">
+                            <Link
+                                to="/products"
+                                className="px-6 py-3 rounded-full bg-[#D8C7A5] text-[#1A1A16] font-semibold text-sm hover:bg-[#E5D5B5] transition-all flex items-center gap-2"
+                            >
+                                Browse All Products
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
+                            <Link
+                                to="/submit"
+                                className="px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all"
+                            >
+                                Submit Your Product
+                            </Link>
+                            <Link
+                                to="/faq"
+                                className="px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all"
+                            >
+                                Frequently Asked Questions
+                            </Link>
+                        </div>
+                    </Reveal>
                 </div>
             </section>
         </div>

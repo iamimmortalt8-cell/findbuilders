@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FileText, CheckSquare, UserCheck, Key, AtSign, Package, ClipboardCheck, Layers, Feather, Image, MessageSquare, ThumbsUp, Users, Ban, Copyright, FileCheck, ExternalLink, UserX, ShieldAlert, Scale, RefreshCw, Mail } from "lucide-react";
 import LegalSection from "@/components/LegalSection";
+import SEO from "@/components/SEO";
 
 const pageVariants = {
   hidden: { opacity: 0 },
@@ -316,6 +317,15 @@ export default function Terms() {
 
   return (
     <main className="flex-1 w-full flex flex-col bg-[#0B100E] pt-32 pb-24 px-6 md:px-12 lg:px-24 font-[Inter,system-ui,sans-serif] antialiased">
+      <SEO
+        title="Terms & Conditions | FindBuilders"
+        description="Terms and conditions for using the FindBuilders platform to showcase and discover software products."
+        canonical="/terms"
+        breadcrumbs={[
+          { name: "Home", url: "/" },
+          { name: "Terms & Conditions", url: "/terms" }
+        ]}
+      />
       <div className="max-w-4xl mx-auto w-full">
         <motion.div
           initial="hidden"
@@ -341,7 +351,7 @@ export default function Terms() {
           <div className="space-y-8">
             <section className="space-y-4">
               <p className="text-white/70 leading-relaxed">
-                Please read these Terms carefully before using FindBuilders. These Terms govern your access to and use of FindBuilders — the website <a href="https://findbuilders.app" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] hover:underline">findbuilders.app</a> and its related services.
+                Please read these Terms carefully before using FindBuilders. These Terms govern your access to and use of FindBuilders — the website <a href="https://findbuilders.pages.dev" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] hover:underline">findbuilders.pages.dev</a> and its related services.
               </p>
             </section>
 

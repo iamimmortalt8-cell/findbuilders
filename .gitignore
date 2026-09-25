@@ -21,6 +21,7 @@ out/
 *.tsbuildinfo
 
 # Debug & Temporary Files
+.wrangler/
 .playwright-mcp/
 *.log
 npm-debug.log*

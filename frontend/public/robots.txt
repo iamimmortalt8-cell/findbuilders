@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /builder
+Disallow: /settings/
+Disallow: /login
+Disallow: /signup
+Disallow: /auth/
+Disallow: /submit
+
+Sitemap: https://findbuilders.pages.dev/sitemap.xml

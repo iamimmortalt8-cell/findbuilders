@@ -23,6 +23,7 @@ import { Reveal } from "@/components/Reveal";
 import type { Product, Comment as CommentType, ProductImage } from "@/lib/types";
 import { parseBio } from "@/lib/types";
 import { supabaseProfileService } from "@/lib/supabase-profiles";
+import SEO, { buildProductSchema } from "@/components/SEO";
 
 export default function ProductDetail() {
     const { id } = useParams<{ id: string }>();
@@ -211,6 +212,11 @@ export default function ProductDetail() {
     if (!product) {
         return (
             <div className="min-h-screen bg-[#0B100E] flex flex-col items-center justify-center text-[#F5F1E8]">
+                <SEO
+                    title="Product Not Found | FindBuilders"
+                    description="The requested product could not be found. Discover other startup products and tools built by indie makers on FindBuilders."
+                    noindex={true}
+                />
                 <div className="w-16 h-16 rounded-2xl bg-[#151D19] border border-[#202A25] flex items-center justify-center mb-5">
                     <Layers className="w-7 h-7 text-[#69736C]" />
                 </div>
@@ -222,8 +228,36 @@ export default function ProductDetail() {
         );
     }
 
+    const productSchema = buildProductSchema({
+        id: product.id,
+        name: product.name,
+        tagline: product.tagline,
+        description: product.description,
+        image_url: product.image_url,
+        category_name: product.category?.name,
+        website_url: product.website_url,
+        maker_name: product.maker?.display_name,
+        maker_id: product.maker?.id
+    });
+
+    const breadcrumbs = [
+        { name: "Home", url: "/" },
+        { name: "Products", url: "/products" },
+        ...(product.category ? [{ name: product.category.name, url: `/categories/${product.category.slug}` }] : []),
+        { name: product.name, url: `/product/${product.id}` }
+    ];
+
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] min-h-screen">
+            <SEO
+                title={`${product.name} - ${product.tagline} | FindBuilders`}
+                description={`${product.tagline}. ${product.description ? product.description.slice(0, 140) + '...' : ''}`}
+                canonical={`/product/${product.id}`}
+                ogImage={product.image_url || undefined}
+                breadcrumbs={breadcrumbs}
+                structuredData={productSchema}
+            />
+
             <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12 overflow-x-hidden">
                 {/* Back link */}
                 <Reveal>
@@ -315,9 +349,12 @@ export default function ProductDetail() {
                             {/* Category & Date Metadata */}
                             <div className="flex items-center justify-center md:justify-start gap-2.5 sm:gap-3 mb-5 md:mb-8 text-xs text-[#8C958E] flex-wrap">
                                 {product.category && (
-                                    <span className="px-3.5 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-[#789181] font-medium">
+                                    <Link
+                                        to={`/categories/${product.category.slug}`}
+                                        className="px-3.5 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-[#789181] hover:text-[#D8C7A5] hover:border-[#2E6549] transition-colors font-medium"
+                                    >
                                         {product.category.name}
-                                    </span>
+                                    </Link>
                                 )}
                                 <span className="inline-flex items-center gap-1.5 text-[#69736C] font-normal">
                                     <Clock className="w-3.5 h-3.5" />

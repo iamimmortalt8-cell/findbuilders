@@ -19,10 +19,10 @@ export function Footer() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#214C37]/60 to-transparent" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-8 bg-[#214C37]/10 blur-3xl rounded-full" />
 
-            <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto gap-8 justify-between relative z-10">
+            <div className="flex flex-col lg:flex-row w-full max-w-6xl mx-auto gap-8 justify-between relative z-10">
 
                 {/* LOGO + BRAND */}
-                <AnimatedContainer className="space-y-4 md:w-1/2">
+                <AnimatedContainer className="space-y-4 lg:w-1/3">
                     <div className="flex items-center gap-2.5">
                         <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-7 h-7 object-contain shrink-0" />
                         <span className="text-2xl font-bold tracking-tight text-[#F5F1E8]">
@@ -30,23 +30,67 @@ export function Footer() {
                         </span>
                     </div>
 
-                    <p className="text-[#8C958E] text-sm max-w-xs leading-relaxed">
-                        FindBuilders is a platform where builders showcase their products and get discovered by people looking for what's new.
+                    <p className="text-[#8C958E] text-sm max-w-sm leading-relaxed">
+                        FindBuilders is a product discovery platform where indie makers, developers, and creators showcase their products and connect with early adopters.
                     </p>
                 </AnimatedContainer>
 
                 {/* LINKS */}
-                <AnimatedContainer delay={0.2} className="flex flex-col space-y-4 md:w-1/2 md:items-end justify-center">
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
-                        <Link to="/privacy-policy" className="text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] transition-colors">
-                            Privacy Policy
-                        </Link>
-                        <Link to="/terms" className="text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] transition-colors">
-                            Terms & Conditions
-                        </Link>
-                        <Link to="/support" className="text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] transition-colors">
-                            Support
-                        </Link>
+                <AnimatedContainer delay={0.2} className="grid grid-cols-2 sm:grid-cols-2 gap-8 lg:w-1/2 lg:justify-end">
+                    <div className="space-y-3">
+                        <p className="text-xs font-semibold text-[#D8C7A5] uppercase tracking-wider">
+                            Explore
+                        </p>
+                        <ul className="space-y-2 text-sm text-[#8C958E]">
+                            <li>
+                                <Link to="/products" className="hover:text-[#F5F1E8] transition-colors">
+                                    All Products
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/categories" className="hover:text-[#F5F1E8] transition-colors">
+                                    Categories
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/features" className="hover:text-[#F5F1E8] transition-colors">
+                                    Platform Features
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/faq" className="hover:text-[#F5F1E8] transition-colors">
+                                    FAQ
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="space-y-3">
+                        <p className="text-xs font-semibold text-[#D8C7A5] uppercase tracking-wider">
+                            Company &amp; Legal
+                        </p>
+                        <ul className="space-y-2 text-sm text-[#8C958E]">
+                            <li>
+                                <Link to="/about" className="hover:text-[#F5F1E8] transition-colors">
+                                    About FindBuilders
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/support" className="hover:text-[#F5F1E8] transition-colors">
+                                    Support &amp; Help
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/terms" className="hover:text-[#F5F1E8] transition-colors">
+                                    Terms &amp; Conditions
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/privacy-policy" className="hover:text-[#F5F1E8] transition-colors">
+                                    Privacy Policy
+                                </Link>
+                            </li>
+                        </ul>
                     </div>
                 </AnimatedContainer>
 
@@ -57,7 +101,7 @@ export function Footer() {
                     &copy; {new Date().getFullYear()} FindBuilders. All Rights Reserved.
                 </p>
                 <p className="text-[#69736C] text-xs font-medium text-center md:text-right">
-                    Built/Founded by Bharath Thommandru.
+                    Founded by Bharath Thommandru &amp; Rishi Chowdary Karumanchi.
                 </p>
             </div>
         </footer>
