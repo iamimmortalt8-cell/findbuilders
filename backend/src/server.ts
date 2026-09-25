@@ -17,8 +17,38 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
+const defaultOrigins = [
+  'https://findbuilders.pages.dev',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000',
+  'http://localhost:3002',
+];
+
+const envOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.ADMIN_URL,
+  process.env.CORS_ORIGINS,
+]
+  .filter(Boolean)
+  .flatMap((val) => (val as string).split(','))
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+const allowedOriginSet = new Set([...defaultOrigins, ...envOrigins]);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL?.split(',') || ['http://localhost:5173', 'http://localhost:5174'],
+  origin: (origin, callback) => {
+    if (!origin || allowedOriginSet.has(origin)) {
+      return callback(null, true);
+    }
+
+    if (/^https:\/\/([a-zA-Z0-9_-]+\.)*vercel\.app$/.test(origin)) {
+      return callback(null, true);
+    }
+
+    callback(new Error(`Origin ${origin} not allowed by CORS`));
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],

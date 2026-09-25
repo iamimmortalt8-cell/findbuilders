@@ -12,6 +12,18 @@ import AdminUsers from "./pages/admin/AdminUsers";
 export default function App() {
   return (
     <Routes>
+      {/* Root domain aliases for standalone Vercel deployment */}
+      <Route path="/" element={<Navigate to="/admin" replace />} />
+      <Route path="/login" element={<Navigate to="/admin/login" replace />} />
+      <Route path="/forgot-password" element={<Navigate to="/admin/forgot-password" replace />} />
+      <Route path="/reset-password" element={<Navigate to="/admin/reset-password" replace />} />
+      <Route path="/dashboard" element={<Navigate to="/admin" replace />} />
+      <Route path="/submissions" element={<Navigate to="/admin/submissions" replace />} />
+      <Route path="/submissions/:id" element={<AdminLayout><AdminSubmissionDetail /></AdminLayout>} />
+      <Route path="/products" element={<Navigate to="/admin/products" replace />} />
+      <Route path="/users" element={<Navigate to="/admin/users" replace />} />
+
+      {/* Primary Admin Routes */}
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
       <Route path="/admin/reset-password" element={<AdminResetPassword />} />
@@ -21,7 +33,9 @@ export default function App() {
       <Route path="/admin/submissions/:id" element={<AdminLayout><AdminSubmissionDetail /></AdminLayout>} />
       <Route path="/admin/products" element={<AdminLayout><AdminProducts /></AdminLayout>} />
       <Route path="/admin/users" element={<AdminLayout><AdminUsers /></AdminLayout>} />
-      <Route path="*" element={<Navigate to="/admin/login" replace />} />
+
+      {/* Catch-all fallback */}
+      <Route path="*" element={<Navigate to="/admin" replace />} />
     </Routes>
   );
 }
