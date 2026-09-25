@@ -162,30 +162,7 @@ export function Web3HeroAnimated() {
                             </MagneticButton>
                         </motion.div>
 
-                        {/* SEO Discovery Topics */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 1.6 }}
-                            className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs text-[#8C958E]"
-                        >
-                            <span className="font-semibold text-[#A5B5A8] tracking-wide">Popular Topics:</span>
-                            <Link to="/products?category=AI" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
-                                AI Tools
-                            </Link>
-                            <Link to="/products?category=Developer+Tools" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
-                                Developer Tools
-                            </Link>
-                            <Link to="/products?category=Productivity" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
-                                Productivity
-                            </Link>
-                            <Link to="/features" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
-                                Features
-                            </Link>
-                            <Link to="/about" className="px-2.5 py-1 rounded-full bg-[#151D19]/90 border border-[#202A25] hover:border-[#2E6549] hover:text-[#D8C7A5] transition-colors">
-                                About
-                            </Link>
-                        </motion.div>
+
                     </motion.div>
                 </motion.div>
 
