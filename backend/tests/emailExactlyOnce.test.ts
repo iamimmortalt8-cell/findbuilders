@@ -37,6 +37,10 @@ const RUN = Date.now();
 const PASSWORD = 'EmailAudit-Test-123!';
 const ORIGINAL_EMAIL_FROM_EVENTS: string[] = [];
 
+// This suite verifies the ENABLED implementation (EMAIL_ENABLED=true ->
+// existing behavior unchanged). The production default is disabled.
+process.env.EMAIL_ENABLED = 'true';
+
 // ───────────────────────────────────────────────────────────────────
 // Mock Resend client (never sends real email during tests)
 // ───────────────────────────────────────────────────────────────────
@@ -700,13 +704,15 @@ describe('no email triggers on GET requests, refreshes or sign-in', () => {
     });
     assert.equal(res.status, 201, JSON.stringify(res.body));
 
-    const rows = await rowsByRecipient(signupEmail);
-    const welcomeKey = rows[0]?.event_key;
-    if (welcomeKey) trackedKeys.push(welcomeKey);
-
-    const appeared = await waitFor(async () => (await rowsByRecipient(signupEmail)).length === 1);
-    assert.ok(appeared, 'welcome event row should be created');
+    // Wait for the row to exist AND be finalized (reserve inserts SENDING first;
+    // markSent follows one round trip later).
+    const appeared = await waitFor(async () => {
+      const rows = await rowsByRecipient(signupEmail);
+      return rows.length === 1 && rows[0].status === 'SENT';
+    });
+    assert.ok(appeared, 'welcome event row should be created and marked SENT');
     const event = (await rowsByRecipient(signupEmail))[0];
+    if (event?.event_key) trackedKeys.push(event.event_key);
     assert.equal(event.event_key, `WELCOME:${event.metadata?.userId ?? event.event_key.split(':')[1]}`);
     assert.equal(event.event_type, 'WELCOME');
     assert.equal(event.status, 'SENT');

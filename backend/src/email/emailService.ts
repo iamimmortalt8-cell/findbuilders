@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { supabaseAdmin } from '../lib/supabase.js';
 import { emailRenderer } from './emailRenderer.js';
 import { emailGuard, EmailEventType } from './emailGuard.js';
+import { isEmailEnabled } from './emailConfig.js';
 import type { Product } from '../types/index.js';
 
 export interface SendTransactionalEmailParams {
@@ -107,9 +108,15 @@ export class EmailService {
   private appUrl: string;
 
   constructor() {
-    const apiKey = process.env.RESEND_API_KEY?.trim();
-    if (apiKey) {
-      this.resend = new Resend(apiKey);
+    // EMAIL_ENABLED is a strict switch (default: disabled). While disabled no
+    // Resend client is ever constructed and a single clean startup log is emitted.
+    if (isEmailEnabled()) {
+      const apiKey = process.env.RESEND_API_KEY?.trim();
+      if (apiKey) {
+        this.resend = new Resend(apiKey);
+      }
+    } else {
+      console.log('[EmailService] Email system disabled');
     }
     const configuredFrom = process.env.EMAIL_FROM?.trim();
     // findbuilders.app is not verified in Resend; never send from it.
@@ -138,6 +145,12 @@ export class EmailService {
    */
   async sendTransactionalEmail(params: SendTransactionalEmailParams): Promise<SendResult> {
     const { eventKey, eventType, recipient, subject, html, text, metadata = {} } = params;
+
+    // EMAIL_ENABLED=false -> hard no-op: no DB row, no Resend call, no logs.
+    // Callers' business logic continues as if email were not configured.
+    if (!isEmailEnabled()) {
+      return { success: true, skipped: true, reason: 'EMAIL_DISABLED' };
+    }
 
     try {
       if (!eventKey || !eventType) {
@@ -269,6 +282,9 @@ export class EmailService {
   // Idempotency Identity: WELCOME:<user_id>
   // ══════════════════════════════════════════════════════════════
   async sendWelcomeEmail(userId: string, email?: string, displayName?: string): Promise<SendResult> {
+    if (!isEmailEnabled()) {
+      return { success: true, skipped: true, reason: 'EMAIL_DISABLED' };
+    }
     const eventKey = `WELCOME:${userId}`;
 
     try {
@@ -314,6 +330,9 @@ export class EmailService {
     product: Pick<Product, 'id' | 'name' | 'maker_id' | 'updated_at'>,
     makerId?: string
   ): Promise<SendResult> {
+    if (!isEmailEnabled()) {
+      return { success: true, skipped: true, reason: 'EMAIL_DISABLED' };
+    }
     const eventKey = `PRODUCT_SUBMITTED:${product.id}`;
 
     try {
@@ -358,6 +377,9 @@ export class EmailService {
   async sendProductApprovedEmail(
     product: Pick<Product, 'id' | 'name' | 'maker_id' | 'updated_at'>
   ): Promise<SendResult> {
+    if (!isEmailEnabled()) {
+      return { success: true, skipped: true, reason: 'EMAIL_DISABLED' };
+    }
     const eventKey = `PRODUCT_APPROVED:${product.id}`;
 
     try {
@@ -397,6 +419,9 @@ export class EmailService {
     product: Pick<Product, 'id' | 'name' | 'maker_id' | 'updated_at'>,
     rejectionReason: string
   ): Promise<SendResult> {
+    if (!isEmailEnabled()) {
+      return { success: true, skipped: true, reason: 'EMAIL_DISABLED' };
+    }
     const eventKey = `PRODUCT_REJECTED:${product.id}`;
 
     try {

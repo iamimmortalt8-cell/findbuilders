@@ -3,6 +3,10 @@ import { after, describe, it } from 'node:test';
 import { EmailGuard } from '../src/email/emailGuard.js';
 import { supabaseAdmin } from '../src/lib/supabase.js';
 
+// This suite verifies the ENABLED implementation (EMAIL_ENABLED=true ->
+// existing behavior unchanged). The production default is disabled.
+process.env.EMAIL_ENABLED = 'true';
+
 const guard = new EmailGuard(`.email_events_test_${process.pid}.json`);
 const testKeys: string[] = [];
 

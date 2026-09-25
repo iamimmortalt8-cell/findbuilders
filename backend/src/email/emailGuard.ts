@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { supabaseAdmin } from '../lib/supabase.js';
+import { isEmailEnabled } from './emailConfig.js';
 
 export type EmailEventType = 'WELCOME' | 'PRODUCT_SUBMITTED' | 'PRODUCT_APPROVED' | 'PRODUCT_REJECTED';
 export type EmailEventStatus = 'PENDING' | 'SENDING' | 'SENT' | 'FAILED';
@@ -21,7 +22,7 @@ export interface EmailEvent {
 export interface ReservationResult {
   allowed: boolean;
   event?: EmailEvent;
-  reason?: 'ALREADY_SENT' | 'IN_FLIGHT' | 'RETRY_ALLOWED' | 'ERROR';
+  reason?: 'ALREADY_SENT' | 'IN_FLIGHT' | 'RETRY_ALLOWED' | 'ERROR' | 'EMAIL_DISABLED';
 }
 
 export class EmailGuard {
@@ -69,6 +70,10 @@ export class EmailGuard {
     recipient: string,
     metadata: Record<string, any> = {}
   ): Promise<ReservationResult> {
+    // EMAIL_ENABLED=false -> never touch email_events (no insert, no fallback store write).
+    if (!isEmailEnabled()) {
+      return { allowed: false, reason: 'EMAIL_DISABLED' };
+    }
     try {
       // 1. Attempt atomic insert in 'SENDING' state
       const { data: inserted, error: insertError } = await supabaseAdmin
@@ -259,6 +264,7 @@ export class EmailGuard {
    * Marks an email event as SENT only after successful provider delivery.
    */
   async markSent(eventKey: string, providerMessageId?: string): Promise<void> {
+    if (!isEmailEnabled()) return;
     try {
       const { error } = await supabaseAdmin
         .from('email_events')
@@ -296,6 +302,7 @@ export class EmailGuard {
    * Marks an email event as FAILED when provider delivery fails.
    */
   async markFailed(eventKey: string, errorMessage: string): Promise<void> {
+    if (!isEmailEnabled()) return;
     try {
       const sanitizedError = errorMessage ? errorMessage.substring(0, 1000) : 'Unknown error';
       const { error } = await supabaseAdmin
