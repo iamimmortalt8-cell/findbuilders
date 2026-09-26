@@ -372,11 +372,11 @@ export default function ProductDetail() {
                                     onClick={handleVote}
                                     disabled={!user || voting}
                                     whileTap={!user ? {} : { scale: 0.95 }}
-                                    className={`flex items-center gap-2.5 px-5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-sm sm:text-base font-bold transition-all duration-300 ${
+                                    className={`flex-1 sm:flex-none flex items-center justify-center gap-2.5 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl text-sm sm:text-base font-bold transition-all duration-300 ${
                                         hasVoted
                                             ? "bg-[#214C37] text-[#D8C7A5] border border-[#2E6549] shadow-[0_0_25px_rgba(33,76,55,0.35)]"
                                             : "bg-[#163326] hover:bg-[#214C37] text-[#D8C7A5] border border-[#2E6549]/50 shadow-[0_0_20px_rgba(22,51,38,0.2)]"
-                                    } disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer`}
+                                    } disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer min-w-[90px]`}
                                 >
                                     <ArrowUp className="w-4 h-4 stroke-[3]" />
                                     <span>{product.upvotes_count}</span>
@@ -386,7 +386,7 @@ export default function ProductDetail() {
                                     href={product.website_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#D8C7A5] hover:bg-[#E5D5B5] text-[#1A1A16] text-sm sm:text-base font-bold transition-all duration-300 shadow-[0_0_25px_rgba(216,199,165,0.25)] hover:shadow-[0_0_35px_rgba(216,199,165,0.4)]"
+                                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#D8C7A5] hover:bg-[#E5D5B5] text-[#1A1A16] text-sm sm:text-base font-bold transition-all duration-300 shadow-[0_0_25px_rgba(216,199,165,0.25)] hover:shadow-[0_0_35px_rgba(216,199,165,0.4)] min-w-[130px]"
                                 >
                                     <span>Visit Product</span>
                                     <ExternalLink className="w-4 h-4 stroke-[2.5]" />
@@ -396,7 +396,7 @@ export default function ProductDetail() {
                                     type="button"
                                     onClick={handleShare}
                                     whileTap={{ scale: 0.95 }}
-                                    className="flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#151D19] hover:bg-[#1B2520] text-[#C5C8C1] hover:text-[#F5F1E8] text-sm sm:text-base font-semibold border border-[#29342E] transition-all duration-300 shadow-md cursor-pointer"
+                                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#151D19] hover:bg-[#1B2520] text-[#C5C8C1] hover:text-[#F5F1E8] text-sm sm:text-base font-semibold border border-[#29342E] transition-all duration-300 shadow-md cursor-pointer"
                                     title="Share product link"
                                 >
                                     {copied ? (

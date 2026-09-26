@@ -88,13 +88,13 @@ export default function Navbar() {
     return (
         <>
             {/* Full-width Navbar with MagneticButton */}
-            <header className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 font-[family-name:var(--font-heading)]">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4">
+            <header className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 font-[family-name:var(--font-heading)] pt-[max(0rem,env(safe-area-inset-top))]">
+                <div className="mx-auto max-w-7xl px-3 sm:px-6 py-2.5 sm:py-4">
                     <div
-                        className={`flex items-center justify-between rounded-full border transition-all duration-500 px-4 sm:px-6 py-2.5 sm:py-3 ${
+                        className={`flex items-center justify-between rounded-full border transition-all duration-500 px-3 sm:px-6 py-2 sm:py-3 ${
                             scrolled
-                                ? "bg-[#0B100E]/80 backdrop-blur-2xl border-[#202A25] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-                                : "bg-[#0B100E]/50 backdrop-blur-xl border-[#202A25]/60"
+                                ? "bg-[#0B100E]/85 backdrop-blur-2xl border-[#202A25] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+                                : "bg-[#0B100E]/60 backdrop-blur-xl border-[#202A25]/60"
                         }`}
                     >
                         {/* Logo */}
@@ -102,15 +102,15 @@ export default function Navbar() {
                             <img
                                 src="/findbuilderslogo.png"
                                 alt="FindBuilders Logo"
-                                className="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0"
+                                className="w-6 h-6 sm:w-8 sm:h-8 object-contain shrink-0"
                             />
-                            <span className={`text-lg sm:text-xl md:text-2xl font-bold tracking-tight ${isHome ? "text-white" : "text-[#F5F1E8]"}`}>
+                            <span className={`text-base sm:text-xl md:text-2xl font-bold tracking-tight ${isHome ? "text-white" : "text-[#F5F1E8]"}`}>
                                 <span className={isHome ? "text-white" : "text-[#D8C7A5]"}>F</span>ind<span className={isHome ? "text-white" : "text-[#D8C7A5]"}>B</span>uilders
                             </span>
                         </Link>
 
                         {/* Desktop Nav Links with hover scale + underline */}
-                        <nav className={`hidden lg:flex items-center gap-10 text-base font-medium ${isHome ? "text-[#D5D8D4]" : "text-[#C5C8C1]"}`}>
+                        <nav className={`hidden lg:flex items-center gap-8 xl:gap-10 text-base font-medium ${isHome ? "text-[#D5D8D4]" : "text-[#C5C8C1]"}`}>
                             {navLinks.map((link) => (
                                 <Link key={link.href} to={link.href}>
                                     <motion.span
@@ -128,13 +128,13 @@ export default function Navbar() {
                         {/* Portal Buttons + Mobile Menu Toggle */}
                         <div className="flex items-center gap-2 sm:gap-3">
                             {/* Desktop buttons with MagneticButton */}
-                            <div className="hidden md:flex items-center gap-3">
+                            <div className="hidden md:flex items-center gap-2.5 sm:gap-3">
                                 {user ? (
                                     <>
                                         <MagneticButton>
                                             <Link
                                                 to="/builder"
-                                                className="rounded-full bg-[#1B2520] px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
+                                                className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
                                             >
                                                 My Products
                                             </Link>
@@ -143,12 +143,12 @@ export default function Navbar() {
                                             <MagneticButton>
                                                 <button
                                                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                                                    className="flex items-center justify-center w-10 h-10 rounded-full bg-[#1B2520] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 overflow-hidden shrink-0"
+                                                    className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1B2520] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 overflow-hidden shrink-0"
                                                 >
                                                     {profile?.avatar_url ? (
                                                         <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                                                     ) : (
-                                                        <User className="w-5 h-5 text-[#C5C8C1]" />
+                                                        <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#C5C8C1]" />
                                                     )}
                                                 </button>
                                             </MagneticButton>
@@ -186,7 +186,7 @@ export default function Navbar() {
                                         <MagneticButton>
                                             <Link
                                                 to="/login"
-                                                className="rounded-full bg-[#1B2520] px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
+                                                className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
                                             >
                                                 Sign In
                                             </Link>
@@ -194,7 +194,7 @@ export default function Navbar() {
                                         <MagneticButton>
                                             <Link
                                                 to="/signup"
-                                                className="rounded-full bg-[#D8C7A5] px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] hover:border-[#E5D5B5] transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_20px_rgba(216,199,165,0.2)]"
+                                                className="rounded-full bg-[#D8C7A5] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] hover:border-[#E5D5B5] transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_20px_rgba(216,199,165,0.2)]"
                                             >
                                                 <UserPlus className="w-3.5 h-3.5" />
                                                 Get Started
@@ -207,7 +207,7 @@ export default function Navbar() {
                             {/* Mobile hamburger */}
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
-                                className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-all active:bg-[#202B25]"
+                                className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] rounded-full text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-all active:bg-[#202B25] shrink-0"
                                 aria-label="Toggle menu"
                             >
                                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -223,15 +223,15 @@ export default function Navbar() {
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: -10, scale: 0.97 }}
                                 transition={{ duration: 0.2, ease: "easeOut" }}
-                                className="lg:hidden mt-3 rounded-2xl bg-[#101814]/95 backdrop-blur-2xl border border-[#202A25] shadow-[0_8px_40px_rgba(0,0,0,0.7)] overflow-hidden"
+                                className="lg:hidden mt-2 sm:mt-3 rounded-2xl bg-[#101814]/98 backdrop-blur-2xl border border-[#202A25] shadow-[0_8px_40px_rgba(0,0,0,0.7)] overflow-hidden max-h-[calc(100dvh-5.5rem)] overflow-y-auto"
                             >
-                                <nav className="flex flex-col py-3">
+                                <nav className="flex flex-col py-2 sm:py-3">
                                     {navLinks.map((link) => (
                                         <Link
                                             key={link.href}
                                             to={link.href}
                                             onClick={() => setIsOpen(false)}
-                                            className={`px-6 py-3.5 text-base font-medium transition-colors active:bg-[#1B2520] ${
+                                            className={`px-5 sm:px-6 py-3 text-sm sm:text-base font-medium transition-colors active:bg-[#1B2520] ${
                                                 isActive(link.href)
                                                     ? "text-[#F5F1E8] bg-[#1B2520]"
                                                     : "text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#151D19]"
@@ -241,25 +241,25 @@ export default function Navbar() {
                                         </Link>
                                     ))}
                                 </nav>
-                                <div className="border-t border-[#202A25] px-6 py-4 flex flex-col gap-3">
+                                <div className="border-t border-[#202A25] px-5 sm:px-6 py-3.5 sm:py-4 flex flex-col gap-2.5 sm:gap-3">
                                     {user ? (
                                         <>
-                                            <Link to="/builder" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-5 py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to="/builder" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
                                                 My Products
                                             </Link>
-                                            <Link to={`/profile/${profile?.id}`} onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-5 py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to={`/profile/${profile?.id}`} onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
                                                 My Profile
                                             </Link>
-                                            <Link to="/settings/account" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-5 py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to="/settings/account" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
                                                 Settings
                                             </Link>
                                         </>
                                     ) : (
                                         <>
-                                            <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-5 py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
                                                 Sign In
                                             </Link>
-                                            <Link to="/signup" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#D8C7A5] px-5 py-3 text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] transition-all">
+                                            <Link to="/signup" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#D8C7A5] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] transition-all">
                                                 Get Started
                                             </Link>
                                         </>
@@ -272,7 +272,7 @@ export default function Navbar() {
             </header>
 
             {/* Spacer (hidden on home page so hero fits perfectly in viewport) */}
-            {location.pathname !== "/" && <div className="h-20" />}
+            {location.pathname !== "/" && <div className="h-16 sm:h-20" />}
         </>
     );
 }

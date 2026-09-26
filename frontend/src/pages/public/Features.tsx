@@ -139,16 +139,16 @@ export default function FeaturesPage() {
             <WebGLShader />
 
             {/* Hero */}
-            <section className="relative z-10 pt-36 pb-24 px-6 max-w-4xl mx-auto text-center">
+            <section className="relative z-10 pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 max-w-4xl mx-auto text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <span className="inline-block px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-sm text-[#789181] font-medium tracking-widest mb-8">
+                    <span className="inline-block px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs sm:text-sm text-[#789181] font-medium tracking-widest mb-6 sm:mb-8">
                         PLATFORM FEATURES
                     </span>
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.02em] leading-[1.08] bg-gradient-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-8">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.02em] leading-[1.08] bg-gradient-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-6 sm:mb-8">
                         Everything you need to discover and showcase products.
                     </h1>
                 </motion.div>
@@ -156,31 +156,31 @@ export default function FeaturesPage() {
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.15 }}
-                    className="text-lg md:text-xl text-[#8C958E] font-[family-name:var(--font-body)] leading-relaxed max-w-3xl mx-auto"
+                    className="text-base sm:text-lg md:text-xl text-[#8C958E] font-[family-name:var(--font-body)] leading-relaxed max-w-3xl mx-auto"
                 >
                     Everything is designed to help makers showcase their products and help people discover what is being built. From submission to discovery, we keep the experience simple, fast, and community-focused.
                 </motion.p>
             </section>
 
             {/* Features Grid */}
-            <section className="relative z-10 py-24 px-6 max-w-6xl mx-auto">
-                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.08}>
+            <section className="relative z-10 py-14 sm:py-24 px-4 sm:px-6 max-w-6xl mx-auto">
+                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" staggerDelay={0.08}>
                     {features.map((feature) => {
                         const Icon = feature.icon;
                         return (
                             <StaggerItem key={feature.title}>
                                 <motion.div
                                     whileHover={{ y: -6 }}
-                                    className="group relative p-8 rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
+                                    className="group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
                                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                     <div className="relative z-10">
-                                        <div className="w-14 h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
-                                            <Icon className="w-6 h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
+                                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-5 sm:mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
+                                            <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
                                         </div>
-                                        <h3 className="text-xl font-bold text-[#F5F1E8] mb-3 tracking-tight">{feature.title}</h3>
-                                        <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-[15px]">{feature.description}</p>
+                                        <h3 className="text-lg sm:text-xl font-bold text-[#F5F1E8] mb-2 sm:mb-3 tracking-tight">{feature.title}</h3>
+                                        <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-sm sm:text-[15px]">{feature.description}</p>
                                     </div>
                                 </motion.div>
                             </StaggerItem>
@@ -190,17 +190,17 @@ export default function FeaturesPage() {
             </section>
 
             {/* Categories */}
-            <section className="relative z-10 py-24 px-6 border-t border-[#202A25]">
+            <section className="relative z-10 py-14 sm:py-24 px-4 sm:px-6 border-t border-[#202A25]">
                 <div className="max-w-6xl mx-auto">
                     <Reveal>
-                        <div className="text-center mb-16">
-                            <span className="inline-block px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-8">
+                        <div className="text-center mb-12 sm:mb-16">
+                            <span className="inline-block px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-6 sm:mb-8">
                                 DISCOVER PRODUCTS
                             </span>
-                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
                                 Browse by Category
                             </h2>
-                            <p className="mt-6 text-lg md:text-xl text-[#8C958E] max-w-2xl mx-auto leading-relaxed font-[family-name:var(--font-body)]">
+                            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-[#8C958E] max-w-2xl mx-auto leading-relaxed font-[family-name:var(--font-body)]">
                                 Explore products built by indie makers and new builders. Find useful tools, apps, and ideas across different categories.
                             </p>
                         </div>
@@ -211,7 +211,7 @@ export default function FeaturesPage() {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
-                        className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                        className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                     >
                         {categories.map((category) => {
                             const Icon = category.icon;
@@ -223,19 +223,19 @@ export default function FeaturesPage() {
                                 >
                                     <Link
                                         to={`/products?category=${encodeURIComponent(category.query)}`}
-                                        className="block group relative p-8 rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
+                                        className="block group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
                                     >
                                         <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
                                         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                         <div className="relative z-10">
-                                            <div className="w-14 h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
-                                                <Icon className="w-6 h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
+                                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-5 sm:mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
+                                                <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
                                             </div>
-                                            <div className="flex items-center justify-between mb-3">
-                                                <h3 className="text-xl font-bold text-[#F5F1E8] tracking-tight">{category.title}</h3>
+                                            <div className="flex items-center justify-between mb-2 sm:mb-3">
+                                                <h3 className="text-lg sm:text-xl font-bold text-[#F5F1E8] tracking-tight">{category.title}</h3>
                                                 <ArrowRight className="w-4 h-4 text-[#789181] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                                             </div>
-                                            <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-[15px]">{category.description}</p>
+                                            <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-sm sm:text-[15px]">{category.description}</p>
                                         </div>
                                     </Link>
                                 </motion.div>
@@ -246,35 +246,35 @@ export default function FeaturesPage() {
             </section>
 
             {/* Bottom CTA & Links */}
-            <section className="relative z-10 py-24 px-6 border-t border-[#202A25]">
+            <section className="relative z-10 py-14 sm:py-24 px-4 sm:px-6 border-t border-[#202A25]">
                 <div className="max-w-4xl mx-auto text-center">
                     <Reveal>
-                        <span className="inline-block px-5 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-8">
+                        <span className="inline-block px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-6 sm:mb-8">
                             GET STARTED
                         </span>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#F5F1E8] mb-6">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F1E8] mb-4 sm:mb-6">
                             Ready to explore or showcase your product?
                         </h2>
-                        <p className="text-[#8C958E] max-w-xl mx-auto mb-8 font-[family-name:var(--font-body)]">
+                        <p className="text-sm sm:text-base text-[#8C958E] max-w-xl mx-auto mb-8 font-[family-name:var(--font-body)]">
                             Join other indie makers, discover emerging startup products, and share your work with an active community.
                         </p>
-                        <div className="flex flex-wrap items-center justify-center gap-4">
+                        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4">
                             <Link
                                 to="/products"
-                                className="px-6 py-3 rounded-full bg-[#D8C7A5] text-[#1A1A16] font-semibold text-sm hover:bg-[#E5D5B5] transition-all flex items-center gap-2"
+                                className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#D8C7A5] text-[#1A1A16] font-semibold text-sm hover:bg-[#E5D5B5] transition-all flex items-center justify-center gap-2"
                             >
                                 Browse All Products
                                 <ArrowRight className="w-4 h-4" />
                             </Link>
                             <Link
                                 to="/submit"
-                                className="px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all"
+                                className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all flex items-center justify-center"
                             >
                                 Submit Your Product
                             </Link>
                             <Link
                                 to="/faq"
-                                className="px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all"
+                                className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#1B2520] text-[#F5F1E8] font-semibold text-sm border border-[#29342E] hover:border-[#2E6549] transition-all flex items-center justify-center"
                             >
                                 Frequently Asked Questions
                             </Link>

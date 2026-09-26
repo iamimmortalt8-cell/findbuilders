@@ -152,19 +152,97 @@
   --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Smooth Scroll */
+/* Smooth Scroll & Responsive Safety */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  min-width: 320px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
 
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ===================================
+   RESPONSIVE CONTAINER & SPACING SYSTEM
+   Mobile: 16px padding
+   Tablet: 24px padding
+   Desktop: 32px padding
+   =================================== */
+.responsive-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3.5vw, 2rem);
+}
+
+.responsive-container-narrow {
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3.5vw, 2rem);
+}
+
+.responsive-container-wide {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3.5vw, 2rem);
+}
+
+/* Fluid Typography Utilities */
+.text-fluid-hero {
+  font-size: clamp(2rem, 5vw + 0.75rem, 4.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.text-fluid-h1 {
+  font-size: clamp(1.75rem, 4vw + 0.5rem, 3.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.text-fluid-h2 {
+  font-size: clamp(1.35rem, 2.5vw + 0.5rem, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.text-fluid-body {
+  font-size: clamp(0.875rem, 1vw + 0.65rem, 1.125rem);
+  line-height: 1.6;
+}
+
+/* Safe Area Inset Helpers */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.bottom-safe {
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
+.right-safe {
+  right: max(1.25rem, env(safe-area-inset-right));
 }
 
 /* ===================================

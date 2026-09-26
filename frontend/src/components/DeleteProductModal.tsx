@@ -157,12 +157,12 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
                         </div>
 
                         {/* Actions */}
-                        <div className="flex items-center justify-end gap-3 pt-2">
+                        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-2">
                             <button
                                 type="button"
                                 onClick={onClose}
                                 disabled={isDeleting}
-                                className="px-5 py-2.5 rounded-xl text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-colors disabled:opacity-40"
+                                className="px-5 py-2.5 rounded-xl text-sm font-medium text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-colors disabled:opacity-40 text-center justify-center"
                             >
                                 Cancel
                             </button>
@@ -170,7 +170,7 @@ export const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
                             <button
                                 type="submit"
                                 disabled={!isMatch || isDeleting}
-                                className={`flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg ${
+                                className={`flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-200 shadow-lg ${
                                     isMatch && !isDeleting
                                         ? "bg-[#C97878] hover:bg-[#d48989] text-[#1A1A16] shadow-[0_4px_16px_rgba(201,120,120,0.25)] cursor-pointer"
                                         : "bg-[#321C1C]/40 text-[#C97878]/40 border border-[#C97878]/20 cursor-not-allowed"

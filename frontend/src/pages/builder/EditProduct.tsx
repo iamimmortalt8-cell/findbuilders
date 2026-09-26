@@ -273,20 +273,20 @@ export default function EditProduct() {
     return (
         <div className="min-h-screen bg-[#0B100E] text-[#F5F1E8]">
             <div className="border-b border-[#202A25] bg-[#101814]/90 backdrop-blur-2xl sticky top-0 z-40">
-                <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
                     <Link to="/builder" className="flex items-center gap-2 text-sm text-[#8C958E] hover:text-[#F5F1E8] transition-colors group">
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-                        Back to Dashboard
+                        <span>Back to Dashboard</span>
                     </Link>
                     <span className="text-sm font-semibold text-[#F5F1E8]">{id ? "Edit Product" : "Submit Product"}</span>
                 </div>
             </div>
 
-            <div className="max-w-3xl mx-auto px-6 py-12">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
                 <Reveal>
-                    <div className="mb-10">
-                        <h1 className="text-3xl font-bold tracking-tight text-[#F5F1E8] mb-2">{id ? "Edit Your Product" : "Submit Your Product"}</h1>
-                        <p className="text-[#8C958E]">{id ? "Update your product details, logo, and upload screenshots (16:9 laptop size recommended)." : "Fill in the details below. Your product will be reviewed by our team before going live."}</p>
+                    <div className="mb-8 sm:mb-10">
+                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F5F1E8] mb-2">{id ? "Edit Your Product" : "Submit Your Product"}</h1>
+                        <p className="text-xs sm:text-sm text-[#8C958E] leading-relaxed">{id ? "Update your product details, logo, and upload screenshots (16:9 laptop size recommended)." : "Fill in the details below. Your product will be reviewed by our team before going live."}</p>
                     </div>
                 </Reveal>
 

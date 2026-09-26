@@ -278,14 +278,14 @@ export default function Login({ redirectTo = "/" }: { redirectTo?: string } = {}
         <h1 className="text-base font-bold text-foreground">FindBuilders</h1>
       </div>
 
-      <div className={cn("flex w-full flex-1 h-full items-center justify-center bg-card", "relative overflow-hidden")}>
+      <div className={cn("flex w-full flex-1 h-full items-center justify-center bg-card", "relative overflow-hidden py-16 px-4")}>
         <div className="absolute inset-0 z-0"><GradientBackground /></div>
-        <fieldset disabled={modalStatus !== 'closed'} className="relative z-10 flex flex-col items-center gap-8 w-[280px] mx-auto p-4">
+        <fieldset disabled={modalStatus !== 'closed'} className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 w-full max-w-[320px] sm:max-w-[360px] mx-auto p-2 sm:p-4">
           <AnimatePresence mode="wait">
-            {authStep === "email" && <motion.div key="email-content" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center gap-4">
-              <BlurFade delay={0.25 * 1} className="w-full"><div className="text-center"><p className="font-serif font-light text-4xl sm:text-5xl md:text-6xl tracking-tight text-foreground whitespace-nowrap">Welcome back</p></div></BlurFade>
-              <BlurFade delay={0.25 * 2}><p className="text-sm font-medium text-muted-foreground">Continue with</p></BlurFade>
-              <BlurFade delay={0.25 * 3}><div className="flex items-center justify-center w-full">
+            {authStep === "email" && <motion.div key="email-content" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center gap-3.5 sm:gap-4">
+              <BlurFade delay={0.25 * 1} className="w-full"><div className="text-center"><p className="font-serif font-light text-3xl sm:text-4xl md:text-5xl tracking-tight text-foreground">Welcome back</p></div></BlurFade>
+              <BlurFade delay={0.25 * 2}><p className="text-xs sm:text-sm font-medium text-muted-foreground">Continue with</p></BlurFade>
+              <BlurFade delay={0.25 * 3} className="w-full"><div className="flex items-center justify-center w-full">
                 <GlassButton
                   disabled={isGoogleLoading}
                   onClick={async () => {
@@ -298,7 +298,7 @@ export default function Login({ redirectTo = "/" }: { redirectTo?: string } = {}
                       setIsGoogleLoading(false);
                     }
                   }}
-                  contentClassName="flex items-center justify-center gap-2 w-full"
+                  contentClassName="flex items-center justify-center gap-2 w-full text-xs sm:text-sm"
                   size="sm"
                 >
                   {isGoogleLoading ? <Loader className="w-4 h-4 animate-spin text-foreground" /> : <GoogleIcon />}
@@ -307,15 +307,15 @@ export default function Login({ redirectTo = "/" }: { redirectTo?: string } = {}
                   </span>
                 </GlassButton>
               </div></BlurFade>
-              <BlurFade delay={0.25 * 4} className="w-[300px]"><div className="flex items-center w-full gap-2 py-2"><hr className="w-full border-border"/><span className="text-xs font-semibold text-muted-foreground">OR</span><hr className="w-full border-border"/></div></BlurFade>
+              <BlurFade delay={0.25 * 4} className="w-full"><div className="flex items-center w-full gap-2 py-2"><hr className="w-full border-border"/><span className="text-xs font-semibold text-muted-foreground">OR</span><hr className="w-full border-border"/></div></BlurFade>
             </motion.div>}
-            {authStep === "password" && <motion.div key="password-title" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center text-center gap-4">
-              <BlurFade delay={0} className="w-full"><div className="text-center"><p className="font-serif font-light text-4xl sm:text-5xl tracking-tight text-foreground whitespace-nowrap">Enter your password</p></div></BlurFade>
-              <BlurFade delay={0.25 * 1}><p className="text-sm font-medium text-muted-foreground">Sign in to your account</p></BlurFade>
+            {authStep === "password" && <motion.div key="password-title" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center text-center gap-3.5 sm:gap-4">
+              <BlurFade delay={0} className="w-full"><div className="text-center"><p className="font-serif font-light text-2xl sm:text-4xl tracking-tight text-foreground">Enter your password</p></div></BlurFade>
+              <BlurFade delay={0.25 * 1}><p className="text-xs sm:text-sm font-medium text-muted-foreground">Sign in to your account</p></BlurFade>
             </motion.div>}
           </AnimatePresence>
 
-          <form onSubmit={handleFinalSubmit} noValidate className="w-[300px] space-y-6">
+          <form onSubmit={handleFinalSubmit} noValidate className="w-full space-y-5 sm:space-y-6">
             <BlurFade delay={authStep === 'email' ? 0.25 * 5 : 0} inView={true} className="w-full">
               <div className="relative w-full">
                 <AnimatePresence>
@@ -344,7 +344,7 @@ export default function Login({ redirectTo = "/" }: { redirectTo?: string } = {}
                   <div className="glass-input-wrap w-full"><div className={cn("glass-input", passwordError && "ring-1 ring-[#C97878]/60")}>
                     <span className="glass-input-text-area"></span>
                     <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-10 pl-2">
-                      {isPasswordValid ? <button type="button" aria-label="Toggle password visibility" onClick={() => setShowPassword(!showPassword)} className="text-foreground/80 hover:text-foreground transition-colors p-2 rounded-full">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button> : <Lock className="h-5 w-5 text-foreground/80 flex-shrink-0" />}
+                      {isPasswordValid ? <button type="button" aria-label="Toggle password visibility" onClick={() => setShowPassword(!showPassword)} className="text-foreground/80 hover:text-foreground transition-colors p-2 rounded-full cursor-pointer">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button> : <Lock className="h-5 w-5 text-foreground/80 flex-shrink-0" />}
                     </div>
                     <input ref={passwordInputRef} type={showPassword ? "text" : "password"} placeholder="Password" value={password} onChange={(e) => handlePasswordChange(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleFinalSubmit(e as any); } }} className="relative z-10 h-full w-0 flex-grow bg-transparent text-foreground placeholder:text-foreground/60 focus:outline-none" />
                     <div className={cn("relative z-10 flex-shrink-0 overflow-hidden transition-all duration-300 ease-in-out", isPasswordValid ? "w-10 pr-1" : "w-0")}><GlassButton type="submit" size="icon" aria-label="Sign in" contentClassName="text-foreground/80 hover:text-foreground"><ArrowRight className="w-5 h-5" /></GlassButton></div>
@@ -355,7 +355,7 @@ export default function Login({ redirectTo = "/" }: { redirectTo?: string } = {}
                     </p>
                   )}
                 </div>
-                <BlurFade inView delay={0.2}><button type="button" onClick={handleGoBack} className="mt-4 flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors"><ArrowLeft className="w-4 h-4" /> Go back</button></BlurFade>
+                <BlurFade inView delay={0.2}><button type="button" onClick={handleGoBack} className="mt-4 flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors cursor-pointer"><ArrowLeft className="w-4 h-4" /> Go back</button></BlurFade>
               </BlurFade>}
             </AnimatePresence>
           </form>

@@ -338,31 +338,31 @@ export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilder
             <h1 className="text-base font-bold text-foreground">{brandName}</h1>
         </div>
 
-        <div className={cn("flex w-full flex-1 h-full items-center justify-center bg-card", "relative overflow-hidden")}>
+        <div className={cn("flex w-full flex-1 h-full items-center justify-center bg-card", "relative overflow-hidden py-16 px-4")}>
             <div className="absolute inset-0 z-0"><GradientBackground /></div>
-            <fieldset disabled={modalStatus !== 'closed'} className="relative z-10 flex flex-col items-center gap-8 w-[280px] mx-auto p-4">
+            <fieldset disabled={modalStatus !== 'closed'} className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 w-full max-w-[320px] sm:max-w-[360px] mx-auto p-2 sm:p-4">
                 <AnimatePresence mode="wait">
-                    {authStep === "email" && <motion.div key="email-content" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center gap-4">
-                        <BlurFade delay={0.25 * 1} className="w-full"><div className="text-center"><p className="font-serif font-light text-4xl sm:text-5xl md:text-6xl tracking-tight text-foreground whitespace-nowrap">Get started with Us</p></div></BlurFade>
-                        <BlurFade delay={0.25 * 2}><p className="text-sm font-medium text-muted-foreground">Continue with</p></BlurFade>
-                        <BlurFade delay={0.25 * 3}><div className="flex items-center justify-center w-full">
-                            <GlassButton onClick={onGoogleSignIn} contentClassName="flex items-center justify-center gap-2 w-full" size="sm"><GoogleIcon /><span className="font-semibold text-foreground">Continue with Google</span></GlassButton>
+                    {authStep === "email" && <motion.div key="email-content" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center gap-3.5 sm:gap-4">
+                        <BlurFade delay={0.25 * 1} className="w-full"><div className="text-center"><p className="font-serif font-light text-3xl sm:text-4xl md:text-5xl tracking-tight text-foreground">Get started with Us</p></div></BlurFade>
+                        <BlurFade delay={0.25 * 2}><p className="text-xs sm:text-sm font-medium text-muted-foreground">Continue with</p></BlurFade>
+                        <BlurFade delay={0.25 * 3} className="w-full"><div className="flex items-center justify-center w-full">
+                            <GlassButton onClick={onGoogleSignIn} contentClassName="flex items-center justify-center gap-2 w-full text-xs sm:text-sm" size="sm"><GoogleIcon /><span className="font-semibold text-foreground">Continue with Google</span></GlassButton>
                         </div></BlurFade>
-                        <BlurFade delay={0.25 * 4} className="w-[300px]"><div className="flex items-center w-full gap-2 py-2"><hr className="w-full border-border"/><span className="text-xs font-semibold text-muted-foreground">OR</span><hr className="w-full border-border"/></div></BlurFade>
+                        <BlurFade delay={0.25 * 4} className="w-full"><div className="flex items-center w-full gap-2 py-2"><hr className="w-full border-border"/><span className="text-xs font-semibold text-muted-foreground">OR</span><hr className="w-full border-border"/></div></BlurFade>
                     </motion.div>}
-                    {authStep === "password" && <motion.div key="password-title" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center text-center gap-4">
-                        <BlurFade delay={0} className="w-full"><div className="text-center"><p className="font-serif font-light text-4xl sm:text-5xl tracking-tight text-foreground whitespace-nowrap">Create your password</p></div></BlurFade>
-                        <BlurFade delay={0.25 * 1}><p className="text-sm font-medium text-muted-foreground">Your password must be at least 6 characters long.</p></BlurFade>
+                    {authStep === "password" && <motion.div key="password-title" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center text-center gap-3.5 sm:gap-4">
+                        <BlurFade delay={0} className="w-full"><div className="text-center"><p className="font-serif font-light text-2xl sm:text-4xl tracking-tight text-foreground">Create your password</p></div></BlurFade>
+                        <BlurFade delay={0.25 * 1}><p className="text-xs sm:text-sm font-medium text-muted-foreground">Your password must be at least 6 characters long.</p></BlurFade>
                     </motion.div>}
-                     {authStep === "confirmPassword" && <motion.div key="confirm-title" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center text-center gap-4">
-                         <BlurFade delay={0} className="w-full"><div className="text-center"><p className="font-serif font-light text-4xl sm:text-5xl tracking-tight text-foreground whitespace-nowrap">One Last Step</p></div></BlurFade>
-                         <BlurFade delay={0.25 * 1}><p className="text-sm font-medium text-muted-foreground">Confirm your password to continue</p></BlurFade>
+                     {authStep === "confirmPassword" && <motion.div key="confirm-title" initial={{ y: 6, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full flex flex-col items-center text-center gap-3.5 sm:gap-4">
+                         <BlurFade delay={0} className="w-full"><div className="text-center"><p className="font-serif font-light text-2xl sm:text-4xl tracking-tight text-foreground">One Last Step</p></div></BlurFade>
+                         <BlurFade delay={0.25 * 1}><p className="text-xs sm:text-sm font-medium text-muted-foreground">Confirm your password to continue</p></BlurFade>
                     </motion.div>}
                 </AnimatePresence>
 
-                <form onSubmit={handleFinalSubmit} noValidate className="w-[300px] space-y-6">
+                <form onSubmit={handleFinalSubmit} noValidate className="w-full space-y-5 sm:space-y-6">
                      <AnimatePresence>
-                        {authStep !== 'confirmPassword' && <motion.div key="email-password-fields" exit={{ opacity: 0, filter: 'blur(4px)' }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full space-y-6">
+                        {authStep !== 'confirmPassword' && <motion.div key="email-password-fields" exit={{ opacity: 0, filter: 'blur(4px)' }} transition={{ duration: 0.3, ease: "easeOut" }} className="w-full space-y-5 sm:space-y-6">
                             <BlurFade delay={authStep === 'email' ? 0.25 * 5 : 0} inView={true} className="w-full">
                                 <div className="relative w-full">
                                     <AnimatePresence>
@@ -405,7 +405,7 @@ export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilder
                                         <div className={cn("glass-input-wrap w-full", fieldErrors.password && touched.password && "ring-1 ring-[#C97878]/60 rounded-full")}><div className="glass-input">
                                             <span className="glass-input-text-area"></span>
                                             <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-10 pl-2">
-                                                {isPasswordValid ? <button type="button" aria-label="Toggle password visibility" onClick={() => setShowPassword(!showPassword)} className="text-foreground/80 hover:text-foreground transition-colors p-2 rounded-full">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button> : <Lock className="h-5 w-5 text-foreground/80 flex-shrink-0" />}
+                                                {isPasswordValid ? <button type="button" aria-label="Toggle password visibility" onClick={() => setShowPassword(!showPassword)} className="text-foreground/80 hover:text-foreground transition-colors p-2 rounded-full cursor-pointer">{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button> : <Lock className="h-5 w-5 text-foreground/80 flex-shrink-0" />}
                                             </div>
                                             <input 
                                                 ref={passwordInputRef} 
@@ -432,7 +432,7 @@ export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilder
                                             </div>
                                         )}
                                     </div>
-                                    <BlurFade inView delay={0.2}><button type="button" onClick={handleGoBack} className="mt-4 flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors"><ArrowLeft className="w-4 h-4" /> Go back</button></BlurFade>
+                                    <BlurFade inView delay={0.2}><button type="button" onClick={handleGoBack} className="mt-4 flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors cursor-pointer"><ArrowLeft className="w-4 h-4" /> Go back</button></BlurFade>
                                 </BlurFade>}
                             </AnimatePresence>
                         </motion.div>}
@@ -443,10 +443,10 @@ export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilder
                                 <AnimatePresence>
                                     {confirmPassword.length > 0 && <motion.div initial={{ y: -10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3 }} className="absolute -top-6 left-4 z-10"><label className="text-xs text-muted-foreground font-semibold">Confirm Password</label></motion.div>}
                                 </AnimatePresence>
-                                <div className={cn("glass-input-wrap w-[300px]", fieldErrors.confirmPassword && touched.confirmPassword && "ring-1 ring-[#C97878]/60 rounded-full")}><div className="glass-input">
+                                <div className={cn("glass-input-wrap w-full", fieldErrors.confirmPassword && touched.confirmPassword && "ring-1 ring-[#C97878]/60 rounded-full")}><div className="glass-input">
                                     <span className="glass-input-text-area"></span>
                                     <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-10 pl-2">
-                                        {isConfirmPasswordValid ? <button type="button" aria-label="Toggle confirm password visibility" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="text-foreground/80 hover:text-foreground transition-colors p-2 rounded-full">{showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button> : <Lock className="h-5 w-5 text-foreground/80 flex-shrink-0" />}
+                                        {isConfirmPasswordValid ? <button type="button" aria-label="Toggle confirm password visibility" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="text-foreground/80 hover:text-foreground transition-colors p-2 rounded-full cursor-pointer">{showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}</button> : <Lock className="h-5 w-5 text-foreground/80 flex-shrink-0" />}
                                     </div>
                                     <input 
                                         ref={confirmPasswordInputRef} 
@@ -472,16 +472,16 @@ export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilder
                                     </div>
                                 )}
                             </div>
-                            <BlurFade inView delay={0.2}><button type="button" onClick={handleGoBack} className="mt-4 flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors"><ArrowLeft className="w-4 h-4" /> Go back</button></BlurFade>
+                            <BlurFade inView delay={0.2}><button type="button" onClick={handleGoBack} className="mt-4 flex items-center gap-2 text-sm text-foreground/70 hover:text-foreground transition-colors cursor-pointer"><ArrowLeft className="w-4 h-4" /> Go back</button></BlurFade>
                         </BlurFade>}
                      </AnimatePresence>
                 </form>
 
                 {onNavigateToLogin && authStep === 'email' && (
                     <BlurFade delay={0.25 * 6}>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs sm:text-sm text-muted-foreground text-center">
                             Already have an account?{" "}
-                            <button onClick={onNavigateToLogin} className="text-foreground font-semibold hover:underline transition-colors">Sign in</button>
+                            <button onClick={onNavigateToLogin} className="text-foreground font-semibold hover:underline transition-colors cursor-pointer">Sign in</button>
                         </p>
                     </BlurFade>
                 )}

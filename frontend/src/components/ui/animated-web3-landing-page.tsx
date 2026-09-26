@@ -101,34 +101,34 @@ export function Web3HeroAnimated() {
         <>
             <section
                 ref={heroRef}
-                className="relative h-full w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-center"
+                className="relative min-h-[calc(100dvh-4.5rem)] lg:h-full w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-center py-8 sm:py-12 lg:py-0"
             >
                 {/* ================= HERO CONTENT ================= */}
 
                 <motion.div
                     style={{ y: yParallax, opacity: opacityParallax }}
-                    className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-6 pt-20 pb-8 sm:pt-24 sm:pb-12 h-full flex flex-col justify-center items-center my-auto"
+                    className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-6 pt-16 pb-8 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-12 flex flex-col justify-center items-center my-auto w-full"
                 >
                     <motion.div
                         style={{ x: mouseX, y: mouseY }}
-                        className="flex flex-col items-center gap-4 sm:gap-5"
+                        className="flex flex-col items-center gap-3.5 sm:gap-5 w-full"
                     >
                         {/* Live Dot Tag */}
                         <motion.span
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
-                            className="group relative inline-flex items-center gap-2.5 rounded-full bg-[#151D19] px-4 py-1.5 sm:px-5 sm:py-2 text-xs font-medium tracking-wide text-white border border-[#29342E] backdrop-blur cursor-pointer font-[family-name:var(--font-body)]"
+                            className="group relative inline-flex items-center gap-2 rounded-full bg-[#151D19] px-3.5 py-1.5 sm:px-5 sm:py-2 text-[11px] sm:text-xs font-medium tracking-wide text-white border border-[#29342E] backdrop-blur cursor-default font-[family-name:var(--font-body)] max-w-full text-center"
                         >
-                            <span className="relative flex h-2.5 w-2.5">
+                            <span className="relative flex h-2 sm:h-2.5 w-2 sm:w-2.5 shrink-0">
                                 <span className="absolute inline-flex h-full w-full rounded-full bg-[#789181] opacity-60 animate-ping"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#214C37] shadow-[0_0_10px_rgba(33,76,55,0.8)] group-hover:scale-125 transition-transform duration-300"></span>
+                                <span className="relative inline-flex rounded-full h-2 sm:h-2.5 w-2 sm:w-2.5 bg-[#214C37] shadow-[0_0_10px_rgba(33,76,55,0.8)] group-hover:scale-125 transition-transform duration-300"></span>
                             </span>
-                            Where Builders Build, and Great Products Get Discovered
+                            <span className="truncate sm:whitespace-normal">Where Builders Build, and Great Products Get Discovered</span>
                         </motion.span>
 
                         <h1
-                            className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold tracking-[-0.025em] leading-[1.08] bg-gradient-to-br from-white via-[#F5F5F2] to-[#D5D8D4] bg-clip-text text-transparent min-h-[90px] sm:min-h-[115px] lg:min-h-[140px] max-w-4xl"
+                            className="text-fluid-hero font-bold tracking-[-0.025em] leading-[1.12] sm:leading-[1.08] bg-gradient-to-br from-white via-[#F5F5F2] to-[#D5D8D4] bg-clip-text text-transparent min-h-[70px] sm:min-h-[105px] lg:min-h-[135px] max-w-4xl px-2 break-words"
                             aria-label={typeText}
                         >
                             {displayText || <span className="opacity-0">{typeText}</span>}
@@ -138,7 +138,7 @@ export function Web3HeroAnimated() {
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 1.2 }}
-                            className="mx-auto max-w-2xl text-[#F5F5F2] text-sm sm:text-base md:text-lg font-[family-name:var(--font-body)] leading-relaxed"
+                            className="mx-auto max-w-2xl text-[#F5F5F2] text-xs sm:text-base md:text-lg font-[family-name:var(--font-body)] leading-relaxed px-2"
                         >
                             FindBuilders is a product discovery platform where indie makers showcase developer tools, AI apps, and software to get discovered by early adopters looking for what's new.
                         </motion.p>
@@ -147,16 +147,16 @@ export function Web3HeroAnimated() {
                             initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 1.4 }}
-                            className="mt-6 sm:mt-6 flex flex-wrap justify-center gap-4"
+                            className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto px-4 max-w-xs sm:max-w-none mx-auto"
                         >
-                            <MagneticButton>
-                                <Link to="/products" className="group relative rounded-full bg-[#D8C7A5] px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-bold text-[#1A1A16] hover:bg-[#E5D5B5] transition shadow-[0_0_25px_rgba(216,199,165,0.25)] hover:shadow-[0_0_35px_rgba(216,199,165,0.4)] active:scale-95 inline-block transform transition-all duration-300">
+                            <MagneticButton className="w-full sm:w-auto">
+                                <Link to="/products" className="w-full sm:w-auto text-center rounded-full bg-[#D8C7A5] px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-[#1A1A16] hover:bg-[#E5D5B5] transition shadow-[0_0_25px_rgba(216,199,165,0.25)] hover:shadow-[0_0_35px_rgba(216,199,165,0.4)] active:scale-95 inline-block transform transition-all duration-300">
                                     Browse Products
                                 </Link>
                             </MagneticButton>
 
-                            <MagneticButton>
-                                <Link to="/submit" className="group relative rounded-full border border-[#29342E] bg-[#1B2520]/80 px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-bold text-[#F5F1E8] hover:bg-[#202B25] hover:border-[#2E6549] transition active:scale-95 inline-block transform transition-all duration-300 shadow-xl shadow-transparent hover:shadow-[0_0_20px_rgba(33,76,55,0.2)] backdrop-blur-md">
+                            <MagneticButton className="w-full sm:w-auto">
+                                <Link to="/submit" className="w-full sm:w-auto text-center rounded-full border border-[#29342E] bg-[#1B2520]/80 px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base font-bold text-[#F5F1E8] hover:bg-[#202B25] hover:border-[#2E6549] transition active:scale-95 inline-block transform transition-all duration-300 shadow-xl shadow-transparent hover:shadow-[0_0_20px_rgba(33,76,55,0.2)] backdrop-blur-md">
                                     Launch Your Product
                                 </Link>
                             </MagneticButton>
@@ -168,9 +168,9 @@ export function Web3HeroAnimated() {
 
                 {/* ================= PILLARS ================= */}
 
-                <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-[72vh] sm:top-auto sm:translate-y-0 sm:bottom-0 sm:h-[32vh]">
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B100E]/50 via-transparent to-[#0B100E]/50 sm:from-[#0B100E] sm:via-[#0B100E]/80 sm:to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 flex h-full items-center sm:items-end gap-[1px]">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[22vh] sm:h-[30vh] overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/70 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-[1px]">
                         {pillars.map((h, i) => (
                             <div
                                 key={i}

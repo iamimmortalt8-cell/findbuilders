@@ -233,7 +233,7 @@ export default function PrivacyPolicy() {
   }, []);
 
   return (
-    <main className="flex-1 w-full flex flex-col bg-[#0B100E] pt-32 pb-24 px-6 md:px-12 lg:px-24 font-[Inter,system-ui,sans-serif] antialiased">
+    <main className="flex-1 w-full flex flex-col bg-[#0B100E] pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 md:px-12 lg:px-24 font-[Inter,system-ui,sans-serif] antialiased">
       <SEO
         title="Privacy Policy | FindBuilders"
         description="Learn how FindBuilders collects, protects, and respects your account, product, and profile information."
@@ -251,15 +251,15 @@ export default function PrivacyPolicy() {
           className="space-y-12"
         >
           {/* Header */}
-          <div className="text-center space-y-4 mb-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#D8C7A5]/10 border border-[#D8C7A5]/20 mb-4">
-              <Shield className="w-8 h-8 text-[#D8C7A5]" />
+          <div className="text-center space-y-4 mb-12 sm:mb-16">
+            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#D8C7A5]/10 border border-[#D8C7A5]/20 mb-2 sm:mb-4">
+              <Shield className="w-7 h-7 sm:w-8 sm:h-8 text-[#D8C7A5]" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Privacy Policy</h1>
-            <p className="text-white/70 text-lg max-w-2xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">Privacy Policy</h1>
+            <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto">
               Your privacy matters.
             </p>
-            <p className="text-white/50 text-sm">
+            <p className="text-white/50 text-xs sm:text-sm">
               Last Updated: September 24, 2026
             </p>
           </div>

@@ -248,7 +248,7 @@ export default function Products() {
                 structuredData={collectionSchema}
             />
 
-            <div className="max-w-6xl mx-auto px-6 py-12">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
                 {/* Header */}
                 <Reveal>
                     <div className="mb-6">
@@ -306,9 +306,9 @@ export default function Products() {
 
                 {/* Filters Bar */}
                 <Reveal delay={0.1} className="relative z-30">
-                    <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 mb-10 w-full relative z-30">
+                    <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 mb-8 sm:mb-10 w-full relative z-30">
                         {/* 1. Search Products (Searches Products Only) */}
-                        <div className="relative flex-1 min-w-[200px] group">
+                        <div className="relative flex-1 min-w-0 group">
                             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C958E] group-focus-within:text-[#D8C7A5] transition-colors pointer-events-none" />
                             <input
                                 type="text"
@@ -329,7 +329,7 @@ export default function Products() {
                         </div>
 
                         {/* 2. Search Users (Searches Users Only - Dropdown Popover Directly Below Input) */}
-                        <div ref={userSearchRef} className="relative flex-1 min-w-[200px] group z-40">
+                        <div ref={userSearchRef} className="relative flex-1 min-w-0 group z-40">
                             <Users className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8C958E] group-focus-within:text-[#D8C7A5] transition-colors pointer-events-none" />
                             <input
                                 type="text"
@@ -442,7 +442,7 @@ export default function Products() {
                         </div>
 
                         {/* 3. Category Custom Dark Dropdown (Opens through TOP) */}
-                        <div ref={categoryRef} className="relative w-full sm:w-auto min-w-[170px]">
+                        <div ref={categoryRef} className="relative w-full sm:w-auto min-w-0 sm:min-w-[170px]">
                             <button
                                 type="button"
                                 onClick={handleToggleCategory}
@@ -467,7 +467,7 @@ export default function Products() {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute left-0 lg:right-0 lg:left-auto bottom-full mb-2 w-full min-w-[200px] rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-[135px] overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
+                                        className="absolute left-0 lg:right-0 lg:left-auto bottom-full mb-2 w-full min-w-0 sm:min-w-[200px] rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-[135px] overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
                                     >
                                         <button
                                             type="button"
@@ -519,7 +519,7 @@ export default function Products() {
                         </div>
 
                         {/* 4. Sort Custom Dark Dropdown (Opens through TOP) */}
-                        <div ref={sortRef} className="relative w-full sm:w-auto min-w-[150px]">
+                        <div ref={sortRef} className="relative w-full sm:w-auto min-w-0 sm:min-w-[150px]">
                             <button
                                 type="button"
                                 onClick={handleToggleSort}
@@ -544,7 +544,7 @@ export default function Products() {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute right-0 bottom-full mb-2 w-full min-w-[160px] rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-[135px] overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
+                                        className="absolute right-0 bottom-full mb-2 w-full min-w-0 sm:min-w-[160px] rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-[135px] overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
                                     >
                                         {[
                                             { key: "newest", label: "Newest" },
@@ -586,12 +586,12 @@ export default function Products() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
                         >
                             {Array.from({ length: 6 }).map((_, i) => (
                                 <div key={i} className="bg-[#151D19]/80 border border-[#202A25] rounded-2xl overflow-hidden">
                                     <div className="aspect-[16/9] bg-[#1B2520] animate-pulse" />
-                                    <div className="p-5 space-y-3">
+                                    <div className="p-4 sm:p-5 space-y-3">
                                         <div className="h-5 bg-[#1B2520] rounded-lg w-2/3 animate-pulse" />
                                         <div className="h-4 bg-[#1B2520] rounded-lg w-full animate-pulse" />
                                         <div className="flex items-center justify-between pt-3 border-t border-[#202A25]">
@@ -612,7 +612,7 @@ export default function Products() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                         >
-                            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" staggerDelay={0.06}>
+                            <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5" staggerDelay={0.06}>
                                 {products.map((product) => (
                                     <StaggerItem key={product.id}>
                                         <Link
@@ -630,7 +630,7 @@ export default function Products() {
                                                 )}
                                                 <div className="absolute inset-0 bg-gradient-to-t from-[#151D19] via-transparent to-transparent opacity-60" />
                                             </div>
-                                            <div className="flex flex-col flex-1 p-5 relative">
+                                            <div className="flex flex-col flex-1 p-4 sm:p-5 relative">
                                                 <div className="flex items-start justify-between gap-3 mb-3">
                                                     <div className="min-w-0 flex-1">
                                                         <h3 className="font-bold text-[#F5F1E8] text-base truncate group-hover:text-[#D8C7A5] transition-colors duration-300">{product.name}</h3>
@@ -642,17 +642,17 @@ export default function Products() {
                                                     </div>
                                                 </div>
                                                 <div className="flex items-center justify-between pt-3 border-t border-[#202A25] mt-auto">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="w-5 h-5 rounded-full bg-[#1B2520] ring-1 ring-[#29342E] flex items-center justify-center">
+                                                    <div className="flex items-center gap-2 min-w-0">
+                                                        <div className="w-5 h-5 rounded-full bg-[#1B2520] ring-1 ring-[#29342E] flex items-center justify-center shrink-0">
                                                             <span className="text-[9px] font-bold text-[#C5C8C1]">{product.maker?.display_name?.charAt(0) || "?"}</span>
                                                         </div>
-                                                        <span className="text-xs text-[#8C958E]">{product.maker?.display_name}</span>
+                                                        <span className="text-xs text-[#8C958E] truncate">{product.maker?.display_name}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-3">
+                                                    <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                                                         {product.category && (
-                                                            <span className="text-[11px] text-[#789181] px-2 py-0.5 rounded-lg bg-[#101814] border border-[#202A25]">{product.category.name}</span>
+                                                            <span className="text-[11px] text-[#789181] px-2 py-0.5 rounded-lg bg-[#101814] border border-[#202A25] truncate max-w-[120px]">{product.category.name}</span>
                                                         )}
-                                                        <ExternalLink className="w-3.5 h-3.5 text-[#69736C] group-hover:text-[#D8C7A5] transition-colors" />
+                                                        <ExternalLink className="w-3.5 h-3.5 text-[#69736C] group-hover:text-[#D8C7A5] transition-colors shrink-0" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -664,11 +664,11 @@ export default function Products() {
                             {/* Pagination */}
                             {totalPages > 1 && (
                                 <Reveal delay={0.2}>
-                                    <div className="flex items-center justify-center gap-2 mt-12">
+                                    <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-8 sm:mt-12">
                                         <button
                                             onClick={() => updateParam("page", String(page - 1))}
                                             disabled={page <= 1}
-                                            className="p-2.5 rounded-xl bg-[#151D19] border border-[#29342E] text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300"
+                                            className="p-2 sm:p-2.5 rounded-xl bg-[#151D19] border border-[#29342E] text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300"
                                         >
                                             <ChevronLeft className="w-4 h-4" />
                                         </button>
@@ -677,11 +677,11 @@ export default function Products() {
                                             .map((p, idx, arr) => (
                                                 <React.Fragment key={p}>
                                                     {idx > 0 && arr[idx - 1] !== p - 1 && (
-                                                        <span className="text-[#69736C] px-1">...</span>
+                                                        <span className="text-[#69736C] px-1 text-xs">...</span>
                                                     )}
                                                     <button
                                                         onClick={() => updateParam("page", String(p))}
-                                                        className={`w-9 h-9 rounded-xl text-sm font-medium transition-all duration-300 ${
+                                                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 ${
                                                             p === page
                                                                 ? "bg-[#D8C7A5] text-[#1A1A16] font-semibold shadow-[0_0_20px_rgba(216,199,165,0.25)]"
                                                                 : "bg-[#151D19] border border-[#29342E] text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520]"
@@ -694,7 +694,7 @@ export default function Products() {
                                         <button
                                             onClick={() => updateParam("page", String(page + 1))}
                                             disabled={page >= totalPages}
-                                            className="p-2.5 rounded-xl bg-[#151D19] border border-[#29342E] text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300"
+                                            className="p-2 sm:p-2.5 rounded-xl bg-[#151D19] border border-[#29342E] text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#1B2520] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-300"
                                         >
                                             <ChevronRightIcon className="w-4 h-4" />
                                         </button>

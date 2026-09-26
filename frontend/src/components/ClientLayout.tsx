@@ -29,10 +29,10 @@ export default function ClientLayout({
     const isHome = location.pathname === "/";
 
     return (
-        <div className={`flex flex-col ${isHome ? "h-screen overflow-hidden" : "min-h-screen"}`}>
+        <div className={`flex flex-col ${isHome ? "min-h-[100dvh] lg:h-screen lg:overflow-hidden relative" : "min-h-screen min-h-[100dvh]"}`}>
             <CustomCursor />
             {!isDashboardRoute && <Navbar />}
-            <main className={`flex-1 ${isHome ? "h-full overflow-hidden flex flex-col" : ""}`}>{children}</main>
+            <main className={`flex-1 flex flex-col ${isHome ? "min-h-0 relative" : "w-full"}`}>{children}</main>
             {!isDashboardRoute && !isHome && <Footer />}
         </div>
     );

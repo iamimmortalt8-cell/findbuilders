@@ -132,8 +132,8 @@ export default function AboutFounder() {
           <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 rounded-full bg-[#D8C7A5]/5 blur-[120px]" />
         </div>
 
-        <div className="max-w-5xl mx-auto px-6 sm:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-14">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-10 md:gap-14">
             
             {/* Founder Avatar Frame */}
             <motion.div
@@ -142,7 +142,7 @@ export default function AboutFounder() {
               transition={{ duration: 0.6 }}
               className="relative shrink-0"
             >
-              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-3xl overflow-hidden border-2 border-[#29342E] bg-[#151D19] shadow-[0_0_40px_rgba(33,76,55,0.25)] relative group">
+              <div className="w-36 h-36 sm:w-52 sm:h-52 md:w-64 md:h-64 rounded-3xl overflow-hidden border-2 border-[#29342E] bg-[#151D19] shadow-[0_0_40px_rgba(33,76,55,0.25)] relative group">
                 <img
                   src="/bharath.png"
                   alt="Bharath Thommandru — Founder & Lead Developer of FindBuilders"
@@ -159,33 +159,33 @@ export default function AboutFounder() {
               transition={{ duration: 0.6, delay: 0.15 }}
               className="text-center md:text-left flex-1"
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] mb-6">
+              <span className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] mb-4 sm:mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#7FAF8D] animate-pulse" />
                 About the Founder
               </span>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-3 sm:mb-4">
                 Bharath{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D8C7A5] to-[#F5F1E8]">
                   Thommandru
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-[#D8C7A5] font-semibold mb-4 tracking-wide">
+              <p className="text-sm sm:text-base md:text-lg text-[#D8C7A5] font-semibold mb-3 sm:mb-4 tracking-wide">
                 Founder &amp; Lead Developer at FindBuilders
               </p>
 
-              <p className="text-sm sm:text-base text-[#8C958E] leading-relaxed max-w-2xl font-[family-name:var(--font-body)] mb-8">
+              <p className="text-xs sm:text-sm md:text-base text-[#8C958E] leading-relaxed max-w-2xl font-[family-name:var(--font-body)] mb-6 sm:mb-8">
                 Full-stack developer and indie maker passionate about building products that empower creators, solve distribution friction, and give innovative tools a dedicated stage to be discovered.
               </p>
 
               {/* Social Profiles */}
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5 sm:gap-3">
                 <a
                   href="https://www.linkedin.com/in/bharath-thommandru"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
                   aria-label="Bharath Thommandru LinkedIn profile"
                 >
                   <svg className="w-4 h-4 text-[#D8C7A5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
@@ -196,7 +196,7 @@ export default function AboutFounder() {
                   href="https://github.com/bharath-dev8668"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
                   aria-label="Bharath Thommandru GitHub profile"
                 >
                   <svg className="w-4 h-4 text-[#D8C7A5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
@@ -207,7 +207,7 @@ export default function AboutFounder() {
                   href="https://x.com/BTommandru81787"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
                   aria-label="Bharath Thommandru X (Twitter) profile"
                 >
                   <svg className="w-4 h-4 text-[#D8C7A5]" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
@@ -216,7 +216,7 @@ export default function AboutFounder() {
 
                 <a
                   href="mailto:bharathtommandru1@gmail.com"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
+                  className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:text-[#F5F1E8] text-[#C5C8C1] transition-all text-xs font-medium"
                   aria-label="Email Bharath Thommandru"
                 >
                   <Mail className="w-4 h-4 text-[#D8C7A5]" />
@@ -231,7 +231,7 @@ export default function AboutFounder() {
 
       {/* ================= WHO IS BHARATH THOMMANDRU? ================= */}
       <section className="py-20 md:py-24 border-b border-[#202A25]">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -261,7 +261,7 @@ export default function AboutFounder() {
 
       {/* ================= ORIGIN & STORY ================= */}
       <section className="py-20 md:py-24 border-b border-[#202A25]">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -288,7 +288,7 @@ export default function AboutFounder() {
 
       {/* ================= WHY WAS FINDBUILDERS BUILT? ================= */}
       <section className="py-20 md:py-24 border-b border-[#202A25]">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -315,7 +315,7 @@ export default function AboutFounder() {
 
       {/* ================= HOW DOES THE PLATFORM WORK? ================= */}
       <section className="py-20 md:py-24 border-b border-[#202A25]">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -365,7 +365,7 @@ export default function AboutFounder() {
 
       {/* ================= TECHNOLOGY & EXPERTISE ================= */}
       <section className="py-20 md:py-24 border-b border-[#202A25]">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -405,7 +405,7 @@ export default function AboutFounder() {
 
       {/* ================= MILESTONES ================= */}
       <section className="py-20 md:py-24 border-b border-[#202A25]">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -444,7 +444,7 @@ export default function AboutFounder() {
 
       {/* ================= FUTURE ROADMAP ================= */}
       <section className="py-20 md:py-24 border-b border-[#202A25]">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -475,25 +475,25 @@ export default function AboutFounder() {
       </section>
 
       {/* ================= GET IN TOUCH / CONTACT ================= */}
-      <section className="py-20 md:py-28">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center">
+      <section className="py-16 sm:py-20 md:py-28">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 text-[#F5F1E8]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3 sm:mb-4 text-[#F5F1E8]">
               Get in Touch
             </h2>
-            <p className="text-[#8C958E] mb-10 max-w-lg mx-auto text-sm sm:text-base leading-relaxed font-[family-name:var(--font-body)]">
+            <p className="text-[#8C958E] mb-8 sm:mb-10 max-w-lg mx-auto text-xs sm:text-sm md:text-base leading-relaxed font-[family-name:var(--font-body)]">
               Have an idea, collaboration inquiry, or want to feature your product on FindBuilders? Reach out directly.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">
               <a
                 href="mailto:bharathtommandru1@gmail.com"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-sm font-semibold text-[#F5F1E8]"
+                className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-xs sm:text-sm font-semibold text-[#F5F1E8]"
               >
                 <Mail className="w-4 h-4 text-[#D8C7A5]" />
                 bharathtommandru1@gmail.com
@@ -503,7 +503,7 @@ export default function AboutFounder() {
                 href="https://github.com/bharath-dev8668"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-sm font-semibold text-[#F5F1E8]"
+                className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-xs sm:text-sm font-semibold text-[#F5F1E8]"
                 aria-label="GitHub profile"
               >
                 <svg className="w-4 h-4 text-[#D8C7A5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>
@@ -514,7 +514,7 @@ export default function AboutFounder() {
                 href="https://www.linkedin.com/in/bharath-thommandru"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-sm font-semibold text-[#F5F1E8]"
+                className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-xs sm:text-sm font-semibold text-[#F5F1E8]"
                 aria-label="LinkedIn profile"
               >
                 <svg className="w-4 h-4 text-[#D8C7A5]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg>
@@ -525,7 +525,7 @@ export default function AboutFounder() {
                 href="https://x.com/BTommandru81787"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-sm font-semibold text-[#F5F1E8]"
+                className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-[#151D19] border border-[#202A25] hover:border-[#789181] hover:bg-[#1B2520] transition-all text-xs sm:text-sm font-semibold text-[#F5F1E8]"
                 aria-label="X (Twitter) profile"
               >
                 <svg className="w-4 h-4 text-[#D8C7A5]" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
@@ -534,7 +534,7 @@ export default function AboutFounder() {
 
               <Link
                 to="/support"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#D8C7A5] text-[#1A1A16] hover:bg-[#E5D5B5] transition-all text-sm font-bold shadow-[0_0_20px_rgba(216,199,165,0.2)]"
+                className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3.5 rounded-xl bg-[#D8C7A5] text-[#1A1A16] hover:bg-[#E5D5B5] transition-all text-xs sm:text-sm font-bold shadow-[0_0_20px_rgba(216,199,165,0.2)]"
               >
                 Support Page
                 <ArrowRight className="w-4 h-4" />

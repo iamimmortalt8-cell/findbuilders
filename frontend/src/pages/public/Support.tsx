@@ -52,7 +52,7 @@ export default function Support() {
     };
 
     return (
-        <main className="bg-[#0B100E] text-[#F5F1E8] px-6 md:px-12 py-24 min-h-screen">
+        <main className="bg-[#0B100E] text-[#F5F1E8] px-4 sm:px-6 md:px-12 py-16 sm:py-24 min-h-screen">
             <SEO
                 title="Support & Help Center | FindBuilders"
                 description="Contact the FindBuilders team directly for platform help, feedback, or inquiries."
@@ -65,31 +65,31 @@ export default function Support() {
 
             <div className="max-w-5xl mx-auto">
                 {/* HEADER */}
-                <header className="mb-12 md:mb-16">
-                    <p className="text-sm tracking-widest text-[#789181] mb-4 font-semibold uppercase">
+                <header className="mb-8 sm:mb-12 md:mb-16">
+                    <p className="text-xs sm:text-sm tracking-widest text-[#789181] mb-3 sm:mb-4 font-semibold uppercase">
                         HELP &amp; SUPPORT
                     </p>
 
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#F5F1E8]">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-[#F5F1E8]">
                         Contact Support
                     </h1>
 
-                    <p className="text-[#8C958E] text-base md:text-lg max-w-2xl">
+                    <p className="text-[#8C958E] text-sm sm:text-base md:text-lg max-w-2xl">
                         We're here to help you with any questions or issues.
                     </p>
                 </header>
 
                 {/* TWO-COLUMN CONTACT SECTION */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
                     
                     {/* LEFT SIDE: Contact Information */}
-                    <section className="bg-[#151D19] border border-[#202A25] rounded-2xl p-6 sm:p-8 flex flex-col justify-between">
+                    <section className="bg-[#151D19] border border-[#202A25] rounded-2xl p-5 sm:p-8 flex flex-col justify-between">
                         <div>
-                            <h2 className="text-2xl font-bold text-[#F5F1E8] mb-3">
+                            <h2 className="text-xl sm:text-2xl font-bold text-[#F5F1E8] mb-3">
                                 Contact Us
                             </h2>
 
-                            <p className="text-[#8C958E] text-sm sm:text-base leading-relaxed mb-8">
+                            <p className="text-[#8C958E] text-xs sm:text-sm md:text-base leading-relaxed mb-6 sm:mb-8">
                                 Have a question, need help, or want to get in touch with the FindBuilders team? Reach out to us directly.
                             </p>
 

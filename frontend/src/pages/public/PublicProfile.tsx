@@ -193,12 +193,12 @@ export default function PublicProfile() {
                 structuredData={profileSchema}
             />
 
-            <div className="max-w-3xl mx-auto px-6">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 
                 {/* 1. PROFILE HEADER */}
-                <div className="flex flex-col sm:flex-row gap-6 sm:gap-7 items-start mb-6">
+                <div className="flex flex-col sm:flex-row gap-5 sm:gap-7 items-start mb-6">
                     {/* Real Avatar */}
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border border-[#29342E] bg-[#101814] shrink-0 shadow-xl flex items-center justify-center">
+                    <div className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden border border-[#29342E] bg-[#101814] shrink-0 shadow-xl flex items-center justify-center">
                         {profile.avatar_url ? (
                             <img 
                                 src={profile.avatar_url} 
@@ -207,15 +207,15 @@ export default function PublicProfile() {
                             />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center text-[#69736C] bg-[#151D19]">
-                                <User className="w-12 h-12" />
+                                <User className="w-10 h-10 sm:w-12 sm:h-12" />
                             </div>
                         )}
                     </div>
                     
                     {/* User Info & Actions */}
                     <div className="flex-1 min-w-0 w-full">
-                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                            <div className="min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
+                            <div className="min-w-0 flex-1">
                                 <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F5F1E8] truncate">
                                     {profile.display_name}
                                 </h1>
@@ -226,7 +226,7 @@ export default function PublicProfile() {
                                 )}
                                 
                                 {/* Followers / Following */}
-                                <div className="flex items-center gap-4 text-sm text-[#8C958E] mt-2.5">
+                                <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-[#8C958E] mt-2.5">
                                     <button 
                                         onClick={openFollowersModal} 
                                         className="hover:text-[#F5F1E8] transition cursor-pointer flex gap-1.5 items-center"
@@ -244,29 +244,29 @@ export default function PublicProfile() {
                             </div>
                             
                             {/* Action Button */}
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
                                 {hasContactInfo && (
                                     <button
                                         onClick={() => setShowContactModal(true)}
-                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#151D19] border border-[#29342E] text-[#C5C8C1] hover:bg-[#1B2520] hover:text-[#F5F1E8] transition-all text-sm font-semibold shrink-0 shadow-sm cursor-pointer"
+                                        className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#151D19] border border-[#29342E] text-[#C5C8C1] hover:bg-[#1B2520] hover:text-[#F5F1E8] transition-all text-xs sm:text-sm font-semibold shrink-0 shadow-sm cursor-pointer"
                                     >
-                                        <Mail className="w-4 h-4" />
+                                        <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                         Contact Info
                                     </button>
                                 )}
                                 {isOwnProfile ? (
                                     <Link 
                                         to="/settings/profile"
-                                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D8C7A5] text-[#1A1A16] hover:bg-[#E5D5B5] transition-all text-sm font-semibold shrink-0 shadow-lg"
+                                        className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-[#D8C7A5] text-[#1A1A16] hover:bg-[#E5D5B5] transition-all text-xs sm:text-sm font-semibold shrink-0 shadow-lg"
                                     >
-                                        <Settings className="w-4 h-4" />
+                                        <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                         Edit Profile
                                     </Link>
                                 ) : user ? (
                                     <button
                                         onClick={handleFollowToggle}
                                         disabled={followLoading}
-                                        className={`inline-flex items-center gap-2 px-5 py-2 rounded-full transition-all text-sm font-semibold shrink-0 shadow-lg cursor-pointer ${
+                                        className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full transition-all text-xs sm:text-sm font-semibold shrink-0 shadow-lg cursor-pointer ${
                                             isFollowing 
                                                 ? 'bg-[#1B2520] text-[#C5C8C1] hover:bg-[#202B25] border border-[#29342E]' 
                                                 : 'bg-[#D8C7A5] text-[#1A1A16] hover:bg-[#E5D5B5]'
@@ -277,7 +277,7 @@ export default function PublicProfile() {
                                 ) : (
                                     <Link
                                         to="/login"
-                                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#D8C7A5] text-[#1A1A16] hover:bg-[#E5D5B5] transition-all text-sm font-semibold shrink-0 shadow-lg"
+                                        className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-[#D8C7A5] text-[#1A1A16] hover:bg-[#E5D5B5] transition-all text-xs sm:text-sm font-semibold shrink-0 shadow-lg"
                                     >
                                         Follow
                                     </Link>

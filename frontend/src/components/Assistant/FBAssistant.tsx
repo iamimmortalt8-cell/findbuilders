@@ -184,21 +184,21 @@ export default function FBAssistant() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end pointer-events-none">
+    <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-[100] flex flex-col items-end pointer-events-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } }}
-            className="mb-4 w-[calc(100vw-32px)] sm:w-[320px] h-[480px] max-h-[calc(100vh-100px)] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+            className="mb-3 sm:mb-4 w-[calc(100vw-2rem)] sm:w-[330px] h-[480px] max-h-[calc(100dvh-6rem)] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-3.5 border-b border-white/5 bg-[#1B2520] shrink-0">
+            <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-3.5 border-b border-white/5 bg-[#1B2520] shrink-0">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
                   <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                    <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-7 h-7 sm:w-8 sm:h-8 object-contain relative z-10" />
+                    <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-6 h-6 sm:w-8 sm:h-8 object-contain relative z-10" />
                   </div>
                   <div className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#7FAF8D] border-2 border-[#1B2520] rounded-full"></div>
                 </div>
@@ -213,7 +213,7 @@ export default function FBAssistant() {
               </div>
               <button
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsOpen(false); }}
-                className="w-8 h-8 flex items-center justify-center rounded-full text-[#8C958E] hover:text-[#F5F1E8] hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                className="w-8 h-8 flex items-center justify-center rounded-full text-[#8C958E] hover:text-[#F5F1E8] hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 cursor-pointer"
                 type="button"
                 aria-label="Close Assistant"
               >
@@ -222,39 +222,39 @@ export default function FBAssistant() {
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#29342E] scrollbar-track-transparent">
+            <div className="flex-1 overflow-y-auto p-3.5 sm:p-4 space-y-3.5 sm:space-y-4 scrollbar-thin scrollbar-thumb-[#29342E] scrollbar-track-transparent">
               {messages.length === 0 && (
                 <motion.div 
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#1B2520] border border-white/5 rounded-xl p-4 sm:p-5 text-sm shadow-md"
+                  className="bg-[#1B2520] border border-white/5 rounded-xl p-3.5 sm:p-5 text-xs sm:text-sm shadow-md"
                 >
-                  <p className="font-medium text-[#F5F1E8] mb-4">
+                  <p className="font-medium text-[#F5F1E8] mb-3 sm:mb-4">
                     👋 Hi! Welcome to FindBuilders.
                   </p>
-                  <p className="text-[#8C958E] mb-2">I can help you get started:</p>
-                  <ul className="space-y-2 text-[#F5F1E8] mb-6">
+                  <p className="text-[#8C958E] mb-2 text-xs">I can help you get started:</p>
+                  <ul className="space-y-1.5 sm:space-y-2 text-[#F5F1E8] mb-4 sm:mb-6 text-xs sm:text-sm">
                     <li className="flex items-center gap-2">
-                      <span className="text-base">🚀</span> How to launch a product
+                      <span className="text-sm sm:text-base">🚀</span> How to launch a product
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-base">🔍</span> How to find builders
+                      <span className="text-sm sm:text-base">🔍</span> How to find builders
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-base">🤝</span> Connecting with others
+                      <span className="text-sm sm:text-base">🤝</span> Connecting with others
                     </li>
                   </ul>
-                  <p className="font-medium text-[#F5F1E8]">What would you like to know?</p>
+                  <p className="font-medium text-[#F5F1E8] text-xs sm:text-sm">What would you like to know?</p>
                 </motion.div>
               )}
 
               {messages.length === 0 && !showSupport && (
-                <div className="flex flex-wrap gap-1.5 pb-2">
+                <div className="flex flex-wrap gap-1.5 pb-1">
                   {SUGGESTED_PROMPTS.map((p, i) => (
                     <button
                       key={i}
                       onClick={() => handleSend(p.text)}
-                      className="text-[11px] px-2.5 py-1.5 rounded-full border border-[#29342E] text-[#C5C8C1] hover:text-[#F5F1E8] hover:border-[#789181] hover:bg-[#1B2520] transition-colors text-left flex items-center gap-1.5 shadow-sm"
+                      className="text-[11px] px-2.5 py-1.5 rounded-full border border-[#29342E] text-[#C5C8C1] hover:text-[#F5F1E8] hover:border-[#789181] hover:bg-[#1B2520] transition-colors text-left flex items-center gap-1.5 shadow-sm cursor-pointer"
                     >
                       <span>{p.icon}</span> {p.text.replace('How do I ', '').replace('How does ', '').replace('Can I ', '').replace('?', '')}
                     </button>
@@ -270,7 +270,7 @@ export default function FBAssistant() {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm shadow-md whitespace-pre-wrap leading-relaxed ${
+                    className={`max-w-[88%] rounded-2xl px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm shadow-md whitespace-pre-wrap leading-relaxed ${
                       msg.role === 'user'
                         ? 'bg-[#2E6549] text-[#F5F1E8] rounded-tr-sm'
                         : 'bg-[#1B2520] text-[#F5F1E8] border border-[#202A25] rounded-tl-sm'
@@ -292,56 +292,56 @@ export default function FBAssistant() {
               )}
 
               {showSupport && (
-                <div className="mt-4 border border-[#202A25] rounded-xl bg-[#101814] p-4 shrink-0 max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-[#29342E] scrollbar-track-transparent">
-                  <h4 className="text-sm font-semibold text-[#F5F1E8] mb-1 flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-[#D8C7A5]" />
+                <div className="mt-3 border border-[#202A25] rounded-xl bg-[#101814] p-3 sm:p-4 shrink-0 max-h-64 sm:max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-[#29342E] scrollbar-track-transparent">
+                  <h4 className="text-xs sm:text-sm font-semibold text-[#F5F1E8] mb-1 flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D8C7A5]" />
                     Contact Team 🤝
                   </h4>
-                  <p className="text-xs text-[#8C958E] mb-4">Send a message directly to the FindBuilders founders.</p>
+                  <p className="text-[11px] sm:text-xs text-[#8C958E] mb-3">Send a message directly to the FindBuilders founders.</p>
                   
                   {supportStatus === 'success' ? (
-                    <div className="text-center py-4 text-[#7FAF8D]">
-                      <CheckCircle2 className="w-8 h-8 mx-auto mb-2" />
-                      <p className="text-sm font-medium">Message sent successfully!</p>
-                      <button onClick={() => { setShowSupport(false); setSupportStatus('idle'); }} className="mt-3 text-xs text-[#8C958E] hover:text-[#F5F1E8]">Close form</button>
+                    <div className="text-center py-3 text-[#7FAF8D]">
+                      <CheckCircle2 className="w-7 h-7 mx-auto mb-2" />
+                      <p className="text-xs sm:text-sm font-medium">Message sent successfully!</p>
+                      <button onClick={() => { setShowSupport(false); setSupportStatus('idle'); }} className="mt-2 text-xs text-[#8C958E] hover:text-[#F5F1E8] cursor-pointer">Close form</button>
                     </div>
                   ) : (
-                    <form onSubmit={submitSupport} className="space-y-3">
+                    <form onSubmit={submitSupport} className="space-y-2.5">
                       <input 
                         type="text" placeholder="Name" required
                         value={supportData.name} onChange={e => setSupportData({...supportData, name: e.target.value})}
-                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none"
+                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-1.5 sm:py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none"
                       />
                       <input 
                         type="email" placeholder="Email" required
                         value={supportData.email} onChange={e => setSupportData({...supportData, email: e.target.value})}
-                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none"
+                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-1.5 sm:py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none"
                       />
                       <input 
                         type="text" placeholder="Subject" required
                         value={supportData.subject} onChange={e => setSupportData({...supportData, subject: e.target.value})}
-                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none"
+                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-1.5 sm:py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none"
                       />
                       <textarea 
                         placeholder="How can we help?" rows={3} required
                         value={supportData.message} onChange={e => setSupportData({...supportData, message: e.target.value})}
-                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none resize-none"
+                        className="w-full bg-[#151D19] border border-[#29342E] rounded-lg px-3 py-1.5 sm:py-2 text-xs text-[#F5F1E8] focus:border-[#789181] focus:outline-none resize-none"
                       />
                       {supportError && (
                         <p className="text-xs text-[#C97878] flex items-center gap-1">
                           <AlertCircle className="w-3 h-3" /> {supportError}
                         </p>
                       )}
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 pt-1">
                         <button 
                           type="button" onClick={() => setShowSupport(false)}
-                          className="flex-1 py-2 rounded-lg text-xs font-medium text-[#8C958E] hover:text-[#F5F1E8] bg-[#151D19] border border-[#29342E] hover:bg-[#1B2520] transition-colors"
+                          className="flex-1 py-1.5 sm:py-2 rounded-lg text-xs font-medium text-[#8C958E] hover:text-[#F5F1E8] bg-[#151D19] border border-[#29342E] hover:bg-[#1B2520] transition-colors cursor-pointer"
                         >
                           Cancel
                         </button>
                         <button 
                           type="submit" disabled={supportStatus === 'submitting'}
-                          className="flex-1 py-2 rounded-lg text-xs font-medium text-[#1A1A16] bg-[#D8C7A5] hover:bg-[#E5D5B5] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
+                          className="flex-1 py-1.5 sm:py-2 rounded-lg text-xs font-medium text-[#1A1A16] bg-[#D8C7A5] hover:bg-[#E5D5B5] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                           {supportStatus === 'submitting' ? 'Sending...' : 'Send Message'}
                         </button>
@@ -355,22 +355,23 @@ export default function FBAssistant() {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-[#151D19] border-t border-[#202A25]">
-              <div className="relative flex items-end gap-2 bg-[#1B2520] border border-[#29342E] rounded-xl p-1 focus-within:border-[#789181] focus-within:ring-1 focus-within:ring-[#789181]/40 transition-all">
+            <div className="p-3 sm:p-4 bg-[#151D19] border-t border-[#202A25]">
+              <div className="relative flex items-end gap-1.5 sm:gap-2 bg-[#1B2520] border border-[#29342E] rounded-xl p-1 focus-within:border-[#789181] focus-within:ring-1 focus-within:ring-[#789181]/40 transition-all">
                 <textarea
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask FindBuilders AI..."
-                  className="flex-1 max-h-32 min-h-[36px] bg-transparent text-sm text-[#F5F1E8] placeholder-[#69736C] px-3 py-2 focus:outline-none resize-none"
+                  className="flex-1 max-h-24 sm:max-h-32 min-h-[34px] sm:min-h-[36px] bg-transparent text-xs sm:text-sm text-[#F5F1E8] placeholder-[#69736C] px-2.5 sm:px-3 py-1.5 sm:py-2 focus:outline-none resize-none"
                   rows={1}
                 />
                 <button
                   onClick={() => handleSend(inputValue)}
                   disabled={!inputValue.trim() || isLoading}
-                  className="w-8 h-8 mb-0.5 mr-0.5 rounded-lg bg-[#D8C7A5] text-[#1A1A16] flex items-center justify-center hover:bg-[#E5D5B5] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shrink-0"
+                  className="w-7 h-7 sm:w-8 sm:h-8 mb-0.5 mr-0.5 rounded-lg bg-[#D8C7A5] text-[#1A1A16] flex items-center justify-center hover:bg-[#E5D5B5] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shrink-0 cursor-pointer"
+                  aria-label="Send message"
                 >
-                  <Send className="w-4 h-4 ml-0.5" />
+                  <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-0.5" />
                 </button>
               </div>
             </div>
@@ -391,7 +392,7 @@ export default function FBAssistant() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              className="absolute bottom-full right-0 mb-4 w-56 bg-[#151D19]/90 backdrop-blur-md border border-[#2E6549]/30 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl pointer-events-none"
+              className="hidden sm:block absolute bottom-full right-0 mb-4 w-56 bg-[#151D19]/90 backdrop-blur-md border border-[#2E6549]/30 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl pointer-events-none"
             >
               <p className="text-sm text-[#F5F1E8] font-medium leading-relaxed">
                 {currentMessage}
@@ -402,7 +403,7 @@ export default function FBAssistant() {
 
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7FAF8D]/60"
+          className="relative w-13 h-13 sm:w-16 sm:h-16 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7FAF8D]/60 cursor-pointer"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}

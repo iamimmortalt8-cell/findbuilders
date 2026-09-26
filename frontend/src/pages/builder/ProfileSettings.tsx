@@ -209,45 +209,45 @@ export default function ProfileSettings() {
 
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] min-h-screen">
-            <div className="max-w-4xl mx-auto px-6 py-12">
-                <div className="flex items-center justify-between mb-8 border-b border-[#202A25] pb-6">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8 border-b border-[#202A25] pb-5 sm:pb-6">
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tight text-[#F5F1E8]">Profile Settings</h1>
-                        <p className="text-[#8C958E] mt-1">Manage your public profile and personal details.</p>
+                        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F5F1E8]">Profile Settings</h1>
+                        <p className="text-[#8C958E] text-xs sm:text-sm mt-1">Manage your public profile and personal details.</p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                         <Link 
                             to={`/profile/${profile.id}`}
-                            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#151D19] border border-[#29342E] hover:bg-[#1B2520] hover:text-[#F5F1E8] text-[#C5C8C1] transition-colors text-sm font-medium"
+                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-[#151D19] border border-[#29342E] hover:bg-[#1B2520] hover:text-[#F5F1E8] text-[#C5C8C1] transition-colors text-xs sm:text-sm font-medium"
                         >
-                            <ExternalLink className="w-4 h-4" />
-                            View Public Profile
+                            <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                            <span>View Public Profile</span>
                         </Link>
                         <button
                             onClick={() => signOut()}
-                            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#321C1C] border border-[#C97878]/30 text-[#C97878] hover:bg-[#321C1C]/80 transition-colors text-sm font-medium cursor-pointer"
+                            className="flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-[#321C1C] border border-[#C97878]/30 text-[#C97878] hover:bg-[#321C1C]/80 transition-colors text-xs sm:text-sm font-medium cursor-pointer"
                         >
-                            <LogOut className="w-4 h-4" />
-                            Sign Out
+                            <LogOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                            <span>Sign Out</span>
                         </button>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                     <div className="md:col-span-1 space-y-6">
-                        <div className="bg-[#151D19] border border-[#202A25] rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+                        <div className="bg-[#151D19] border border-[#202A25] rounded-2xl p-5 sm:p-6 flex flex-col items-center justify-center text-center">
                             <div className="relative group mb-4">
-                                <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#29342E] bg-[#101814]">
+                                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-[#29342E] bg-[#101814]">
                                     {profile.avatar_url ? (
                                         <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-[#1B2520] text-[#8C958E] text-3xl font-bold">
+                                        <div className="w-full h-full flex items-center justify-center bg-[#1B2520] text-[#8C958E] text-2xl sm:text-3xl font-bold">
                                             {formData.displayName?.charAt(0) || user.email.charAt(0)}
                                         </div>
                                     )}
                                 </div>
                                 <label className="absolute inset-0 bg-[#0B100E]/70 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer rounded-full backdrop-blur-sm">
-                                    <Camera className="w-6 h-6 text-[#F5F1E8] mb-1" />
+                                    <Camera className="w-5 h-5 sm:w-6 sm:h-6 text-[#F5F1E8] mb-1" />
                                     <span className="text-xs font-medium text-[#F5F1E8]">Change</span>
                                     <input 
                                         type="file" 
@@ -259,32 +259,32 @@ export default function ProfileSettings() {
                                     />
                                 </label>
                             </div>
-                            <h3 className="font-semibold text-[#F5F1E8] mt-4">{formData.displayName || "No Name"}</h3>
-                            <p className="text-[#8C958E] text-sm mt-1">{user.email}</p>
+                            <h3 className="font-semibold text-[#F5F1E8] mt-2 sm:mt-4 text-base sm:text-lg">{formData.displayName || "No Name"}</h3>
+                            <p className="text-[#8C958E] text-xs sm:text-sm mt-1 truncate max-w-full px-2">{user.email}</p>
                             {uploading && <p className="text-[#D8C7A5] text-xs mt-3">Uploading...</p>}
-                            <p className="text-xs text-[#69736C] mt-4">Max file size: 1 MB</p>
+                            <p className="text-[11px] sm:text-xs text-[#69736C] mt-3 sm:mt-4">Max file size: 1 MB</p>
                         </div>
                     </div>
 
                     <div className="md:col-span-2">
                         <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-[#C5C8C1]">Display Name</label>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                                <div className="space-y-1.5 sm:space-y-2">
+                                    <label className="text-xs sm:text-sm font-medium text-[#C5C8C1]">Display Name</label>
                                     <input 
                                         type="text" 
                                         value={formData.displayName}
                                         onChange={e => setFormData({...formData, displayName: e.target.value})}
-                                        className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-3 text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all placeholder-[#69736C]"
+                                        className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 sm:py-3 text-sm sm:text-base text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all placeholder-[#69736C]"
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-[#C5C8C1]">Username</label>
+                                <div className="space-y-1.5 sm:space-y-2">
+                                    <label className="text-xs sm:text-sm font-medium text-[#C5C8C1]">Username</label>
                                     <input 
                                         type="text" 
                                         value={formData.username}
                                         onChange={e => setFormData({...formData, username: e.target.value})}
-                                        className={`w-full bg-[#101814] border rounded-xl px-4 py-3 text-[#F5F1E8] focus:outline-none transition-all placeholder-[#69736C] ${
+                                        className={`w-full bg-[#101814] border rounded-xl px-4 py-2.5 sm:py-3 text-sm sm:text-base text-[#F5F1E8] focus:outline-none transition-all placeholder-[#69736C] ${
                                             usernameStatus === 'taken' 
                                                 ? 'border-[#C97878]/50 focus:border-[#C97878] focus:ring-1 focus:ring-[#C97878]' 
                                                 : 'border-[#29342E] focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40'
@@ -296,34 +296,34 @@ export default function ProfileSettings() {
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-[#C5C8C1]">Headline</label>
+                            <div className="space-y-1.5 sm:space-y-2">
+                                <label className="text-xs sm:text-sm font-medium text-[#C5C8C1]">Headline</label>
                                 <input 
                                     type="text" 
                                     value={formData.headline}
                                     onChange={e => setFormData({...formData, headline: e.target.value})}
-                                    className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-3 text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all placeholder-[#69736C]"
+                                    className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 sm:py-3 text-sm sm:text-base text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all placeholder-[#69736C]"
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-[#C5C8C1]">Email Address (Read-only)</label>
+                            <div className="space-y-1.5 sm:space-y-2">
+                                <label className="text-xs sm:text-sm font-medium text-[#C5C8C1]">Email Address (Read-only)</label>
                                 <input 
                                     type="email" 
                                     value={user.email}
                                     readOnly
-                                    className="w-full bg-[#151D19] border border-[#202A25] rounded-xl px-4 py-3 text-[#69736C] cursor-not-allowed"
+                                    className="w-full bg-[#151D19] border border-[#202A25] rounded-xl px-4 py-2.5 sm:py-3 text-sm sm:text-base text-[#69736C] cursor-not-allowed"
                                 />
                                 <p className="text-xs text-[#69736C]">Your email is managed by your authentication provider.</p>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-[#C5C8C1]">About / Bio</label>
+                            <div className="space-y-1.5 sm:space-y-2">
+                                <label className="text-xs sm:text-sm font-medium text-[#C5C8C1]">About / Bio</label>
                                 <textarea 
                                     value={formData.bioText}
                                     onChange={e => setFormData({...formData, bioText: e.target.value})}
                                     rows={5}
-                                    className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-3 text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all resize-none placeholder-[#69736C]"
+                                    className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 sm:py-3 text-sm sm:text-base text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all resize-none placeholder-[#69736C]"
                                     placeholder="Tell us a little bit about yourself..."
                                 />
                             </div>
@@ -373,26 +373,26 @@ export default function ProfileSettings() {
                                 <label className="text-sm font-medium text-[#C5C8C1] block">Links</label>
                                 <div className="space-y-3">
                                     {formData.links.map((link, idx) => (
-                                        <div key={idx} className="flex items-center gap-3 bg-[#101814] border border-[#202A25] rounded-xl p-2 pl-4">
-                                            <div className="flex-1 text-sm text-[#F5F1E8] font-medium">{link.title || link.label || link.url}</div>
-                                            <div className="flex-[2] text-sm text-[#8C958E] truncate">{link.url}</div>
+                                        <div key={idx} className="flex items-center gap-2 sm:gap-3 bg-[#101814] border border-[#202A25] rounded-xl p-2.5 pl-3 sm:pl-4">
+                                            <div className="flex-1 text-xs sm:text-sm text-[#F5F1E8] font-medium truncate">{link.title || link.label || link.url}</div>
+                                            <div className="flex-[2] text-xs sm:text-sm text-[#8C958E] truncate hidden sm:block">{link.url}</div>
                                             <button 
                                                 type="button" 
                                                 onClick={() => removeLink(idx)}
-                                                className="p-2 text-[#69736C] hover:text-[#C97878] transition-colors rounded-lg hover:bg-[#321C1C]/30 cursor-pointer"
+                                                className="p-1.5 sm:p-2 text-[#69736C] hover:text-[#C97878] transition-colors rounded-lg hover:bg-[#321C1C]/30 cursor-pointer shrink-0"
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>
                                     ))}
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 sm:gap-3">
                                         <input 
                                             type="text" 
                                             value={newLink.title}
                                             onChange={e => setNewLink({...newLink, title: e.target.value})}
                                             onKeyDown={handleLinkKeyDown}
                                             placeholder="Title (e.g. GitHub, LinkedIn, Website)"
-                                            className="flex-1 bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 text-sm text-[#F5F1E8] focus:outline-none focus:border-[#789181] transition-all placeholder-[#69736C]"
+                                            className="w-full sm:flex-1 bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 text-sm text-[#F5F1E8] focus:outline-none focus:border-[#789181] transition-all placeholder-[#69736C]"
                                         />
                                         <input 
                                             type="url" 
@@ -400,15 +400,16 @@ export default function ProfileSettings() {
                                             onChange={e => setNewLink({...newLink, url: e.target.value})}
                                             onKeyDown={handleLinkKeyDown}
                                             placeholder="URL (https://...)"
-                                            className="flex-[2] bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 text-sm text-[#F5F1E8] focus:outline-none focus:border-[#789181] transition-all placeholder-[#69736C]"
+                                            className="w-full sm:flex-[2] bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 text-sm text-[#F5F1E8] focus:outline-none focus:border-[#789181] transition-all placeholder-[#69736C]"
                                         />
                                         <button 
                                             type="button" 
                                             onClick={addLink}
                                             disabled={!newLink.title.trim() || !newLink.url.trim()}
-                                            className="p-2.5 bg-[#151D19] border border-[#29342E] rounded-xl text-[#8C958E] hover:text-[#F5F1E8] hover:border-[#789181] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                                            className="w-full sm:w-auto p-2.5 bg-[#151D19] border border-[#29342E] rounded-xl text-[#8C958E] hover:text-[#F5F1E8] hover:border-[#789181] transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-1.5"
                                         >
                                             <Plus className="w-5 h-5" />
+                                            <span className="sm:hidden text-xs font-semibold">Add Link</span>
                                         </button>
                                     </div>
                                 </div>
@@ -418,7 +419,7 @@ export default function ProfileSettings() {
                                 <label className="text-sm font-medium text-[#C5C8C1] block">Interests</label>
                                 <div className="flex flex-wrap gap-2 mb-3">
                                     {formData.interests.map((interest, idx) => (
-                                        <div key={idx} className="flex items-center gap-1.5 px-3 py-1.5 bg-[#163326] border border-[#214C37] rounded-lg text-[#D8C7A5] text-sm">
+                                        <div key={idx} className="flex items-center gap-1.5 px-3 py-1.5 bg-[#163326] border border-[#214C37] rounded-lg text-[#D8C7A5] text-xs sm:text-sm">
                                             {interest}
                                             <button type="button" onClick={() => removeInterest(interest)} className="hover:text-[#F5F1E8] transition-colors cursor-pointer">
                                                 <X className="w-3.5 h-3.5" />
@@ -432,7 +433,7 @@ export default function ProfileSettings() {
                                     onChange={e => setNewInterest(e.target.value)}
                                     onKeyDown={addInterest}
                                     placeholder="Type an interest and press Enter (e.g. AI, SaaS, Web3)"
-                                    className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-3 text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all placeholder-[#69736C]"
+                                    className="w-full bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 sm:py-3 text-sm sm:text-base text-[#F5F1E8] focus:outline-none focus:border-[#789181] focus:ring-1 focus:ring-[#789181]/40 transition-all placeholder-[#69736C]"
                                 />
                             </div>
 
@@ -440,7 +441,7 @@ export default function ProfileSettings() {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="px-6 py-3 bg-[#D8C7A5] hover:bg-[#E5D5B5] text-[#1A1A16] rounded-xl font-semibold shadow-[0_0_20px_rgba(216,199,165,0.25)] hover:shadow-[0_0_30px_rgba(216,199,165,0.35)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                                    className="w-full sm:w-auto px-6 py-3 bg-[#D8C7A5] hover:bg-[#E5D5B5] text-[#1A1A16] rounded-xl font-semibold shadow-[0_0_20px_rgba(216,199,165,0.25)] hover:shadow-[0_0_30px_rgba(216,199,165,0.35)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-center justify-center"
                                 >
                                     {loading ? "Saving..." : "Save Profile"}
                                 </button>
