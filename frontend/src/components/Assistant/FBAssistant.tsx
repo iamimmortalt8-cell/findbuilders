@@ -34,10 +34,10 @@ if (typeof document !== 'undefined' && !document.getElementById(STYLE_ID)) {
 }
 
 const SUGGESTED_PROMPTS = [
-  "How does FindBuilders work?",
-  "How do I submit a product?",
-  "How do I find builders?",
-  "Can I contact the team?"
+  { text: "How does FindBuilders work?", icon: "📄" },
+  { text: "How do I submit a product?", icon: "🚀" },
+  { text: "How do I find builders?", icon: "🔍" },
+  { text: "Can I contact the team?", icon: "❓" }
 ];
 
 const MESSAGES = [
@@ -64,7 +64,7 @@ export default function FBAssistant() {
       );
       if (isRefresh) {
         localStorage.removeItem(STORAGE_KEY);
-        return { messages: [{ role: 'assistant', content: '👋 Hey there! How can I help you today?' }], showSupport: false };
+        return { messages: [], showSupport: false };
       }
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
@@ -74,7 +74,7 @@ export default function FBAssistant() {
         }
       }
     } catch { /* ignore */ }
-    return { messages: [{ role: 'assistant', content: '👋 Hey there! How can I help you today?' }], showSupport: false };
+    return { messages: [], showSupport: false };
   }
 
   const savedState = loadSavedState();
@@ -190,23 +190,29 @@ export default function FBAssistant() {
             className="mb-4 w-[calc(100vw-32px)] sm:w-[320px] h-[480px] max-h-[calc(100vh-100px)] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-[#1B2520] border-b border-[#202A25]">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-[#214C37]/20 border border-[#2E6549] flex items-center justify-center text-[#7FAF8D]">
-                  <Bot className="w-4 h-4" />
+            <div className="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-3.5 border-b border-white/5 bg-[#1B2520] shrink-0">
+              <div className="flex items-center space-x-2 sm:space-x-3">
+                <div className="relative">
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-[#151D19] rounded-xl border border-white/10 shadow-sm">
+                    <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-5 h-5 sm:w-6 sm:h-6 object-contain relative z-10" />
+                    <div className="absolute -bottom-0.5 -left-0.5 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full opacity-50" />
+                  </div>
+                  <div className="absolute -bottom-1 -right-1 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-[#7FAF8D] border-2 border-[#1B2520] rounded-full"></div>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-[#F5F1E8]">FindBuilders AI ✨</h3>
-                  <p className="text-[10px] text-[#7FAF8D] flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#7FAF8D] animate-pulse" />
-                    Online
-                  </p>
+                  <h3 className="text-[#F5F1E8] font-semibold text-sm">FindBuilders AI</h3>
+                  <div className="flex items-center text-xs text-[#8C958E]">
+                    <span>Your Project Guide</span>
+                    <span className="mx-1.5">•</span>
+                    <span className="text-[#7FAF8D]">Online</span>
+                  </div>
                 </div>
               </div>
               <button
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsOpen(false); }}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#202B25] transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-full text-[#8C958E] hover:text-[#F5F1E8] hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                 type="button"
+                aria-label="Close Assistant"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -214,6 +220,31 @@ export default function FBAssistant() {
 
             {/* Chat Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#29342E] scrollbar-track-transparent">
+              {messages.length === 0 && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-[#1B2520] border border-white/5 rounded-xl p-4 sm:p-5 text-sm shadow-md"
+                >
+                  <p className="font-medium text-[#F5F1E8] mb-4">
+                    👋 Hi! Welcome to FindBuilders.
+                  </p>
+                  <p className="text-[#8C958E] mb-2">I can help you get started:</p>
+                  <ul className="space-y-2 text-[#F5F1E8] mb-6">
+                    <li className="flex items-center gap-2">
+                      <span className="text-base">🚀</span> How to launch a product
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-base">🔍</span> How to find builders
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-base">🤝</span> Connecting with others
+                    </li>
+                  </ul>
+                  <p className="font-medium text-[#F5F1E8]">What would you like to know?</p>
+                </motion.div>
+              )}
+
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
@@ -312,10 +343,10 @@ export default function FBAssistant() {
                 {SUGGESTED_PROMPTS.map((p, i) => (
                   <button
                     key={i}
-                    onClick={() => handleSend(p)}
-                    className="text-[11px] px-2.5 py-1 rounded-full border border-[#29342E] text-[#C5C8C1] hover:text-[#F5F1E8] hover:border-[#789181] hover:bg-[#1B2520] transition-colors text-left"
+                    onClick={() => handleSend(p.text)}
+                    className="text-[11px] px-2.5 py-1 rounded-full border border-[#29342E] text-[#C5C8C1] hover:text-[#F5F1E8] hover:border-[#789181] hover:bg-[#1B2520] transition-colors text-left flex items-center gap-1.5"
                   >
-                    {p}
+                    <span>{p.icon}</span> {p.text.replace('How do I ', '').replace('How does ', '').replace('Can I ', '').replace('?', '')}
                   </button>
                 ))}
               </div>
@@ -385,26 +416,18 @@ export default function FBAssistant() {
 
             {/* Core Head */}
             <motion.div
-              className="relative w-7 h-7 sm:w-9 sm:h-9 bg-gradient-to-br from-[#1B2520] to-[#151D19] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#2E6549]/50 z-10"
+              className="relative w-8 h-8 sm:w-10 sm:h-10 bg-[#151D19] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#2E6549]/50 z-10"
               animate={isHovered ? { rotateX: 15, rotateY: 20 } : { rotateX: 0, rotateY: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Inner Face/Screen */}
-              <div className="w-5 h-4 sm:w-7 sm:h-5 bg-black rounded-lg flex items-center justify-center space-x-0.5 sm:space-x-1 border border-[#2E6549]/30 overflow-hidden relative">
-                {/* Scanner/breathing effect inside screen */}
-                <div className="absolute inset-0 bg-[#7FAF8D]/10 fb-breathe" />
-
-                {/* Eyes */}
-                <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#7FAF8D] rounded-full shadow-[0_0_8px_rgba(127,175,141,0.6)] ${isHovered ? '' : 'fb-blink'}`} />
-                <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#7FAF8D] rounded-full shadow-[0_0_8px_rgba(127,175,141,0.6)] ${isHovered ? '' : 'fb-blink'}`} />
-              </div>
+              <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-4 h-4 sm:w-5 sm:h-5 object-contain" />
             </motion.div>
 
             {/* Floating Left Hand */}
-            <div className={`absolute -left-1 top-4 w-2 h-3 bg-[#1B2520] rounded-full border border-[#2E6549]/30 z-20 shadow-[0_0_8px_rgba(127,175,141,0.1)] ${isHovered ? '' : 'fb-hand-left'}`} />
+            <div className={`absolute -left-1 top-5 w-2 h-3 bg-[#1B2520] rounded-full border border-[#2E6549]/30 z-20 shadow-[0_0_8px_rgba(127,175,141,0.1)] ${isHovered ? '' : 'fb-hand-left'}`} />
 
             {/* Floating Right Hand */}
-            <div className={`absolute -right-1 top-4 w-2 h-3 bg-[#1B2520] rounded-full border border-[#2E6549]/30 z-0 shadow-[0_0_8px_rgba(127,175,141,0.1)] ${isHovered ? '' : 'fb-hand-right'}`} />
+            <div className={`absolute -right-1 top-5 w-2 h-3 bg-[#1B2520] rounded-full border border-[#2E6549]/30 z-0 shadow-[0_0_8px_rgba(127,175,141,0.1)] ${isHovered ? '' : 'fb-hand-right'}`} />
           </div>
         </motion.button>
       </div>
