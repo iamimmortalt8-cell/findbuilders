@@ -76,8 +76,7 @@ export default function ProfileCompletionModal() {
           aria-labelledby="profile-completion-title"
         >
           {/* Subtle ambient glows */}
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-52 h-24 bg-[#214C37]/30 blur-3xl rounded-full pointer-events-none" />
-          <div className="absolute top-0 right-1/4 w-32 h-16 bg-[#D8C7A5]/10 blur-2xl rounded-full pointer-events-none" />
+          
 
           {/* Close button */}
           <button
@@ -109,15 +108,13 @@ export default function ProfileCompletionModal() {
 
           {/* Description */}
           <p className="text-xs sm:text-sm text-[#8C958E] leading-relaxed mb-4">
-            Complete your profile so other builders can discover what you do,
-            your skills, interests, and experience. A complete profile can also
-            help you get matched with relevant builders and opportunities.
-          </p>
+  Add your skills, interests, and experience so other builders can discover you and you can find better matches.
+</p>
 
           {/* Highlight Callout */}
           <div className="p-3 sm:p-3.5 rounded-2xl bg-[#101814] border border-[#202A25] text-xs font-medium text-[#D8C7A5] flex items-center gap-2.5 mb-6 shadow-inner">
             <Sparkles className="w-4 h-4 text-[#D8C7A5] shrink-0" />
-            <span>Complete your profile to get discovered and find better builder matches.</span>
+            <span>Complete your profile to get discovered and matched with relevant builders.</span>
           </div>
 
           {/* Actions */}
