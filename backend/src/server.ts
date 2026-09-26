@@ -9,6 +9,8 @@ import categoryRoutes from './routes/categories.js';
 import productRoutes from './routes/products.js';
 import adminRoutes from './routes/admin.js';
 import accountRoutes from './routes/account.js';
+import supportRoutes from './routes/support.js';
+import aiRoutes from './routes/ai.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -69,6 +71,8 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/account', accountRoutes);
+app.use('/api/support', supportRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

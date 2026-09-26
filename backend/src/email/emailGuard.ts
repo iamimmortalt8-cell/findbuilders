@@ -3,7 +3,7 @@ import path from 'path';
 import { supabaseAdmin } from '../lib/supabase.js';
 import { isEmailEnabled } from './emailConfig.js';
 
-export type EmailEventType = 'WELCOME' | 'PRODUCT_SUBMITTED' | 'PRODUCT_APPROVED' | 'PRODUCT_REJECTED';
+export type EmailEventType = 'WELCOME' | 'PRODUCT_SUBMITTED' | 'PRODUCT_APPROVED' | 'PRODUCT_REJECTED' | 'SUPPORT_REQUEST';
 export type EmailEventStatus = 'PENDING' | 'SENDING' | 'SENT' | 'FAILED';
 
 export interface EmailEvent {
@@ -80,7 +80,7 @@ export class EmailGuard {
         .from('email_events')
         .insert({
           event_key: eventKey,
-          event_type: eventType,
+          event_type: eventType as any,
           recipient,
           status: 'SENDING',
           metadata,

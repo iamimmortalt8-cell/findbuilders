@@ -330,6 +330,21 @@ class ApiClient {
     return this.request(`/admin/products/${id}`, { method: 'DELETE' });
   }
 
+  // AI & Support
+  async sendAIChat(messages: any[], context?: string): Promise<any> {
+    return this.requestFull('/ai/chat', {
+      method: 'POST',
+      body: JSON.stringify({ messages, context }),
+    });
+  }
+
+  async sendSupportMessage(data: { name: string; email: string; subject: string; message: string }): Promise<{ success: boolean; message?: string; error?: string }> {
+    return this.requestFull('/support/contact', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
 }
 
 import { supabase } from './supabase';

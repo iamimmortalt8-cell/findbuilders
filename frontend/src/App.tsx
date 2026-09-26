@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import ClientLayout from "@/components/ClientLayout";
 import ProfileCompletionModal from "@/components/ProfileCompletionModal";
+import FBAssistant from "@/components/Assistant/FBAssistant";
 
 // Public Pages
 import Home from "@/pages/public/Home";
@@ -40,6 +41,7 @@ function App() {
             }
         >
             <ProfileCompletionModal />
+            <FBAssistant />
             <Routes>
                 {/* Public Routes (with ClientLayout - Navbar + Footer) */}
                 <Route path="/" element={<ClientLayout><Home /></ClientLayout>} />
