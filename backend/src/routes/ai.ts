@@ -51,7 +51,7 @@ router.post('/chat', async (req, res) => {
       });
     }
 
-    const data = await aiResponse.json();
+    const data: any = await aiResponse.json();
     const reply = data.choices[0].message.content;
 
     res.json({
