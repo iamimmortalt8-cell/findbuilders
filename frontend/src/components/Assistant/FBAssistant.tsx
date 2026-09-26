@@ -197,11 +197,13 @@ export default function FBAssistant() {
             <div className="flex items-center justify-between px-4 sm:px-5 py-3 sm:py-3.5 border-b border-white/5 bg-[#1B2520] shrink-0">
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
-                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-[#151D19] rounded-xl border border-white/10 shadow-sm">
-                    <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-5 h-5 sm:w-6 sm:h-6 object-contain relative z-10" />
-                    <div className="absolute -bottom-0.5 -left-0.5 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full opacity-50" />
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
+                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#F5F1E8]/90 relative z-10" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" fill="currentColor" />
+                    </svg>
+                    <div className="absolute -bottom-0.5 -left-0.5 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full opacity-70" />
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-3 h-3 sm:w-3.5 sm:h-3.5 bg-[#7FAF8D] border-2 border-[#1B2520] rounded-full"></div>
+                  <div className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#7FAF8D] border-2 border-[#1B2520] rounded-full"></div>
                 </div>
                 <div>
                   <h3 className="text-[#F5F1E8] font-semibold text-sm">FindBuilders AI</h3>
@@ -247,6 +249,20 @@ export default function FBAssistant() {
                   </ul>
                   <p className="font-medium text-[#F5F1E8]">What would you like to know?</p>
                 </motion.div>
+              )}
+
+              {messages.length === 0 && !showSupport && (
+                <div className="flex flex-wrap gap-1.5 pb-2">
+                  {SUGGESTED_PROMPTS.map((p, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleSend(p.text)}
+                      className="text-[11px] px-2.5 py-1.5 rounded-full border border-[#29342E] text-[#C5C8C1] hover:text-[#F5F1E8] hover:border-[#789181] hover:bg-[#1B2520] transition-colors text-left flex items-center gap-1.5 shadow-sm"
+                    >
+                      <span>{p.icon}</span> {p.text.replace('How do I ', '').replace('How does ', '').replace('Can I ', '').replace('?', '')}
+                    </button>
+                  ))}
+                </div>
               )}
 
               {messages.map((msg, i) => (
@@ -341,21 +357,6 @@ export default function FBAssistant() {
               <div ref={chatEndRef} />
             </div>
 
-            {/* Suggested Prompts */}
-            {!showSupport && messages.length < 3 && (
-              <div className="px-4 pb-2 flex flex-wrap gap-1.5">
-                {SUGGESTED_PROMPTS.map((p, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleSend(p.text)}
-                    className="text-[11px] px-2.5 py-1 rounded-full border border-[#29342E] text-[#C5C8C1] hover:text-[#F5F1E8] hover:border-[#789181] hover:bg-[#1B2520] transition-colors text-left flex items-center gap-1.5"
-                  >
-                    <span>{p.icon}</span> {p.text.replace('How do I ', '').replace('How does ', '').replace('Can I ', '').replace('?', '')}
-                  </button>
-                ))}
-              </div>
-            )}
-
             {/* Input Area */}
             <div className="p-4 bg-[#151D19] border-t border-[#202A25]">
               <div className="relative flex items-end gap-2 bg-[#1B2520] border border-[#29342E] rounded-xl p-1 focus-within:border-[#789181] focus-within:ring-1 focus-within:ring-[#789181]/40 transition-all">
@@ -420,11 +421,19 @@ export default function FBAssistant() {
 
             {/* Core Head */}
             <motion.div
-              className="relative w-8 h-8 sm:w-10 sm:h-10 bg-[#151D19] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#2E6549]/50 z-10"
+              className="relative w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[#1B2520] to-[#151D19] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#2E6549]/50 z-10"
               animate={isHovered ? { rotateX: 15, rotateY: 20 } : { rotateX: 0, rotateY: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-4 h-4 sm:w-5 sm:h-5 object-contain" />
+              {/* Inner Face/Screen */}
+              <div className="w-5 h-4 sm:w-7 sm:h-5 bg-black rounded-lg flex items-center justify-center space-x-0.5 sm:space-x-1 border border-[#2E6549]/30 overflow-hidden relative">
+                {/* Scanner/breathing effect inside screen */}
+                <div className="absolute inset-0 bg-[#7FAF8D]/10 fb-breathe" />
+
+                {/* Eyes */}
+                <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#7FAF8D] rounded-full shadow-[0_0_8px_rgba(127,175,141,0.6)] ${isHovered ? '' : 'fb-blink'}`} />
+                <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#7FAF8D] rounded-full shadow-[0_0_8px_rgba(127,175,141,0.6)] ${isHovered ? '' : 'fb-blink'}`} />
+              </div>
             </motion.div>
 
             {/* Floating Left Hand */}
