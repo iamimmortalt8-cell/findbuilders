@@ -4,7 +4,7 @@ import { ProductService } from '../services/productService.js';
 import { verifyToken, requireAdmin, AuthenticatedRequest } from '../middleware/auth.js';
 import { validate } from '../middleware/validation.js';
 import { asyncHandler } from '../middleware/errorHandler.js';
-import { adminApproveSchema, adminRejectSchema, adminUserRoleSchema, productIdSchema, productFiltersSchema } from '../lib/validators.js';
+import { adminApproveSchema, adminRejectSchema, adminUserRoleSchema, productIdSchema, productFiltersSchema, userIdSchema } from '../lib/validators.js';
 
 const router = Router();
 const adminService = new AdminService();
@@ -20,9 +20,19 @@ router.get('/users', verifyToken, requireAdmin, asyncHandler(async (req: Authent
   res.json({ data: users });
 }));
 
+router.get('/users/:id', verifyToken, requireAdmin, validate(userIdSchema), asyncHandler(async (req: AuthenticatedRequest, res) => {
+  const user = await adminService.getUserById(req.params.id);
+  res.json({ data: user });
+}));
+
 router.patch('/users/:id/role', verifyToken, requireAdmin, validate(adminUserRoleSchema), asyncHandler(async (req: AuthenticatedRequest, res) => {
   const user = await adminService.updateUserRole(req.params.id, req.body.role);
   res.json({ data: user, message: 'User role updated' });
+}));
+
+router.put('/users/:id/profile', verifyToken, requireAdmin, validate(userIdSchema), asyncHandler(async (req: AuthenticatedRequest, res) => {
+  const user = await adminService.updateUserProfile(req.params.id, req.body);
+  res.json({ data: user, message: 'Profile updated successfully' });
 }));
 
 router.delete('/users/:id', verifyToken, requireAdmin, validate(productIdSchema), asyncHandler(async (req: AuthenticatedRequest, res) => {

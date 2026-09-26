@@ -286,8 +286,19 @@ class ApiClient {
     return this.request('/admin/stats');
   }
 
-  async getAdminUsers(): Promise<Profile[]> {
+  async getAdminUsers(): Promise<any[]> {
     return this.request('/admin/users');
+  }
+
+  async getAdminUser(userId: string): Promise<any> {
+    return this.request(`/admin/users/${userId}`);
+  }
+
+  async updateAdminUserProfile(userId: string, updates: Record<string, unknown>): Promise<any> {
+    return this.request(`/admin/users/${userId}/profile`, {
+      method: 'PUT',
+      body: JSON.stringify(updates),
+    });
   }
 
   async updateUserRole(userId: string, role: 'user' | 'admin'): Promise<Profile> {
