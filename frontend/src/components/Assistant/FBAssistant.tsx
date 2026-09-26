@@ -84,6 +84,7 @@ export default function FBAssistant() {
   const [messages, setMessages] = useState<Message[]>(savedState.messages);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const isSendingRef = useRef(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const [showSupport, setShowSupport] = useState(savedState.showSupport);
@@ -115,12 +116,11 @@ export default function FBAssistant() {
 
   const handleSend = async (text: string) => {
     const trimmed = text.trim();
-    if (!trimmed || isLoading) return;
+    if (!trimmed || isSendingRef.current) return;
 
-    const newMessages = [...messages, { role: 'user' as const, content: trimmed }];
-    setMessages(newMessages);
-    setInputValue('');
+    isSendingRef.current = true;
     setIsLoading(true);
+    setInputValue('');
 
     const lower = trimmed.toLowerCase();
     const wantsHuman = lower.includes('contact') || lower.includes('human') || lower.includes('support') || lower.includes('feedback') || lower.includes('report');
@@ -129,25 +129,29 @@ export default function FBAssistant() {
       setShowSupport(true);
     }
 
+    const currentMessages = [...messages, { role: 'user' as const, content: trimmed }];
+    setMessages(currentMessages);
+
     try {
       const pageContext = `User is currently on path: ${location.pathname}`;
       const fullContext = `${FINDBUILDERS_CONTEXT}\n\n[CURRENT CONTEXT]\n${pageContext}`;
 
-      const res = await api.sendAIChat(newMessages, fullContext);
+      const res = await api.sendAIChat(currentMessages, fullContext);
       
       let aiContent = res.reply || res.choices?.[0]?.message?.content || res.message || res.answer || "I'm sorry, I couldn't process that.";
       
-      setMessages([...newMessages, { role: 'assistant', content: aiContent }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: aiContent }]);
       
       if (aiContent.toLowerCase().includes('get in touch') || aiContent.toLowerCase().includes('contact the findbuilders team') || aiContent.toLowerCase().includes('fill out the form')) {
          setShowSupport(true);
       }
     } catch (err: any) {
-      setMessages([...newMessages, { 
+      setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: "I'm having a little trouble connecting right now. Please try again in a moment." 
       }]);
     } finally {
+      isSendingRef.current = false;
       setIsLoading(false);
     }
   };
