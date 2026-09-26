@@ -40,9 +40,22 @@ const SUGGESTED_PROMPTS = [
   "Can I contact the team?"
 ];
 
+const MESSAGES = [
+  "👋 Hi there! I'm FindBuilders AI. How can I help you today?",
+  "✨ Looking to launch a product? I'm here to help!",
+  "🚀 Ready to showcase your skills to the world?",
+  "💬 Got a question about finding builders? Ask away!",
+  "💡 Need help with your startup journey?",
+  "🤝 Let's build something amazing together.",
+  "🤔 Stuck somewhere? Just ask me!"
+];
+
 export default function FBAssistant() {
   const STORAGE_KEY = 'fb_assistant_state';
   const location = useLocation();
+
+  const [messageIndex, setMessageIndex] = useState(0);
+  const currentMessage = MESSAGES[messageIndex];
 
   function loadSavedState(): { messages: Message[]; showSupport: boolean } {
     try {
@@ -51,12 +64,17 @@ export default function FBAssistant() {
       );
       if (isRefresh) {
         localStorage.removeItem(STORAGE_KEY);
-        return { messages: [], showSupport: false };
+        return { messages: [{ role: 'assistant', content: '👋 Hey there! How can I help you today?' }], showSupport: false };
       }
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.messages && parsed.messages.length > 0) {
+           return parsed;
+        }
+      }
     } catch { /* ignore */ }
-    return { messages: [], showSupport: false };
+    return { messages: [{ role: 'assistant', content: '👋 Hey there! How can I help you today?' }], showSupport: false };
   }
 
   const savedState = loadSavedState();
@@ -79,6 +97,16 @@ export default function FBAssistant() {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, showSupport]);
+
+  // Randomize message on interval when idle
+  useEffect(() => {
+    if (!isHovered && !isOpen) {
+      const interval = setInterval(() => {
+        setMessageIndex(Math.floor(Math.random() * MESSAGES.length));
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isHovered, isOpen]);
 
   // Persist state
   useEffect(() => {
@@ -186,16 +214,6 @@ export default function FBAssistant() {
 
             {/* Chat Area */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#29342E] scrollbar-track-transparent">
-              {messages.length === 0 && (
-                <div className="text-center py-6">
-                  <div className="w-12 h-12 rounded-2xl bg-[#1B2520] border border-[#202A25] flex items-center justify-center mx-auto mb-3 text-[#D8C7A5]">
-                    <MessageSquare className="w-6 h-6" />
-                  </div>
-                  <h4 className="text-[#F5F1E8] font-medium text-sm mb-1">How can I help? 👋</h4>
-                  <p className="text-[#8C958E] text-xs">Ask me anything about FindBuilders or say "human" for support.</p>
-                </div>
-              )}
-
               {messages.map((msg, i) => (
                 <motion.div
                   key={i}
@@ -327,12 +345,28 @@ export default function FBAssistant() {
         )}
       </AnimatePresence>
 
-      {/* Floating Toggle Button */}
+      {/* Floating Toggle Button & Hover Bubble */}
       <div
         className="relative pointer-events-auto"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        <AnimatePresence>
+          {isHovered && !isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.9, transformOrigin: 'bottom right' }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              className="absolute bottom-full right-0 mb-4 w-56 bg-[#151D19]/90 backdrop-blur-md border border-[#2E6549]/30 rounded-2xl rounded-br-sm px-4 py-3 shadow-xl pointer-events-none"
+            >
+              <p className="text-sm text-[#F5F1E8] font-medium leading-relaxed">
+                {currentMessage}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
           className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7FAF8D]/60"
