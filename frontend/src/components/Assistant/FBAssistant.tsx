@@ -10,6 +10,29 @@ interface Message {
   content: string;
 }
 
+const STYLE_ID = 'fb-anim';
+if (typeof document !== 'undefined' && !document.getElementById(STYLE_ID)) {
+  const style = document.createElement('style');
+  style.id = STYLE_ID;
+  style.textContent = `
+    @keyframes fb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+    @keyframes fb-pulse { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 0.1; transform: scale(0.8); } }
+    @keyframes fb-glow { 0%, 100% { opacity: 0.3; transform: scale(1.1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+    @keyframes fb-breathe { 0%, 100% { opacity: 0.1; } 50% { opacity: 0.4; } }
+    @keyframes fb-blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+    @keyframes fb-hand-left { 0%, 100% { transform: rotate(-20deg) translateY(0); } 50% { transform: rotate(-20deg) translateY(-2px); } }
+    @keyframes fb-hand-right { 0%, 100% { transform: rotate(20deg) translateY(0); } 50% { transform: rotate(20deg) translateY(-2px); } }
+    .fb-float { animation: fb-float 3s ease-in-out infinite; }
+    .fb-pulse { animation: fb-pulse 3s ease-in-out infinite; }
+    .fb-glow { animation: fb-glow 2s ease-in-out infinite; }
+    .fb-breathe { animation: fb-breathe 2s ease-in-out infinite; }
+    .fb-blink { animation: fb-blink 4s ease-in-out infinite; }
+    .fb-hand-left { animation: fb-hand-left 3s ease-in-out infinite 0.2s; }
+    .fb-hand-right { animation: fb-hand-right 3s ease-in-out infinite 0.4s; }
+  `;
+  document.head.appendChild(style);
+}
+
 const SUGGESTED_PROMPTS = [
   "How does FindBuilders work?",
   "How do I submit a product?",
@@ -136,7 +159,7 @@ export default function FBAssistant() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } }}
-            className="mb-4 w-[calc(100vw-32px)] sm:w-[380px] h-[580px] max-h-[calc(100vh-100px)] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+            className="mb-4 w-[calc(100vw-32px)] sm:w-[320px] h-[480px] max-h-[calc(100vh-100px)] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 bg-[#1B2520] border-b border-[#202A25]">
@@ -174,17 +197,22 @@ export default function FBAssistant() {
               )}
 
               {messages.map((msg, i) => (
-                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
                   <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
+                    className={`max-w-[85%] rounded-2xl px-3 py-2 sm:px-4 sm:py-3 text-xs sm:text-sm shadow-md whitespace-pre-wrap leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-[#2E6549] text-white rounded-tr-sm'
+                        ? 'bg-[#2E6549] text-[#F5F1E8] rounded-tr-sm'
                         : 'bg-[#1B2520] text-[#F5F1E8] border border-[#202A25] rounded-tl-sm'
                     }`}
                   >
                     {msg.content}
                   </div>
-                </div>
+                </motion.div>
               ))}
 
               {isLoading && (
@@ -300,14 +328,52 @@ export default function FBAssistant() {
       </AnimatePresence>
 
       {/* Floating Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
+      <div
+        className="relative pointer-events-auto"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="pointer-events-auto flex items-center justify-center w-12 h-12 rounded-full bg-[#1B2520] border-2 border-[#2E6549] text-[#7FAF8D] shadow-lg hover:shadow-[0_0_20px_rgba(46,101,73,0.3)] hover:scale-105 transition-all duration-300"
       >
-        <Bot className="w-5 h-5" />
-      </button>
+        <motion.button
+          onClick={() => setIsOpen(!isOpen)}
+          className="relative w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7FAF8D]/60"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          aria-label="Open AI Assistant"
+        >
+          {/* Floor Shadow */}
+          <div className={`absolute bottom-1 w-6 h-1 sm:w-8 sm:h-1.5 bg-[#0A0E0C] rounded-[100%] blur-[2px] ${isHovered ? '' : 'fb-pulse'}`} />
+
+          {/* Avatar Container */}
+          <div className={`relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center ${isHovered ? '' : 'fb-float'}`}>
+            {/* Glowing Backdrop */}
+            <div className={`absolute inset-0 bg-[#7FAF8D]/20 rounded-full blur-xl ${isHovered ? '' : 'fb-glow'}`} />
+
+            {/* Core Head */}
+            <motion.div
+              className="relative w-7 h-7 sm:w-9 sm:h-9 bg-gradient-to-br from-[#1B2520] to-[#151D19] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#2E6549]/50 z-10"
+              animate={isHovered ? { rotateX: 15, rotateY: 20 } : { rotateX: 0, rotateY: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {/* Inner Face/Screen */}
+              <div className="w-5 h-4 sm:w-7 sm:h-5 bg-black rounded-lg flex items-center justify-center space-x-0.5 sm:space-x-1 border border-[#2E6549]/30 overflow-hidden relative">
+                {/* Scanner/breathing effect inside screen */}
+                <div className="absolute inset-0 bg-[#7FAF8D]/10 fb-breathe" />
+
+                {/* Eyes */}
+                <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#7FAF8D] rounded-full shadow-[0_0_8px_rgba(127,175,141,0.6)] ${isHovered ? '' : 'fb-blink'}`} />
+                <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#7FAF8D] rounded-full shadow-[0_0_8px_rgba(127,175,141,0.6)] ${isHovered ? '' : 'fb-blink'}`} />
+              </div>
+            </motion.div>
+
+            {/* Floating Left Hand */}
+            <div className={`absolute -left-1 top-4 w-2 h-3 bg-[#1B2520] rounded-full border border-[#2E6549]/30 z-20 shadow-[0_0_8px_rgba(127,175,141,0.1)] ${isHovered ? '' : 'fb-hand-left'}`} />
+
+            {/* Floating Right Hand */}
+            <div className={`absolute -right-1 top-4 w-2 h-3 bg-[#1B2520] rounded-full border border-[#2E6549]/30 z-0 shadow-[0_0_8px_rgba(127,175,141,0.1)] ${isHovered ? '' : 'fb-hand-right'}`} />
+          </div>
+        </motion.button>
+      </div>
     </div>
   );
 }
