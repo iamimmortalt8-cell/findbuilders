@@ -198,10 +198,7 @@ export default function FBAssistant() {
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
                   <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                    <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#F5F1E8]/90 relative z-10" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" fill="currentColor" />
-                    </svg>
-                    <div className="absolute -bottom-0.5 -left-0.5 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full opacity-70" />
+                    <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-7 h-7 sm:w-8 sm:h-8 object-contain relative z-10" />
                   </div>
                   <div className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#7FAF8D] border-2 border-[#1B2520] rounded-full"></div>
                 </div>
