@@ -71,11 +71,11 @@ export default function FBAssistant() {
     setInputValue('');
     setIsLoading(true);
 
-    // If the user explicitly asks for support/human, we can intercept or let the AI do it.
-    // For safety, let's do a basic keyword check as a fallback, but rely mostly on the AI.
     const lower = trimmed.toLowerCase();
-    if (lower.includes('contact the team') || lower.includes('human') || lower.includes('support form')) {
-       // We'll let the AI respond, but we can also trigger support.
+    const wantsHuman = lower.includes('contact') || lower.includes('human') || lower.includes('support') || lower.includes('feedback') || lower.includes('report');
+    
+    if (wantsHuman) {
+      setShowSupport(true);
     }
 
     try {
@@ -94,9 +94,8 @@ export default function FBAssistant() {
     } catch (err: any) {
       setMessages([...newMessages, { 
         role: 'assistant', 
-        content: "I'm having trouble connecting right now. If you need help, you can contact the FindBuilders team below." 
+        content: "I'm having a little trouble connecting right now. Please try again in a moment." 
       }]);
-      setShowSupport(true);
     } finally {
       setIsLoading(false);
     }
@@ -137,7 +136,7 @@ export default function FBAssistant() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } }}
-            className="mb-4 w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+            className="mb-4 w-[calc(100vw-32px)] sm:w-[380px] h-[580px] max-h-[calc(100vh-100px)] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 bg-[#1B2520] border-b border-[#202A25]">
@@ -146,7 +145,7 @@ export default function FBAssistant() {
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-[#F5F1E8]">FindBuilders AI</h3>
+                  <h3 className="text-sm font-semibold text-[#F5F1E8]">FindBuilders AI ✨</h3>
                   <p className="text-[10px] text-[#7FAF8D] flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#7FAF8D] animate-pulse" />
                     Online
@@ -154,8 +153,9 @@ export default function FBAssistant() {
                 </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsOpen(false); }}
                 className="w-8 h-8 flex items-center justify-center rounded-lg text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#202B25] transition-colors"
+                type="button"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -168,8 +168,8 @@ export default function FBAssistant() {
                   <div className="w-12 h-12 rounded-2xl bg-[#1B2520] border border-[#202A25] flex items-center justify-center mx-auto mb-3 text-[#D8C7A5]">
                     <MessageSquare className="w-6 h-6" />
                   </div>
-                  <h4 className="text-[#F5F1E8] font-medium text-sm mb-1">How can I help?</h4>
-                  <p className="text-[#8C958E] text-xs">Ask me anything about FindBuilders.</p>
+                  <h4 className="text-[#F5F1E8] font-medium text-sm mb-1">How can I help? 👋</h4>
+                  <p className="text-[#8C958E] text-xs">Ask me anything about FindBuilders or say "human" for support.</p>
                 </div>
               )}
 
@@ -198,10 +198,10 @@ export default function FBAssistant() {
               )}
 
               {showSupport && (
-                <div className="mt-4 border border-[#202A25] rounded-xl bg-[#101814] p-4">
+                <div className="mt-4 border border-[#202A25] rounded-xl bg-[#101814] p-4 shrink-0 max-h-72 overflow-y-auto scrollbar-thin scrollbar-thumb-[#29342E] scrollbar-track-transparent">
                   <h4 className="text-sm font-semibold text-[#F5F1E8] mb-1 flex items-center gap-2">
                     <Mail className="w-4 h-4 text-[#D8C7A5]" />
-                    Contact Team
+                    Contact Team 🤝
                   </h4>
                   <p className="text-xs text-[#8C958E] mb-4">Send a message directly to the FindBuilders founders.</p>
                   
@@ -304,9 +304,9 @@ export default function FBAssistant() {
         onClick={() => setIsOpen(!isOpen)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="pointer-events-auto flex items-center justify-center w-14 h-14 rounded-full bg-[#151D19] border-2 border-[#2E6549] text-[#D8C7A5] shadow-lg hover:shadow-[0_0_20px_rgba(46,101,73,0.4)] hover:scale-105 transition-all duration-300"
+        className="pointer-events-auto flex items-center justify-center w-12 h-12 rounded-full bg-[#1B2520] border-2 border-[#2E6549] text-[#7FAF8D] shadow-lg hover:shadow-[0_0_20px_rgba(46,101,73,0.3)] hover:scale-105 transition-all duration-300"
       >
-        <Bot className="w-6 h-6" />
+        <Bot className="w-5 h-5" />
       </button>
     </div>
   );
