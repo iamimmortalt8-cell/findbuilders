@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, UserCheck, X, ArrowRight } from "lucide-react";
+import { UserCheck, X, ArrowRight } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import {
   shouldShowProfileOnboarding,
@@ -113,7 +113,7 @@ export default function ProfileCompletionModal() {
 
           {/* Highlight Callout */}
           <div className="p-3 sm:p-3.5 rounded-2xl bg-[#101814] border border-[#202A25] text-xs font-medium text-[#D8C7A5] flex items-center gap-2.5 mb-6 shadow-inner">
-            <Sparkles className="w-4 h-4 text-[#D8C7A5] shrink-0" />
+            <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-4 h-4 shrink-0 object-contain" />
             <span>Complete your profile to get discovered and matched with relevant builders.</span>
           </div>
 
