@@ -84,7 +84,7 @@ export default function FBAssistant() {
 
       const res = await api.sendAIChat(newMessages, fullContext);
       
-      let aiContent = res.choices?.[0]?.message?.content || res.message || res.answer || "I'm sorry, I couldn't process that.";
+      let aiContent = res.reply || res.choices?.[0]?.message?.content || res.message || res.answer || "I'm sorry, I couldn't process that.";
       
       setMessages([...newMessages, { role: 'assistant', content: aiContent }]);
       

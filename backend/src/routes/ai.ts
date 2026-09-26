@@ -3,54 +3,74 @@ import { Router } from 'express';
 const router = Router();
 
 router.post('/chat', async (req, res) => {
+  const requestId = (req as any).requestId || 'unknown';
   try {
     const { messages, context } = req.body;
 
     if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: 'Messages array is required.' });
+      return res.status(400).json({ error: 'Messages array is required.', requestId });
     }
 
-    const aiApiUrl = process.env.AI_API_URL;
-    const aiApiKey = process.env.AI_API_KEY;
-
-    if (!aiApiUrl || !aiApiKey) {
-      return res.status(503).json({ error: 'AI API is not configured on the server.' });
+    const apiKey = process.env.FB_API_KEY;
+    if (!apiKey) {
+      return res.json({
+        success: true,
+        reply: "Hello! I am currently running in offline mode because FB_API_KEY is not configured. However, I can see your message! " + (messages[messages.length - 1]?.content || ""),
+        requestId
+      });
     }
 
-    // Construct the payload based on standard OpenAI format, prepending the system context.
-    const systemPrompt = {
-      role: 'system',
-      content: context || 'You are a helpful assistant for FindBuilders.'
-    };
+    const systemContent = context || 'You are a helpful assistant for FindBuilders.';
 
-    const payload = {
-      model: process.env.AI_API_MODEL || 'gpt-4o-mini', // Configurable model or fallback
-      messages: [systemPrompt, ...messages],
-      temperature: 0.7,
-      max_tokens: 500,
-    };
+    const apiMessages = [
+      { role: 'system', content: systemContent },
+      ...messages
+    ];
 
-    const response = await fetch(aiApiUrl, {
+    const aiResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${aiApiKey}`
+        'Authorization': `Bearer ${apiKey}`,
+        'HTTP-Referer': 'https://findbuilders.pages.dev',
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        model: 'google/gemini-2.5-flash',
+        messages: apiMessages,
+        temperature: 0.3,
+        max_tokens: 500
+      })
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('[AI API Error from Provider]:', response.status, errorText);
-      return res.status(response.status).json({ error: 'AI provider error.' });
+    if (!aiResponse.ok) {
+      console.warn(`[AI API Error]: ${aiResponse.status}`, { requestId });
+      return res.json({
+        success: true,
+        reply: "I'm sorry, I'm having trouble connecting to my AI brain right now. If you need help, you can contact the FindBuilders team below.",
+        requestId
+      });
     }
 
-    const data = await response.json();
-    
-    res.json(data);
+    const data = await aiResponse.json();
+    const reply = data.choices[0].message.content;
+
+    res.json({
+      success: true,
+      reply,
+      requestId
+    });
+
   } catch (error: any) {
-    console.error('[AI Route Error]:', error);
-    res.status(500).json({ error: 'Internal server error.' });
+    if (error.name === 'AbortError') {
+      console.warn('AI Chat timed out', { requestId });
+      return res.json({
+        success: true,
+        reply: "I'm sorry, I took too long to respond. Please try again. If you need help, you can contact the FindBuilders team below.",
+        requestId
+      });
+    }
+    console.error('AI Chat Error', error);
+    res.status(500).json({ success: false, message: 'An unexpected error occurred', requestId });
   }
 });
 
