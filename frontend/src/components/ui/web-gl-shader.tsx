@@ -41,6 +41,7 @@ export function WebGLShader({ className }: { className?: string } = {}) {
       uniform float xScale;
       uniform float yScale;
       uniform float distortion;
+      uniform float yOffset;
 
       void main() {
         vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
@@ -51,9 +52,9 @@ export function WebGLShader({ className }: { className?: string } = {}) {
         float gx = p.x;
         float bx = p.x * (1.0 - d);
 
-        float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
-        float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
-        float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
+        float r = 0.05 / abs(p.y + yOffset + sin((rx + time) * xScale) * yScale);
+        float g = 0.05 / abs(p.y + yOffset + sin((gx + time) * xScale) * yScale);
+        float b = 0.05 / abs(p.y + yOffset + sin((bx + time) * xScale) * yScale);
         
         gl_FragColor = vec4(r, g, b, 1.0);
       }
@@ -72,8 +73,9 @@ export function WebGLShader({ className }: { className?: string } = {}) {
                 resolution: { value: [window.innerWidth, window.innerHeight] },
                 time: { value: 0.0 },
                 xScale: { value: 1.0 },
-                yScale: { value: 0.5 },
+                yScale: { value: 0.38 },
                 distortion: { value: 0.05 },
+                yOffset: { value: 0.22 },
             }
 
             const position = [
