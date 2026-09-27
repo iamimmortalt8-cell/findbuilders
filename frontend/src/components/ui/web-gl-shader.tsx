@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useLayoutEffect, useRef } from "react"
 import * as THREE from "three"
 
 export function WebGLShader() {
@@ -21,7 +21,7 @@ export function WebGLShader() {
         animationId: null,
     })
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!canvasRef.current) return
 
         const canvas = canvasRef.current
@@ -62,7 +62,8 @@ export function WebGLShader() {
         const initScene = () => {
             refs.scene = new THREE.Scene()
             refs.renderer = new THREE.WebGLRenderer({ canvas })
-            refs.renderer.setPixelRatio(window.devicePixelRatio)
+            const dpr = Math.min(window.devicePixelRatio || 1, 2)
+            refs.renderer.setPixelRatio(dpr)
             refs.renderer.setClearColor(new THREE.Color(0x000000))
 
             refs.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1)
@@ -111,19 +112,29 @@ export function WebGLShader() {
 
         const handleResize = () => {
             if (!refs.renderer || !refs.uniforms) return
-            const width = window.innerWidth
-            const height = window.innerHeight
+            const rect = canvas.getBoundingClientRect()
+            const width = rect.width
+            const height = rect.height
+            const dpr = Math.min(window.devicePixelRatio || 1, 2)
             refs.renderer.setSize(width, height, false)
+            refs.renderer.setPixelRatio(dpr)
             refs.uniforms.resolution.value = [width, height]
         }
 
         initScene()
-        animate()
+        // Ensure first resize after layout stabilises
+        requestAnimationFrame(() => {
+          handleResize()
+          animate()
+        })
+        const ro = new ResizeObserver(handleResize)
+        ro.observe(canvas)
         window.addEventListener("resize", handleResize)
 
         return () => {
             if (refs.animationId) cancelAnimationFrame(refs.animationId)
             window.removeEventListener("resize", handleResize)
+            ro.disconnect()
             if (refs.mesh) {
                 refs.scene?.remove(refs.mesh)
                 refs.mesh.geometry.dispose()
