@@ -101,13 +101,13 @@ export function Web3HeroAnimated() {
         <>
             <section
                 ref={heroRef}
-                className="relative min-h-[calc(100dvh-4.5rem)] lg:h-full w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-center py-8 sm:py-12 lg:py-0"
+                className="relative min-h-screen lg:min-h-[calc(100dvh-4.5rem)] w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-center pt-8 sm:pt-12 lg:pt-0 pb-0"
             >
                 {/* ================= HERO CONTENT ================= */}
 
                 <motion.div
                     style={{ y: yParallax, opacity: opacityParallax }}
-                    className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-6 pt-16 pb-8 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-12 flex flex-col justify-center items-center my-auto w-full"
+                    className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-6 pt-16 pb-0 sm:pt-20 sm:pb-0 lg:pt-24 lg:pb-12 flex flex-col justify-center items-center my-auto w-full"
                 >
                     <motion.div
                         style={{ x: mouseX, y: mouseY }}
@@ -168,7 +168,7 @@ export function Web3HeroAnimated() {
 
                 {/* ================= PILLARS ================= */}
 
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[22vh] sm:h-[30vh] overflow-hidden">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[20vh] sm:h-[30vh] overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/70 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-[1px]">
                         {pillars.map((h, i) => (
