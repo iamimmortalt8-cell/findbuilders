@@ -69,13 +69,18 @@ export function WebGLShader({ className }: { className?: string } = {}) {
 
             refs.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1)
 
+            const initW = window.innerWidth
+            const initH = window.innerHeight
+            const baseOffset = 0.14
+            const initYOffset = initW < initH ? baseOffset * (initH / initW) : baseOffset
+
             refs.uniforms = {
-                resolution: { value: [window.innerWidth, window.innerHeight] },
+                resolution: { value: [initW, initH] },
                 time: { value: 0.0 },
                 xScale: { value: 1.0 },
-                yScale: { value: 0.38 },
+                yScale: { value: 0.40 },
                 distortion: { value: 0.05 },
-                yOffset: { value: 0.22 },
+                yOffset: { value: initYOffset },
             }
 
             const position = [
@@ -121,6 +126,10 @@ export function WebGLShader({ className }: { className?: string } = {}) {
             refs.renderer.setSize(width, height, false)
             refs.renderer.setPixelRatio(dpr)
             refs.uniforms.resolution.value = [width, height]
+
+            // Proportional geometric wave offset: keeps the wave at a consistent fraction of hero height
+            const baseOffset = 0.14
+            refs.uniforms.yOffset.value = width < height ? baseOffset * (height / width) : baseOffset
         }
 
         initScene()
@@ -151,7 +160,7 @@ export function WebGLShader({ className }: { className?: string } = {}) {
     return (
         <canvas
             ref={canvasRef}
-            className={className || "absolute inset-0 w-full h-full pointer-events-none -z-10"}
+            className={className || "absolute inset-0 w-full h-full pointer-events-none -z-20"}
         />
     )
 }

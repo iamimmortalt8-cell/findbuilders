@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { WebGLShader } from "@/components/ui/web-gl-shader";
 import { Web3HeroAnimated } from "@/components/ui/animated-web3-landing-page";
 import SEO from "@/components/SEO";
 
@@ -13,9 +12,6 @@ export default function Home() {
                 description="Discover new startup products, developer tools, AI tools, and SaaS apps built by indie makers. Upvote, explore, and launch emerging products on FindBuilders."
                 canonical="/"
             />
-
-            {/* WebGL Background */}
-            <WebGLShader className="absolute inset-0 w-full h-full pointer-events-none -z-10" />
 
             {/* HERO */}
             <div id="home" className="w-full flex-1 flex flex-col">

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { WebGLShader } from "@/components/ui/web-gl-shader";
 
 /* ================= MAGNETIC BUTTON ================= */
 
@@ -67,7 +68,7 @@ export function Web3HeroAnimated() {
         };
     }, []);
 
-    const pillars = [95, 88, 82, 76, 70, 64, 58, 52, 46, 52, 58, 64, 70, 76, 82, 88, 95];
+    const pillars = [94, 88, 82, 76, 72, 68, 64, 60, 56, 60, 64, 68, 72, 76, 82, 88, 94];
     const [isMounted, setIsMounted] = useState(false);
     const heroRef = useRef<HTMLElement>(null);
 
@@ -101,8 +102,11 @@ export function Web3HeroAnimated() {
         <>
             <section
                 ref={heroRef}
-                className="relative min-h-[100dvh] w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-start pt-[calc(5.75rem+env(safe-area-inset-top,0px))] sm:pt-24 lg:pt-28 pb-6 sm:pb-10"
+                className="relative min-h-[100dvh] w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-start pt-[calc(5.75rem+env(safe-area-inset-top,0px))] sm:pt-24 lg:pt-24 pb-6 sm:pb-8"
             >
+                {/* ================= WEBGL BACKGROUND LAYER ================= */}
+                <WebGLShader className="absolute inset-0 w-full h-full pointer-events-none -z-20" />
+
                 {/* ================= HERO CONTENT ================= */}
 
                 <motion.div
@@ -198,7 +202,7 @@ export function Web3HeroAnimated() {
                         ))}
                     </div>
                     {/* Soft bottom grounding fade */}
-                    <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/70 to-transparent pointer-events-none z-10" />
+                    <div className="absolute inset-x-0 bottom-0 h-10 sm:h-12 bg-gradient-to-t from-[#0B100E]/80 to-transparent pointer-events-none z-10" />
                 </div>
             </section>
         </>
