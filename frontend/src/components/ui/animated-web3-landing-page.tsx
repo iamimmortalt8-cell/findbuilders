@@ -68,7 +68,7 @@ export function Web3HeroAnimated() {
         };
     }, []);
 
-    const pillars = [94, 88, 82, 76, 72, 68, 64, 60, 56, 60, 64, 68, 72, 76, 82, 88, 94];
+    const pillars = [56, 62, 68, 74, 78, 82, 86, 90, 94, 90, 86, 82, 78, 74, 68, 62, 56];
     const [isMounted, setIsMounted] = useState(false);
     const heroRef = useRef<HTMLElement>(null);
 
@@ -188,12 +188,12 @@ export function Web3HeroAnimated() {
                 </div>
 
                 {/* ================= PILLARS ================= */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[42vh] sm:h-[44vh] lg:h-[46vh] overflow-hidden">
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[38vh] sm:h-[40vh] lg:h-[42vh] overflow-hidden">
                     <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-[1px]">
                         {pillars.map((h, i) => (
                             <div
                                 key={i}
-                                className="relative flex-1 bg-gradient-to-t from-[#152B20]/95 via-[#214C37]/55 to-[#2E6549]/30 border-t border-[#7FAF8D]/45 sm:border-[#7FAF8D]/35 border-x border-[#2E6549]/20 transition-all duration-1000"
+                                className="relative flex-1 bg-gradient-to-t from-[#152B20]/40 via-[#214C37]/25 to-[#4E8766]/20 border-t border-[#789181]/30 border-x border-[#2E6549]/15 transition-all duration-1000"
                                 style={{
                                     height: isMounted ? `${h}%` : "0%",
                                     transitionDelay: `${Math.abs(i - 8) * 60}ms`,
@@ -202,7 +202,7 @@ export function Web3HeroAnimated() {
                         ))}
                     </div>
                     {/* Soft bottom grounding fade */}
-                    <div className="absolute inset-x-0 bottom-0 h-10 sm:h-12 bg-gradient-to-t from-[#0B100E]/80 to-transparent pointer-events-none z-10" />
+                    <div className="absolute inset-x-0 bottom-0 h-12 sm:h-16 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/70 to-transparent pointer-events-none z-10" />
                 </div>
             </section>
         </>
