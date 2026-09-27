@@ -4,7 +4,6 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "@/components/navbar";
 import { Footer } from "@/components/ui/footer-section";
-import CustomCursor from "@/components/CustomCursor";
 
 export default function ClientLayout({
     children,
@@ -30,7 +29,6 @@ export default function ClientLayout({
 
     return (
         <div className="flex flex-col min-h-screen min-h-[100dvh] relative">
-            <CustomCursor />
             {!isDashboardRoute && <Navbar />}
             <main className="flex-1 flex flex-col w-full relative">{children}</main>
             {!isDashboardRoute && !isHome && <Footer />}

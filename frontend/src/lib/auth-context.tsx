@@ -4,13 +4,44 @@ import { supabase } from "@/lib/supabase";
 import { supabaseProfileService } from "@/lib/supabase-profiles";
 import type { Profile } from "@/lib/types";
 
-const setSupabaseSession = (access_token: string | null, refresh_token: string | null) => {
-  if (access_token && refresh_token) {
-    supabase.auth.setSession({ access_token, refresh_token }).catch(console.error);
-  } else {
-    supabase.auth.signOut().catch(console.error);
+// Safely clean up any stale/corrupted backend JWT erroneously stored in Supabase local storage
+function cleanCorruptedSupabaseSession() {
+  try {
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+    const keys: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k) keys.push(k);
+    }
+    for (const key of keys) {
+      if (key.startsWith('sb-') && key.endsWith('-auth-token')) {
+        const raw = localStorage.getItem(key);
+        if (!raw) continue;
+        try {
+          const parsed = JSON.parse(raw);
+          const token = parsed?.access_token;
+          if (token && typeof token === 'string') {
+            const parts = token.split('.');
+            if (parts.length === 3) {
+              const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+              // Genuine Supabase GoTrue JWTs always have iss containing supabase.co or matching project URL
+              const isGenuineSupabase = typeof payload.iss === 'string' && (payload.iss.includes('supabase.co') || (supabaseUrl && payload.iss.includes(supabaseUrl)));
+              if (!isGenuineSupabase) {
+                // Remove corrupted legacy entry from Supabase storage without touching backend tokens
+                localStorage.removeItem(key);
+                supabase.auth.signOut({ scope: 'local' }).catch(() => {});
+              }
+            }
+          }
+        } catch {
+          localStorage.removeItem(key);
+        }
+      }
+    }
+  } catch {
+    // Non-blocking
   }
-};
+}
 
 interface BackendUser {
   id: string;
@@ -98,7 +129,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const newAccessToken = res.accessToken;
       if (newAccessToken) {
         localStorage.setItem(TOKEN_KEY, newAccessToken);
-        setSupabaseSession(newAccessToken, refreshToken);
         logTokenInfo('Refreshed token saved', newAccessToken, 'api.refreshToken');
         return newAccessToken;
       }
@@ -108,7 +138,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (err?.status >= 400 && err?.status < 500) {
         localStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(REFRESH_TOKEN_KEY);
-        setSupabaseSession(null, null);
       }
       throw err;
     }
@@ -125,25 +154,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const runInit = async () => {
+      cleanCorruptedSupabaseSession();
+
       let token = localStorage.getItem(TOKEN_KEY);
       let refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
 
       // OAuth may land on the Site URL (homepage) instead of /auth/callback when
-      // redirect_to is not allowlisted. If Supabase has a session but we have no
-      // backend tokens, exchange here so the navbar can authenticate.
+      // redirect_to is not allowlisted. If Supabase has a genuine session but we have no
+      // backend tokens, exchange once and prevent infinite loops.
       if (!token && !refreshToken) {
         try {
           const { data: { session }, error: sessionError } = await supabase.auth.getSession();
           if (!sessionError && session?.access_token) {
-            const tokens = await api.exchangeSupabaseToken(session.access_token);
-            if (tokens?.access_token && tokens?.refresh_token) {
-              localStorage.setItem(TOKEN_KEY, tokens.access_token);
-              localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
-              token = tokens.access_token;
-              refreshToken = tokens.refresh_token;
+            const lastAttempted = sessionStorage.getItem('last_exchanged_sb_token');
+            if (lastAttempted !== session.access_token) {
+              sessionStorage.setItem('last_exchanged_sb_token', session.access_token);
+              const tokens = await api.exchangeSupabaseToken(session.access_token);
+              if (tokens?.access_token && tokens?.refresh_token) {
+                localStorage.setItem(TOKEN_KEY, tokens.access_token);
+                localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
+                token = tokens.access_token;
+                refreshToken = tokens.refresh_token;
+              }
             }
           }
-        } catch {
+        } catch (exchangeErr) {
+          console.warn('[Auth] Supabase session exchange failed or unhandled:', exchangeErr);
           // No usable Supabase session; remain signed out.
         }
       }
@@ -177,9 +213,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       try {
-        if (token && refreshToken) {
-          setSupabaseSession(token, refreshToken);
-        }
         logTokenInfo('Calling /me', token, 'active_session');
         const me = await api.getMe();
         setUser({ id: me.id, email: me.email });
@@ -190,9 +223,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           try {
             const newToken = await performTokenRefresh(refreshToken);
             token = newToken;
-            if (token && refreshToken) {
-              setSupabaseSession(token, refreshToken);
-            }
             const retryMe = await api.getMe();
             setUser({ id: retryMe.id, email: retryMe.email });
             await fetchProfile(retryMe.id);
@@ -200,7 +230,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (retryError?.status >= 400 && retryError?.status < 500) {
               localStorage.removeItem(TOKEN_KEY);
               localStorage.removeItem(REFRESH_TOKEN_KEY);
-              setSupabaseSession(null, null);
               setUser(null);
               setProfile(null);
             }
@@ -209,7 +238,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           if (error?.status >= 400 && error?.status < 500) {
             localStorage.removeItem(TOKEN_KEY);
             localStorage.removeItem(REFRESH_TOKEN_KEY);
-            setSupabaseSession(null, null);
             setUser(null);
             setProfile(null);
           }
@@ -235,7 +263,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const tokens = await api.signUp(email, password, displayName);
       localStorage.setItem(TOKEN_KEY, tokens.access_token);
       localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
-      setSupabaseSession(tokens.access_token, tokens.refresh_token);
       const me = await api.getMe();
       setUser({ id: me.id, email: me.email });
       await fetchProfile(me.id);
@@ -250,7 +277,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const tokens = await api.signIn(email, password);
       localStorage.setItem(TOKEN_KEY, tokens.access_token);
       localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
-      setSupabaseSession(tokens.access_token, tokens.refresh_token);
       const me = await api.getMe();
       setUser({ id: me.id, email: me.email });
       await fetchProfile(me.id);
@@ -277,7 +303,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       localStorage.removeItem(TOKEN_KEY);
       localStorage.removeItem(REFRESH_TOKEN_KEY);
-      setSupabaseSession(null, null);
+      sessionStorage.removeItem('last_exchanged_sb_token');
+      supabase.auth.signOut().catch(() => {});
       setUser(null);
       setProfile(null);
     }

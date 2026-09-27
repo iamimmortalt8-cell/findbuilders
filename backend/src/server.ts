@@ -13,6 +13,7 @@ import supportRoutes from './routes/support.js';
 import aiRoutes from './routes/ai.js';
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3001;
 
 app.use(helmet({

@@ -91,14 +91,15 @@ const glassButtonVariants = cva("relative isolate all-unset cursor-pointer round
 const glassButtonTextVariants = cva("glass-button-text relative block select-none tracking-tighter", { variants: { size: { default: "px-6 py-3.5", sm: "px-4 py-2", lg: "px-8 py-4", icon: "flex h-10 w-10 items-center justify-center" } }, defaultVariants: { size: "default" } });
 export interface GlassButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof glassButtonVariants> { contentClassName?: string; }
 const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(
-  ({ className, children, size, contentClassName, onClick, ...props }, ref) => {
+  ({ className, children, size, contentClassName, onClick, disabled, ...props }, ref) => {
     const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (disabled) return;
       const button = e.currentTarget.querySelector('button');
-      if (button && e.target !== button) button.click();
+      if (button && !button.disabled && e.target !== button) button.click();
     };
     return (
-      <div className={cn("glass-button-wrap cursor-pointer rounded-full relative", className)} onClick={handleWrapperClick}>
-        <button className={cn("glass-button relative z-10", glassButtonVariants({ size }))} ref={ref} onClick={onClick} {...props}>
+      <div className={cn("glass-button-wrap cursor-pointer rounded-full relative", disabled && "opacity-60 cursor-not-allowed pointer-events-none", className)} onClick={handleWrapperClick}>
+        <button className={cn("glass-button relative z-10", glassButtonVariants({ size }))} ref={ref} onClick={onClick} disabled={disabled} {...props}>
           <span className={cn(glassButtonTextVariants({ size }), contentClassName)}>{children}</span>
         </button>
         <div className="glass-button-shadow rounded-full pointer-events-none"></div>
@@ -163,6 +164,8 @@ export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilder
   const [authStep, setAuthStep] = useState("email");
   const [modalStatus, setModalStatus] = useState<'closed' | 'loading' | 'error' | 'success'>('closed');
   const [modalErrorMessage, setModalErrorMessage] = useState('');
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const isGoogleSubmittingRef = useRef(false);
   const confettiRef = useRef<ConfettiRef>(null);
 
   const isEmailValid = /\S+@\S+\.\S+/.test(email);
@@ -346,7 +349,31 @@ export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilder
                         <BlurFade delay={0.25 * 1} className="w-full"><div className="text-center"><p className="font-serif font-light text-3xl sm:text-4xl md:text-5xl tracking-tight text-foreground">Get started with Us</p></div></BlurFade>
                         <BlurFade delay={0.25 * 2}><p className="text-xs sm:text-sm font-medium text-muted-foreground">Continue with</p></BlurFade>
                         <BlurFade delay={0.25 * 3} className="w-full"><div className="flex items-center justify-center w-full">
-                            <GlassButton onClick={onGoogleSignIn} contentClassName="flex items-center justify-center gap-2 w-full text-xs sm:text-sm" size="sm"><GoogleIcon /><span className="font-semibold text-foreground">Continue with Google</span></GlassButton>
+                            <GlassButton
+                              disabled={isGoogleLoading}
+                              onClick={async (e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                if (isGoogleSubmittingRef.current || isGoogleLoading) return;
+                                isGoogleSubmittingRef.current = true;
+                                setIsGoogleLoading(true);
+                                try {
+                                  if (onGoogleSignIn) {
+                                    await onGoogleSignIn();
+                                  }
+                                } catch {
+                                  isGoogleSubmittingRef.current = false;
+                                  setIsGoogleLoading(false);
+                                }
+                              }}
+                              contentClassName="flex items-center justify-center gap-2 w-full text-xs sm:text-sm"
+                              size="sm"
+                            >
+                              {isGoogleLoading ? <Loader className="w-4 h-4 animate-spin text-foreground" /> : <GoogleIcon />}
+                              <span className="font-semibold text-foreground">
+                                {isGoogleLoading ? "Connecting..." : "Continue with Google"}
+                              </span>
+                            </GlassButton>
                         </div></BlurFade>
                         <BlurFade delay={0.25 * 4} className="w-full"><div className="flex items-center w-full gap-2 py-2"><hr className="w-full border-border"/><span className="text-xs font-semibold text-muted-foreground">OR</span><hr className="w-full border-border"/></div></BlurFade>
                     </motion.div>}

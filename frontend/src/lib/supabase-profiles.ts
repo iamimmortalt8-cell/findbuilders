@@ -2,6 +2,21 @@ import { supabase } from './supabase';
 import type { Profile, Product } from './types';
 import { api } from './api';
 
+function getAuthUserId(): string | null {
+    const token = localStorage.getItem('access_token');
+    if (!token) return null;
+    try {
+        const parts = token.split('.');
+        if (parts.length === 3) {
+            const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+            return payload.sub || null;
+        }
+    } catch {
+        return null;
+    }
+    return null;
+}
+
 export const supabaseProfileService = {
     // --- Profile Data ---
     async getProfile(userId: string): Promise<Profile | null> {
@@ -114,13 +129,21 @@ export const supabaseProfileService = {
 
     // --- Follow System ---
     async followUser(followingId: string): Promise<void> {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) throw new Error("Not authenticated");
-        if (user.id === followingId) throw new Error("Cannot follow yourself");
+        let userId = getAuthUserId();
+        if (!userId) {
+            try {
+                const { data } = await supabase.auth.getUser();
+                userId = data?.user?.id || null;
+            } catch {
+                // Fallback
+            }
+        }
+        if (!userId) throw new Error("Not authenticated");
+        if (userId === followingId) throw new Error("Cannot follow yourself");
 
         const { error } = await supabase
             .from('follows')
-            .insert({ follower_id: user.id, following_id: followingId });
+            .insert({ follower_id: userId, following_id: followingId });
 
         if (error) {
             if (error.code === '23505') return; // already following
@@ -129,13 +152,21 @@ export const supabaseProfileService = {
     },
 
     async unfollowUser(followingId: string): Promise<void> {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) throw new Error("Not authenticated");
+        let userId = getAuthUserId();
+        if (!userId) {
+            try {
+                const { data } = await supabase.auth.getUser();
+                userId = data?.user?.id || null;
+            } catch {
+                // Fallback
+            }
+        }
+        if (!userId) throw new Error("Not authenticated");
 
         const { error } = await supabase
             .from('follows')
             .delete()
-            .eq('follower_id', user.id)
+            .eq('follower_id', userId)
             .eq('following_id', followingId);
 
         if (error) throw new Error(error.message);

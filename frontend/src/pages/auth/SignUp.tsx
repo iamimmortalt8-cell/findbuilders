@@ -12,6 +12,7 @@ const FindBuildersLogo = () => (
 export default function SignUp() {
   const navigate = useNavigate();
   const { signUp, signInWithGoogle } = useAuth();
+  const isGoogleSubmittingRef = React.useRef(false);
 
   const handleSignUp = async (email: string, password: string) => {
     const { error } = await signUp(email, password, "");
@@ -21,12 +22,25 @@ export default function SignUp() {
     return { error: null };
   };
 
+  const handleGoogleSignIn = async () => {
+    if (isGoogleSubmittingRef.current) return;
+    isGoogleSubmittingRef.current = true;
+    try {
+      const { error } = await signInWithGoogle();
+      if (error) {
+        isGoogleSubmittingRef.current = false;
+      }
+    } catch {
+      isGoogleSubmittingRef.current = false;
+    }
+  };
+
   return (
     <AuthComponent
       logo={<FindBuildersLogo />}
       brandName="FindBuilders"
       onSignUp={handleSignUp}
-      onGoogleSignIn={() => signInWithGoogle()}
+      onGoogleSignIn={handleGoogleSignIn}
       onNavigateToLogin={() => navigate("/login")}
       onSignUpSuccess={() => navigate("/login")}
     />

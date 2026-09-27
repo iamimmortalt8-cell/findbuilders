@@ -160,7 +160,7 @@ export default function AboutFounder() {
               className="text-center md:text-left flex-1"
             >
               <span className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] mb-4 sm:mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#7FAF8D] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#7FAF8D]" />
                 About the Founder
               </span>
 

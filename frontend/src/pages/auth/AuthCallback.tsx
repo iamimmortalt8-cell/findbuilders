@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { api } from "@/lib/api";
@@ -8,15 +8,19 @@ export default function AuthCallback() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { initializeAuth } = useAuth();
+  const hasHandledRef = useRef(false);
 
   useEffect(() => {
+    if (hasHandledRef.current) return;
+    hasHandledRef.current = true;
+
     const handleCallback = async () => {
       const error = searchParams.get('error');
       const errorDescription = searchParams.get('error_description');
 
       if (error) {
         console.error('OAuth error:', error, errorDescription);
-        navigate('/login?error=oauth_failed');
+        navigate('/login?error=oauth_failed', { replace: true });
         return;
       }
 
@@ -37,23 +41,25 @@ export default function AuthCallback() {
 
         if (sessionError) {
           console.error('Session error:', sessionError);
-          navigate('/login?error=oauth_failed');
+          navigate('/login?error=oauth_failed', { replace: true });
           return;
         }
 
         if (session?.access_token) {
           const tokens = await api.exchangeSupabaseToken(session.access_token);
-          localStorage.setItem('access_token', tokens.access_token);
-          localStorage.setItem('refresh_token', tokens.refresh_token);
+          if (tokens?.access_token && tokens?.refresh_token) {
+            localStorage.setItem('access_token', tokens.access_token);
+            localStorage.setItem('refresh_token', tokens.refresh_token);
+          }
           await initializeAuth();
           navigate('/', { replace: true });
         } else {
           console.error('No session found after OAuth');
-          navigate('/login?error=oauth_no_session');
+          navigate('/login?error=oauth_no_session', { replace: true });
         }
       } catch (err) {
         console.error('OAuth callback error:', err);
-        navigate('/login?error=oauth_failed');
+        navigate('/login?error=oauth_failed', { replace: true });
       }
     };
 

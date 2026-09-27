@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { AuthService } from '../services/authService.js';
 import { validate } from '../middleware/validation.js';
 import { asyncHandler } from '../middleware/errorHandler.js';
-import { authLimiter } from '../middleware/rateLimiter.js';
+import { authLimiter, oauthLimiter, exchangeLimiter } from '../middleware/rateLimiter.js';
 import { signUpSchema, signInSchema, refreshTokenSchema, exchangeTokenSchema } from '../lib/validators.js';
 import { AuthenticatedRequest, verifyToken } from '../middleware/auth.js';
 
@@ -21,12 +21,12 @@ router.post('/signin', authLimiter, validate(signInSchema), asyncHandler(async (
   res.json({ data: tokens, message: 'Signed in successfully' });
 }));
 
-router.post('/oauth/google', authLimiter, asyncHandler(async (req, res) => {
+router.post('/oauth/google', oauthLimiter, asyncHandler(async (req, res) => {
   const { url } = await authService.signInWithOAuth('google');
   res.json({ data: { url }, message: 'Redirect to Google OAuth' });
 }));
 
-router.post('/exchange', authLimiter, validate(exchangeTokenSchema), asyncHandler(async (req, res) => {
+router.post('/exchange', exchangeLimiter, validate(exchangeTokenSchema), asyncHandler(async (req, res) => {
   const { supabaseAccessToken } = req.body;
   const tokens = await authService.exchangeSupabaseToken(supabaseAccessToken);
   res.json({ data: tokens, message: 'Token exchanged successfully' });

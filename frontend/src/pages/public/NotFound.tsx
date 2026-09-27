@@ -22,7 +22,7 @@ export default function NotFound() {
       <div className="relative z-10 max-w-2xl mx-auto text-center w-full">
         <Reveal>
           <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs font-semibold uppercase tracking-widest text-[#D8C7A5] mb-6 sm:mb-8">
-            <span className="w-2 h-2 rounded-full bg-[#D8C7A5] animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-[#D8C7A5]" />
             Error 404
           </div>
 

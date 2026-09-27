@@ -6,42 +6,6 @@ import { Menu, X, UserPlus, User } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "@/lib/auth-context";
 
-/* ================= MAGNETIC BUTTON ================= */
-const MagneticButton = ({
-    children,
-    className,
-}: {
-    children: React.ReactNode;
-    className?: string;
-}) => {
-    const ref = React.useRef<HTMLDivElement>(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-
-    const handleMouse = (e: React.MouseEvent) => {
-        if (!ref.current) return;
-        const { clientX, clientY } = e;
-        const { width, height, left, top } = ref.current.getBoundingClientRect();
-        const x = clientX - (left + width / 2);
-        const y = clientY - (top + height / 2);
-        setPosition({ x: x * 0.3, y: y * 0.3 });
-    };
-
-    const reset = () => setPosition({ x: 0, y: 0 });
-
-    return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouse}
-            onMouseLeave={reset}
-            animate={{ x: position.x, y: position.y }}
-            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-            className={className}
-        >
-            {children}
-        </motion.div>
-    );
-};
-
 export default function Navbar() {
     const location = useLocation();
     const { user, profile, signOut } = useAuth();
@@ -87,7 +51,7 @@ export default function Navbar() {
 
     return (
         <>
-            {/* Full-width Navbar with MagneticButton */}
+            {/* Full-width Navbar */}
             <header className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 font-[family-name:var(--font-heading)] pt-[max(0rem,env(safe-area-inset-top))]">
                 <div className="mx-auto max-w-7xl px-3 sm:px-6 py-2.5 sm:py-4">
                     <div
@@ -127,31 +91,27 @@ export default function Navbar() {
 
                         {/* Portal Buttons + Mobile Menu Toggle */}
                         <div className="flex items-center gap-2 sm:gap-3">
-                            {/* Desktop buttons with MagneticButton */}
+                            {/* Desktop buttons */}
                             <div className="hidden md:flex items-center gap-2.5 sm:gap-3">
                                 {user ? (
                                     <>
-                                        <MagneticButton>
-                                            <Link
-                                                to="/builder"
-                                                className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
-                                            >
-                                                My Products
-                                            </Link>
-                                        </MagneticButton>
+                                        <Link
+                                            to="/builder"
+                                            className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
+                                        >
+                                            My Products
+                                        </Link>
                                         <div className="relative profile-dropdown-container">
-                                            <MagneticButton>
-                                                <button
-                                                    onClick={() => setIsProfileOpen(!isProfileOpen)}
-                                                    className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1B2520] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 overflow-hidden shrink-0"
-                                                >
-                                                    {profile?.avatar_url ? (
-                                                        <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
-                                                    ) : (
-                                                        <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#C5C8C1]" />
-                                                    )}
-                                                </button>
-                                            </MagneticButton>
+                                            <button
+                                                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                                className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1B2520] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 overflow-hidden shrink-0 cursor-pointer"
+                                            >
+                                                {profile?.avatar_url ? (
+                                                    <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#C5C8C1]" />
+                                                )}
+                                            </button>
 
                                             <AnimatePresence>
                                                 {isProfileOpen && (
@@ -183,23 +143,19 @@ export default function Navbar() {
                                     </>
                                 ) : (
                                     <>
-                                        <MagneticButton>
-                                            <Link
-                                                to="/login"
-                                                className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
-                                            >
-                                                Sign In
-                                            </Link>
-                                        </MagneticButton>
-                                        <MagneticButton>
-                                            <Link
-                                                to="/signup"
-                                                className="rounded-full bg-[#D8C7A5] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] hover:border-[#E5D5B5] transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_20px_rgba(216,199,165,0.2)]"
-                                            >
-                                                <UserPlus className="w-3.5 h-3.5" />
-                                                Get Started
-                                            </Link>
-                                        </MagneticButton>
+                                        <Link
+                                            to="/login"
+                                            className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
+                                        >
+                                            Sign In
+                                        </Link>
+                                        <Link
+                                            to="/signup"
+                                            className="rounded-full bg-[#D8C7A5] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] hover:border-[#E5D5B5] transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_20px_rgba(216,199,165,0.2)]"
+                                        >
+                                            <UserPlus className="w-3.5 h-3.5" />
+                                            Get Started
+                                        </Link>
                                     </>
                                 )}
                             </div>

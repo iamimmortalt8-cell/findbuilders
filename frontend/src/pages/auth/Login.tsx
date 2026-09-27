@@ -75,16 +75,17 @@ function BlurFade({ children, className, duration = 0.4, delay = 0, yOffset = 6,
 const glassButtonVariants = cva("relative isolate all-unset cursor-pointer rounded-full transition-all", { variants: { size: { sm: "text-sm font-medium", icon: "h-10 w-10" } }, defaultVariants: { size: "sm" } });
 const glassButtonTextVariants = cva("glass-button-text relative block select-none tracking-tighter", { variants: { size: { sm: "px-4 py-2", icon: "flex h-10 w-10 items-center justify-center" } }, defaultVariants: { size: "sm" } });
 interface GlassButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof glassButtonVariants> { contentClassName?: string; }
-const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(({ className, children, size, contentClassName, onClick, ...props }, ref) => {
+const GlassButton = React.forwardRef<HTMLButtonElement, GlassButtonProps>(({ className, children, size, contentClassName, onClick, disabled, ...props }, ref) => {
   const handleWrapperClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disabled) return;
     const button = e.currentTarget.querySelector('button');
-    if (button && !button.contains(e.target as Node)) {
+    if (button && !button.disabled && !button.contains(e.target as Node)) {
       button.click();
     }
   };
   return (
-    <div className={cn("glass-button-wrap cursor-pointer rounded-full relative", className)} onClick={handleWrapperClick}>
-      <button className={cn("glass-button relative z-10", glassButtonVariants({ size }))} ref={ref} onClick={onClick} {...props}>
+    <div className={cn("glass-button-wrap cursor-pointer rounded-full relative", disabled && "opacity-60 cursor-not-allowed pointer-events-none", className)} onClick={handleWrapperClick}>
+      <button className={cn("glass-button relative z-10", glassButtonVariants({ size }))} ref={ref} onClick={onClick} disabled={disabled} {...props}>
         <span className={cn(glassButtonTextVariants({ size }), contentClassName)}>{children}</span>
       </button>
       <div className="glass-button-shadow rounded-full pointer-events-none"></div>
@@ -136,6 +137,7 @@ export default function Login({ redirectTo = "/" }: { redirectTo?: string } = {}
   const [modalStatus, setModalStatus] = useState<'closed' | 'loading' | 'error' | 'success'>('closed');
   const [modalErrorMessage, setModalErrorMessage] = useState('');
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const isGoogleSubmittingRef = useRef(false);
   const confettiRef = useRef<ConfettiRef>(null);
 
   useEffect(() => {
@@ -288,13 +290,24 @@ export default function Login({ redirectTo = "/" }: { redirectTo?: string } = {}
               <BlurFade delay={0.25 * 3} className="w-full"><div className="flex items-center justify-center w-full">
                 <GlassButton
                   disabled={isGoogleLoading}
-                  onClick={async () => {
-                    if (isGoogleLoading) return;
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (isGoogleSubmittingRef.current || isGoogleLoading) return;
+                    isGoogleSubmittingRef.current = true;
                     setIsGoogleLoading(true);
-                    const { error } = await signInWithGoogle();
-                    if (error) {
-                      setModalErrorMessage(error.message);
+                    try {
+                      const { error } = await signInWithGoogle();
+                      if (error) {
+                        setModalErrorMessage(error.message);
+                        setModalStatus('error');
+                        isGoogleSubmittingRef.current = false;
+                        setIsGoogleLoading(false);
+                      }
+                    } catch (err: any) {
+                      setModalErrorMessage(err?.message || "Google sign-in failed");
                       setModalStatus('error');
+                      isGoogleSubmittingRef.current = false;
                       setIsGoogleLoading(false);
                     }
                   }}

@@ -10,8 +10,24 @@ export const apiLimiter = rateLimit({
 
 export const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // limit each IP to 10 auth requests per windowMs
+  max: 30, // limit each IP to 30 auth requests per windowMs
   message: { error: 'Too many authentication attempts, please try again later' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+export const oauthLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 60, // limit each IP to 60 OAuth initiation requests per windowMs
+  message: { error: 'Too many OAuth requests, please try again later' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+export const exchangeLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 60, // limit each IP to 60 token exchange requests per windowMs
+  message: { error: 'Too many token exchange requests, please try again later' },
   standardHeaders: true,
   legacyHeaders: false,
 });
