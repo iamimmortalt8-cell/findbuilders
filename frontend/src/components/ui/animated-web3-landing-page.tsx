@@ -101,13 +101,13 @@ export function Web3HeroAnimated() {
         <>
             <section
                 ref={heroRef}
-                className="relative min-h-[calc(100dvh-4.5rem)] lg:min-h-[calc(100dvh-4.5rem)] w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-center pt-8 sm:pt-12 lg:pt-0 pb-0"
+                className="relative min-h-[100dvh] w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-start sm:justify-center pt-[calc(5.75rem+env(safe-area-inset-top,0px))] sm:pt-24 lg:pt-28 pb-6 sm:pb-10"
             >
                 {/* ================= HERO CONTENT ================= */}
 
                 <motion.div
                     style={{ y: yParallax, opacity: opacityParallax }}
-                    className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-6 pt-16 pb-0 sm:pt-20 sm:pb-0 lg:pt-24 lg:pb-12 flex flex-col justify-center items-center my-auto w-full"
+                    className="relative z-10 mx-auto max-w-5xl text-center px-4 sm:px-6 flex flex-col items-center w-full"
                 >
                     <motion.div
                         style={{ x: mouseX, y: mouseY }}
