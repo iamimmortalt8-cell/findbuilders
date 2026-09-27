@@ -67,7 +67,7 @@ export function Web3HeroAnimated() {
         };
     }, []);
 
-    const pillars = [92, 84, 78, 70, 62, 54, 46, 34, 18, 34, 46, 54, 62, 70, 78, 84, 92];
+    const pillars = [94, 86, 78, 70, 62, 54, 46, 36, 28, 36, 46, 54, 62, 70, 78, 86, 94];
     const [isMounted, setIsMounted] = useState(false);
     const heroRef = useRef<HTMLElement>(null);
 
@@ -166,14 +166,30 @@ export function Web3HeroAnimated() {
                     </motion.div>
                 </motion.div>
 
+                {/* ================= ARCHITECTURAL GRID & DEPTH STRUCTURE ================= */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[48vh] sm:h-[36vh] overflow-hidden -z-10">
+                    {/* Perspective / Architectural Grid */}
+                    <div
+                        className="absolute inset-0 bg-[linear-gradient(to_right,rgba(46,101,73,0.18)_1px,transparent_1px),linear-gradient(to_bottom,rgba(46,101,73,0.18)_1px,transparent_1px)] bg-[size:28px_28px] sm:bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_90%_75%_at_50%_100%,black_35%,transparent_100%)] opacity-75 sm:opacity-45"
+                    />
+                    {/* Subtle Architectural Depth Pyramid / Angular Guide Lines */}
+                    <div
+                        className="absolute inset-x-0 bottom-0 h-full [mask-image:linear-gradient(to_top,black_20%,transparent_90%)] opacity-35 sm:opacity-20"
+                        style={{
+                            backgroundImage: `repeating-linear-gradient(45deg, rgba(120,145,129,0.08) 0px, rgba(120,145,129,0.08) 1px, transparent 1px, transparent 24px), repeating-linear-gradient(-45deg, rgba(120,145,129,0.08) 0px, rgba(120,145,129,0.08) 1px, transparent 1px, transparent 24px)`
+                        }}
+                    />
+                    {/* Subtle Ambient Emerald Depth Glow */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[85vw] sm:w-[650px] h-[220px] bg-gradient-to-t from-[#214C37]/35 via-[#2E6549]/15 to-transparent blur-3xl rounded-full" />
+                </div>
+
                 {/* ================= PILLARS ================= */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[26vh] sm:h-[30vh] overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/30 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[38vh] sm:h-[30vh] overflow-hidden">
                     <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-[1px]">
                         {pillars.map((h, i) => (
                             <div
                                 key={i}
-                                className="flex-1 bg-gradient-to-t from-[#214C37]/50 via-[#2E6549]/30 to-transparent transition-all duration-1000"
+                                className="relative flex-1 bg-gradient-to-t from-[#152B20]/90 via-[#214C37]/50 to-[#2E6549]/25 sm:from-[#214C37]/50 sm:via-[#2E6549]/30 sm:to-transparent border-t border-[#7FAF8D]/40 sm:border-[#789181]/25 border-x border-[#2E6549]/20 transition-all duration-1000"
                                 style={{
                                     height: isMounted ? `${h}%` : "0%",
                                     transitionDelay: `${Math.abs(i - 8) * 60}ms`,
@@ -181,6 +197,8 @@ export function Web3HeroAnimated() {
                             />
                         ))}
                     </div>
+                    {/* Soft bottom grounding fade */}
+                    <div className="absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/70 to-transparent pointer-events-none z-10" />
                 </div>
             </section>
         </>
