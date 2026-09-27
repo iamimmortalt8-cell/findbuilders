@@ -29,7 +29,7 @@ export default function ClientLayout({
     const isHome = location.pathname === "/";
 
     return (
-        <div className={`flex flex-col ${isHome ? "min-h-[100dvh] lg:h-screen lg:overflow-hidden relative" : "min-h-screen min-h-[100dvh]"}`}>
+        <div className={`flex flex-col ${isHome ? "min-h-0 lg:h-screen lg:overflow-hidden relative" : "min-h-screen min-h-[100dvh]"}`}>
             <CustomCursor />
             {!isDashboardRoute && <Navbar />}
             <main className={`flex-1 flex flex-col ${isHome ? "min-h-0 relative" : "w-full"}`}>{children}</main>

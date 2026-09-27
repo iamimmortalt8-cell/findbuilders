@@ -101,7 +101,7 @@ export function Web3HeroAnimated() {
         <>
             <section
                 ref={heroRef}
-                className="relative min-h-screen lg:min-h-[calc(100dvh-4.5rem)] w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-center pt-8 sm:pt-12 lg:pt-0 pb-0"
+                className="relative min-h-[calc(100dvh-4.5rem)] lg:min-h-[calc(100dvh-4.5rem)] w-full overflow-hidden bg-transparent text-white font-[family-name:var(--font-heading)] flex flex-col justify-center pt-8 sm:pt-12 lg:pt-0 pb-0"
             >
                 {/* ================= HERO CONTENT ================= */}
 
