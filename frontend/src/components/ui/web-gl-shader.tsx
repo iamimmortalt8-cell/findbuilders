@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from "react"
 import * as THREE from "three"
 
-export function WebGLShader() {
+export function WebGLShader({ className }: { className?: string } = {}) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const sceneRef = useRef<{
         scene: THREE.Scene | null
@@ -149,7 +149,7 @@ export function WebGLShader() {
     return (
         <canvas
             ref={canvasRef}
-            className="absolute inset-0 w-full h-full pointer-events-none -z-10"
+            className={className || "absolute inset-0 w-full h-full pointer-events-none -z-10"}
         />
     )
 }

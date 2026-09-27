@@ -167,14 +167,13 @@ export function Web3HeroAnimated() {
                 </motion.div>
 
                 {/* ================= PILLARS ================= */}
-
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[20vh] sm:h-[30vh] overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/70 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[26vh] sm:h-[30vh] overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B100E] via-[#0B100E]/30 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-[1px]">
                         {pillars.map((h, i) => (
                             <div
                                 key={i}
-                                className="flex-1 bg-gradient-to-t from-[#214C37]/25 to-transparent transition-all duration-1000"
+                                className="flex-1 bg-gradient-to-t from-[#214C37]/50 via-[#2E6549]/30 to-transparent transition-all duration-1000"
                                 style={{
                                     height: isMounted ? `${h}%` : "0%",
                                     transitionDelay: `${Math.abs(i - 8) * 60}ms`,

@@ -14,8 +14,8 @@ export default function Home() {
                 canonical="/"
             />
 
-            {/* WebGL Background */}
-            <WebGLShader />
+            {/* WebGL Background - visually centered in lower hero region on mobile, full screen on desktop */}
+            <WebGLShader className="absolute inset-x-0 bottom-0 top-[28%] sm:top-0 w-full h-[72%] sm:h-full pointer-events-none -z-10" />
 
             {/* HERO */}
             <div id="home" className="w-full flex-1 flex flex-col">
