@@ -293,10 +293,10 @@ export default function ProductDetail() {
                     {/* Right: Product Info & Actions */}
                     <Reveal direction="right" delay={0.1}>
                         <div className="flex-1 min-w-0 w-full text-center md:text-left">
-                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#F5F1E8] tracking-tight break-words">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#F5F1E8] tracking-tight wrap-break-word">
                                 {product.name}
                             </h1>
-                            <p className="text-[#8C958E] text-sm sm:text-base md:text-lg lg:text-xl font-normal mt-1.5 md:mt-2.5 mb-4 md:mb-6 leading-relaxed md:leading-snug break-words">
+                            <p className="text-[#8C958E] text-sm sm:text-base md:text-lg lg:text-xl font-normal mt-1.5 md:mt-2.5 mb-4 md:mb-6 leading-relaxed md:leading-snug wrap-break-word">
                                 {product.tagline}
                             </p>
 
@@ -376,9 +376,9 @@ export default function ProductDetail() {
                                         hasVoted
                                             ? "bg-[#214C37] text-[#D8C7A5] border border-[#2E6549] shadow-[0_0_25px_rgba(33,76,55,0.35)]"
                                             : "bg-[#163326] hover:bg-[#214C37] text-[#D8C7A5] border border-[#2E6549]/50 shadow-[0_0_20px_rgba(22,51,38,0.2)]"
-                                    } disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer min-w-[90px]`}
+                                    } disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer min-w-22.5`}
                                 >
-                                    <ArrowUp className="w-4 h-4 stroke-[3]" />
+                                    <ArrowUp className="w-4 h-4 stroke-3" />
                                     <span>{product.upvotes_count}</span>
                                 </motion.button>
 
@@ -386,7 +386,7 @@ export default function ProductDetail() {
                                     href={product.website_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#D8C7A5] hover:bg-[#E5D5B5] text-[#1A1A16] text-sm sm:text-base font-bold transition-all duration-300 shadow-[0_0_25px_rgba(216,199,165,0.25)] hover:shadow-[0_0_35px_rgba(216,199,165,0.4)] min-w-[130px]"
+                                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl bg-[#D8C7A5] hover:bg-[#E5D5B5] text-[#1A1A16] text-sm sm:text-base font-bold transition-all duration-300 shadow-[0_0_25px_rgba(216,199,165,0.25)] hover:shadow-[0_0_35px_rgba(216,199,165,0.4)] min-w-32.5"
                                 >
                                     <span>Visit Product</span>
                                     <ExternalLink className="w-4 h-4 stroke-[2.5]" />
@@ -406,7 +406,7 @@ export default function ProductDetail() {
                                         </>
                                     ) : (
                                         <>
-                                            <Share2 className="w-4 h-4 stroke-[2]" />
+                                            <Share2 className="w-4 h-4 stroke-2" />
                                             <span>Share</span>
                                         </>
                                     )}
@@ -423,7 +423,7 @@ export default function ProductDetail() {
                             About this product
                         </h2>
                         <div className="bg-[#151D19]/90 backdrop-blur-xl border border-[#202A25] rounded-3xl p-6 sm:p-8 shadow-xl">
-                            <p className="text-[#C5C8C1] text-base sm:text-lg leading-relaxed whitespace-pre-wrap break-words">
+                            <p className="text-[#C5C8C1] text-base sm:text-lg leading-relaxed whitespace-pre-wrap wrap-break-word">
                                 {product.description}
                             </p>
                         </div>
@@ -459,7 +459,7 @@ export default function ProductDetail() {
                                     {images.map((img, idx) => (
                                         <div
                                             key={img.id || idx}
-                                            className="w-[88vw] sm:w-[620px] md:w-[740px] shrink-0 aspect-video rounded-3xl bg-[#101814] border border-[#202A25] hover:border-[#2E6549] transition-all duration-300 overflow-hidden p-2 flex items-center justify-center shadow-2xl relative group"
+                                            className="w-[88vw] sm:w-155 md:w-185 shrink-0 aspect-video rounded-3xl bg-[#101814] border border-[#202A25] hover:border-[#2E6549] transition-all duration-300 overflow-hidden p-2 flex items-center justify-center shadow-2xl relative group"
                                         >
                                             <img
                                                 src={img.image_url}

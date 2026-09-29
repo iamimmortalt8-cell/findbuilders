@@ -38,7 +38,7 @@ const whatWeDo = [
 
 export default function AboutPage() {
     return (
-        <div className="bg-[#0B100E] text-[#F5F1E8] font-[family-name:var(--font-heading)] min-h-screen">
+        <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen">
             <SEO
                 title="About FindBuilders - The Product Discovery Platform for Makers"
                 description="Learn about FindBuilders, our mission to help indie makers get their products discovered, and the founding team Bharath Thommandru and Rishi Chowdary Karumanchi."
@@ -62,10 +62,10 @@ export default function AboutPage() {
                     <span className="inline-block px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs sm:text-sm text-[#789181] font-medium tracking-widest mb-6 sm:mb-8">
                         ABOUT
                     </span>
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.02em] leading-[1.08] bg-gradient-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-4 sm:mb-6">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.02em] leading-[1.08] bg-linear-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-4 sm:mb-6">
                         About FindBuilders
                     </h1>
-                    <p className="text-lg sm:text-xl md:text-2xl text-[#D8C7A5] font-[family-name:var(--font-body)]">
+                    <p className="text-lg sm:text-xl md:text-2xl text-[#D8C7A5] font-(family-name:--font-body)">
                         Built by builders, for builders.
                     </p>
                 </motion.div>
@@ -73,7 +73,7 @@ export default function AboutPage() {
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.15 }}
-                    className="text-base sm:text-lg md:text-xl text-[#8C958E] font-[family-name:var(--font-body)] leading-relaxed max-w-3xl mx-auto mt-6 sm:mt-8"
+                    className="text-base sm:text-lg md:text-xl text-[#8C958E] font-(family-name:--font-body) leading-relaxed max-w-3xl mx-auto mt-6 sm:mt-8"
                 >
                     FindBuilders is a platform created to give builders a place to showcase the products they create and get them in front of people looking for what's new.
                 </motion.p>
@@ -81,7 +81,7 @@ export default function AboutPage() {
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.25 }}
-                    className="text-base sm:text-lg md:text-xl text-[#8C958E] font-[family-name:var(--font-body)] leading-relaxed max-w-3xl mx-auto mt-4 sm:mt-6"
+                    className="text-base sm:text-lg md:text-xl text-[#8C958E] font-(family-name:--font-body) leading-relaxed max-w-3xl mx-auto mt-4 sm:mt-6"
                 >
                     We believe building a great product is only half the journey. Getting it discovered is the other half.
                 </motion.p>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                             <span className="inline-block px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-6 sm:mb-8">
                                 THE TEAM
                             </span>
-                            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
+                            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-linear-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
                                 The People Behind FindBuilders
                             </h2>
                         </div>
@@ -108,10 +108,10 @@ export default function AboutPage() {
                                 whileHover={{ y: -4 }}
                                 className="group relative rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
-                                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
+                                <div className="absolute inset-0 bg-linear-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
+                                <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                 <div className="relative z-10">
-                                    <div className="w-full aspect-[4/3] bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
+                                    <div className="w-full aspect-4/3 bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
                                         <img
                                             src="/bharath.png"
                                             alt="Bharath Thommandru - Founder & AI Engineer at FindBuilders"
@@ -121,7 +121,7 @@ export default function AboutPage() {
                                     <div className="p-5 sm:p-8">
                                         <h3 className="text-xl sm:text-2xl font-bold text-[#F5F1E8] mb-1 tracking-tight">Bharath Thommandru</h3>
                                         <p className="text-xs sm:text-sm text-[#D8C7A5] font-semibold uppercase tracking-wider mb-3 sm:mb-4">Founder & AI Engineer</p>
-                                        <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-sm sm:text-[15px]">
+                                        <p className="text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">
                                             Bharath is a curious builder who enjoys turning ideas into products that people can actually use. He is driven by the process of experimenting, learning, and creating from the ground up, with a strong belief that good ideas deserve a place to be seen and explored.
                                         </p>
                                         <div className="pt-4 mt-4 border-t border-[#202A25]/60">
@@ -143,10 +143,10 @@ export default function AboutPage() {
                                 whileHover={{ y: -4 }}
                                 className="group relative rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
-                                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
+                                <div className="absolute inset-0 bg-linear-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
+                                <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                 <div className="relative z-10">
-                                    <div className="w-full aspect-[4/3] bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
+                                    <div className="w-full aspect-4/3 bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
                                         <img
                                             src="/Rishi.png"
                                             alt="Karumanchi Rishi Chowdary - Founder & SDE Engineer at FindBuilders"
@@ -156,7 +156,7 @@ export default function AboutPage() {
                                     <div className="p-5 sm:p-8">
                                         <h3 className="text-xl sm:text-2xl font-bold text-[#F5F1E8] mb-1 tracking-tight">Rishi Chowdary Karumanchi</h3>
                                         <p className="text-xs sm:text-sm text-[#D8C7A5] font-semibold uppercase tracking-wider mb-3 sm:mb-4">Founder & SDE Engineer</p>
-                                        <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-sm sm:text-[15px]">
+                                        <p className="text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">
                                             Rishi is a creative-minded builder who enjoys shaping ideas into thoughtful digital experiences. He brings a strong sense of curiosity and attention to detail to everything he creates, and shares the vision of building products that are meaningful, useful, and worth discovering.
                                         </p>
                                     </div>
@@ -175,7 +175,7 @@ export default function AboutPage() {
                             <span className="inline-block px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-6 sm:mb-8">
                                 WHAT WE DO
                             </span>
-                            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent mb-4 sm:mb-6">
+                            <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-linear-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent mb-4 sm:mb-6">
                                 Builders build the products.
                                 <br />
                                 FindBuilders helps them get discovered.
@@ -192,14 +192,14 @@ export default function AboutPage() {
                                         whileHover={{ y: -4 }}
                                         className="group relative p-6 sm:p-8 rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
-                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
+                                        <div className="absolute inset-0 bg-linear-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
+                                        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                         <div className="relative z-10">
                                             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-5 sm:mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
                                                 <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
                                             </div>
                                             <h3 className="text-lg sm:text-xl font-bold text-[#F5F1E8] mb-2 sm:mb-3 tracking-tight">{item.title}</h3>
-                                            <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-sm sm:text-[15px]">{item.description}</p>
+                                            <p className="text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">{item.description}</p>
                                         </div>
                                     </motion.div>
                                 </StaggerItem>
@@ -216,7 +216,7 @@ export default function AboutPage() {
                         <span className="inline-block px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-6 sm:mb-8">
                             OUR MISSION
                         </span>
-                        <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent mb-8 sm:mb-12">
+                        <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-linear-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent mb-8 sm:mb-12">
                             Make great products easier to discover.
                         </h2>
 

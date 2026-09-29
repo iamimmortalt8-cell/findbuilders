@@ -52,7 +52,7 @@ export default function Navbar() {
     return (
         <>
             {/* Full-width Navbar */}
-            <header className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 font-[family-name:var(--font-heading)] pt-[max(0rem,env(safe-area-inset-top))]">
+            <header className="fixed top-0 left-0 right-0 z-100 transition-all duration-300 font-(family-name:--font-heading) pt-[max(0rem,env(safe-area-inset-top))]">
                 <div className="mx-auto max-w-7xl px-3 sm:px-6 py-2.5 sm:py-4">
                     <div
                         className={`flex items-center justify-between rounded-full border transition-all duration-500 px-3 sm:px-6 py-2 sm:py-3 ${
@@ -78,7 +78,7 @@ export default function Navbar() {
                             {navLinks.map((link) => (
                                 <Link key={link.href} to={link.href}>
                                     <motion.span
-                                        className={`relative cursor-pointer transition-colors duration-300 after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-[#D8C7A5] after:transition-all hover:after:w-full ${
+                                        className={`relative cursor-pointer transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-[#D8C7A5] after:transition-all hover:after:w-full ${
                                             isActive(link.href) ? (isHome ? "text-white after:w-full" : "text-[#F5F1E8] after:w-full") : (isHome ? "hover:text-white" : "hover:text-[#F5F1E8]")
                                         }`}
                                         whileHover={{ scale: 1.05 }}
@@ -163,7 +163,7 @@ export default function Navbar() {
                             {/* Mobile hamburger */}
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
-                                className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] min-h-[36px] rounded-full text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-all active:bg-[#202B25] shrink-0"
+                                className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 min-w-9 min-h-9 rounded-full text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-all active:bg-[#202B25] shrink-0"
                                 aria-label="Toggle menu"
                             >
                                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

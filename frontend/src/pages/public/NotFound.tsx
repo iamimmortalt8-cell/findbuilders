@@ -10,7 +10,7 @@ import SEO from "@/components/SEO";
 
 export default function NotFound() {
   return (
-    <div className="bg-[#0B100E] text-[#F5F1E8] font-[family-name:var(--font-heading)] min-h-screen relative flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6">
+    <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen relative flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6">
       <SEO
         title="Page Not Found (404) | FindBuilders"
         description="The requested page could not be found. Explore top indie products, developer tools, or return to FindBuilders."
@@ -26,7 +26,7 @@ export default function NotFound() {
             Error 404
           </div>
 
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight bg-gradient-to-b from-[#F5F1E8] via-[#D8C7A5] to-[#789181] bg-clip-text text-transparent mb-4 sm:mb-6">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight bg-linear-to-b from-[#F5F1E8] via-[#D8C7A5] to-[#789181] bg-clip-text text-transparent mb-4 sm:mb-6">
             404
           </h1>
 
@@ -34,7 +34,7 @@ export default function NotFound() {
             We couldn't find that page
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-[#8C958E] font-[family-name:var(--font-body)] max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-[#8C958E] font-(family-name:--font-body) max-w-lg mx-auto mb-8 sm:mb-10 leading-relaxed">
             The page you are looking for may have been moved, renamed, or is temporarily unavailable. Let's get you back to discovering great products.
           </p>
 

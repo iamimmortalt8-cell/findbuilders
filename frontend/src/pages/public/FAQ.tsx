@@ -93,7 +93,7 @@ export default function FAQPage() {
   );
 
   return (
-    <div className="bg-[#0B100E] text-[#F5F1E8] font-[family-name:var(--font-heading)] min-h-screen">
+    <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen">
       <SEO
         title="Frequently Asked Questions (FAQ) | FindBuilders"
         description="Find answers to common questions about FindBuilders: how to submit products, how product discovery works, voting, maker profiles, and community guidelines."
@@ -117,10 +117,10 @@ export default function FAQPage() {
           <span className="inline-block px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs sm:text-sm text-[#789181] font-medium tracking-widest mb-6 sm:mb-8">
             HELP & ANSWERS
           </span>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-[-0.02em] leading-[1.1] bg-gradient-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-4 sm:mb-6">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-[-0.02em] leading-[1.1] bg-linear-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-4 sm:mb-6">
             Frequently Asked Questions
           </h1>
-          <p className="text-sm sm:text-base md:text-xl text-[#8C958E] font-[family-name:var(--font-body)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-xl text-[#8C958E] font-(family-name:--font-body) max-w-2xl mx-auto leading-relaxed">
             Everything you need to know about FindBuilders, product submission, discovery, upvoting, and maker profiles.
           </p>
         </motion.div>
@@ -162,7 +162,7 @@ export default function FAQPage() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: "easeInOut" }}
                       >
-                        <div className="px-4 pb-5 sm:px-7 sm:pb-7 text-[#C5C8C1] font-[family-name:var(--font-body)] leading-relaxed text-sm sm:text-base border-t border-[#202A25]/60 pt-3.5 sm:pt-4">
+                        <div className="px-4 pb-5 sm:px-7 sm:pb-7 text-[#C5C8C1] font-(family-name:--font-body) leading-relaxed text-sm sm:text-base border-t border-[#202A25]/60 pt-3.5 sm:pt-4">
                           {item.answer}
                         </div>
                       </motion.div>
@@ -185,7 +185,7 @@ export default function FAQPage() {
             <h3 className="text-xl sm:text-3xl font-bold text-[#F5F1E8] mb-3 sm:mb-4">
               We're here to help you build and launch.
             </h3>
-            <p className="text-[#8C958E] text-xs sm:text-base max-w-xl mx-auto mb-6 sm:mb-8 font-[family-name:var(--font-body)] leading-relaxed">
+            <p className="text-[#8C958E] text-xs sm:text-base max-w-xl mx-auto mb-6 sm:mb-8 font-(family-name:--font-body) leading-relaxed">
               Learn more about our mission, explore platform capabilities, or contact our support team directly.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">

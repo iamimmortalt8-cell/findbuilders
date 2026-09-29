@@ -253,7 +253,7 @@ export default function Products() {
                 <Reveal>
                     <div className="mb-6">
                         <div className="flex items-center gap-3 mb-2">
-                            <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-[#2E6549] to-[#214C37]" />
+                            <div className="w-1.5 h-8 rounded-full bg-linear-to-b from-[#2E6549] to-[#214C37]" />
                             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-[#F5F1E8]">
                                 {activeCategory
                                     ? `Discover ${activeCategory.name} Products`
@@ -367,7 +367,7 @@ export default function Products() {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 6, scale: 0.98 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute left-0 right-0 top-full mt-2 rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_25px_60px_rgba(0,0,0,0.95)] p-2 z-[100] backdrop-blur-2xl max-h-[300px] overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+                                        className="absolute left-0 right-0 top-full mt-2 rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_25px_60px_rgba(0,0,0,0.95)] p-2 z-100 backdrop-blur-2xl max-h-75 overflow-y-auto [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
                                     >
                                         <div className="px-3 py-1.5 text-[10px] font-bold text-[#8C958E] uppercase tracking-wider flex items-center justify-between border-b border-[#202A25] mb-1">
                                             <span>Users</span>
@@ -442,7 +442,7 @@ export default function Products() {
                         </div>
 
                         {/* 3. Category Custom Dark Dropdown (Opens through TOP) */}
-                        <div ref={categoryRef} className="relative w-full sm:w-auto min-w-0 sm:min-w-[170px]">
+                        <div ref={categoryRef} className="relative w-full sm:w-auto min-w-0 sm:min-w-42.5">
                             <button
                                 type="button"
                                 onClick={handleToggleCategory}
@@ -467,7 +467,7 @@ export default function Products() {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute left-0 lg:right-0 lg:left-auto bottom-full mb-2 w-full min-w-0 sm:min-w-[200px] rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-[135px] overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
+                                        className="absolute left-0 lg:right-0 lg:left-auto bottom-full mb-2 w-full min-w-0 sm:min-w-50 rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-33.75 overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
                                     >
                                         <button
                                             type="button"
@@ -519,7 +519,7 @@ export default function Products() {
                         </div>
 
                         {/* 4. Sort Custom Dark Dropdown (Opens through TOP) */}
-                        <div ref={sortRef} className="relative w-full sm:w-auto min-w-0 sm:min-w-[150px]">
+                        <div ref={sortRef} className="relative w-full sm:w-auto min-w-0 sm:min-w-37.5">
                             <button
                                 type="button"
                                 onClick={handleToggleSort}
@@ -544,7 +544,7 @@ export default function Products() {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute right-0 bottom-full mb-2 w-full min-w-0 sm:min-w-[160px] rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-[135px] overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
+                                        className="absolute right-0 bottom-full mb-2 w-full min-w-0 sm:min-w-40 rounded-2xl bg-[#1B2520]/98 border border-[#29342E] shadow-[0_-15px_40px_rgba(0,0,0,0.9)] p-1.5 z-50 backdrop-blur-2xl max-h-33.75 overflow-y-auto origin-bottom [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-[#29342E] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-[#101814]"
                                     >
                                         {[
                                             { key: "newest", label: "Newest" },
@@ -590,7 +590,7 @@ export default function Products() {
                         >
                             {Array.from({ length: 6 }).map((_, i) => (
                                 <div key={i} className="bg-[#151D19]/80 border border-[#202A25] rounded-2xl overflow-hidden">
-                                    <div className="aspect-[16/9] bg-[#1B2520] animate-pulse" />
+                                    <div className="aspect-video bg-[#1B2520] animate-pulse" />
                                     <div className="p-4 sm:p-5 space-y-3">
                                         <div className="h-5 bg-[#1B2520] rounded-lg w-2/3 animate-pulse" />
                                         <div className="h-4 bg-[#1B2520] rounded-lg w-full animate-pulse" />
@@ -620,7 +620,7 @@ export default function Products() {
                                             className="group relative bg-[#151D19]/90 backdrop-blur-xl border border-[#202A25] rounded-2xl overflow-hidden hover:border-[#2E6549] transition-all duration-500 hover:-translate-y-1 flex flex-col h-full"
                                         >
                                             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(ellipse_at_top,rgba(216,199,165,0.06)_0%,transparent_60%)] pointer-events-none" />
-                                            <div className="w-full aspect-[16/9] bg-transparent overflow-hidden relative rounded-t-2xl">
+                                            <div className="w-full aspect-video bg-transparent overflow-hidden relative rounded-t-2xl">
                                                 {product.image_url ? (
                                                     <img src={product.image_url} alt={`${product.name} - ${product.tagline || 'Product logo'}`} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-out" />
                                                 ) : (
@@ -628,7 +628,7 @@ export default function Products() {
                                                         <Layers className="w-10 h-10 text-[#69736C]" />
                                                     </div>
                                                 )}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-[#151D19] via-transparent to-transparent opacity-60" />
+                                                <div className="absolute inset-0 bg-linear-to-t from-[#151D19] via-transparent to-transparent opacity-60" />
                                             </div>
                                             <div className="flex flex-col flex-1 p-4 sm:p-5 relative">
                                                 <div className="flex items-start justify-between gap-3 mb-3">
@@ -650,7 +650,7 @@ export default function Products() {
                                                     </div>
                                                     <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                                                         {product.category && (
-                                                            <span className="text-[11px] text-[#789181] px-2 py-0.5 rounded-lg bg-[#101814] border border-[#202A25] truncate max-w-[120px]">{product.category.name}</span>
+                                                            <span className="text-[11px] text-[#789181] px-2 py-0.5 rounded-lg bg-[#101814] border border-[#202A25] truncate max-w-30">{product.category.name}</span>
                                                         )}
                                                         <ExternalLink className="w-3.5 h-3.5 text-[#69736C] group-hover:text-[#D8C7A5] transition-colors shrink-0" />
                                                     </div>

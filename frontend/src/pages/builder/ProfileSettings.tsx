@@ -375,7 +375,7 @@ export default function ProfileSettings() {
                                     {formData.links.map((link, idx) => (
                                         <div key={idx} className="flex items-center gap-2 sm:gap-3 bg-[#101814] border border-[#202A25] rounded-xl p-2.5 pl-3 sm:pl-4">
                                             <div className="flex-1 text-xs sm:text-sm text-[#F5F1E8] font-medium truncate">{link.title || link.label || link.url}</div>
-                                            <div className="flex-[2] text-xs sm:text-sm text-[#8C958E] truncate hidden sm:block">{link.url}</div>
+                                            <div className="flex-2 text-xs sm:text-sm text-[#8C958E] truncate hidden sm:block">{link.url}</div>
                                             <button 
                                                 type="button" 
                                                 onClick={() => removeLink(idx)}
@@ -400,7 +400,7 @@ export default function ProfileSettings() {
                                             onChange={e => setNewLink({...newLink, url: e.target.value})}
                                             onKeyDown={handleLinkKeyDown}
                                             placeholder="URL (https://...)"
-                                            className="w-full sm:flex-[2] bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 text-sm text-[#F5F1E8] focus:outline-none focus:border-[#789181] transition-all placeholder-[#69736C]"
+                                            className="w-full sm:flex-2 bg-[#101814] border border-[#29342E] rounded-xl px-4 py-2.5 text-sm text-[#F5F1E8] focus:outline-none focus:border-[#789181] transition-all placeholder-[#69736C]"
                                         />
                                         <button 
                                             type="button" 

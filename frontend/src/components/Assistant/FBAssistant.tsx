@@ -184,14 +184,14 @@ export default function FBAssistant() {
   };
 
   return (
-    <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-[100] flex flex-col items-end pointer-events-none">
+    <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-100 flex flex-col items-end pointer-events-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95, transition: { duration: 0.2 } }}
-            className="mb-3 sm:mb-4 w-[calc(100vw-2rem)] sm:w-[330px] h-[480px] max-h-[calc(100dvh-6rem)] bg-[#151D19] border border-[#202A25] rounded-2xl shadow-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+            className="mb-3 sm:mb-4 w-[calc(100vw-2rem)] sm:w-82.5 h-120 max-h-[calc(100dvh-6rem)] bg-[#151D19] border border-[#202A25] rounded-2xl overflow-hidden flex flex-col pointer-events-auto shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 sm:py-3.5 border-b border-white/5 bg-[#1B2520] shrink-0">
@@ -362,7 +362,7 @@ export default function FBAssistant() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask FindBuilders AI..."
-                  className="flex-1 max-h-24 sm:max-h-32 min-h-[34px] sm:min-h-[36px] bg-transparent text-xs sm:text-sm text-[#F5F1E8] placeholder-[#69736C] px-2.5 sm:px-3 py-1.5 sm:py-2 focus:outline-none resize-none"
+                  className="flex-1 max-h-24 sm:max-h-32 min-h-8.5 sm:min-h-9 bg-transparent text-xs sm:text-sm text-[#F5F1E8] placeholder-[#69736C] px-2.5 sm:px-3 py-1.5 sm:py-2 focus:outline-none resize-none"
                   rows={1}
                 />
                 <button
@@ -419,7 +419,7 @@ export default function FBAssistant() {
 
             {/* Core Head */}
             <motion.div
-              className="relative w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-[#1B2520] to-[#151D19] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#2E6549]/50 z-10"
+              className="relative w-8 h-8 sm:w-10 sm:h-10 bg-linear-to-br from-[#1B2520] to-[#151D19] rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.5)] flex items-center justify-center border border-[#2E6549]/50 z-10"
               animate={isHovered ? { rotateX: 15, rotateY: 20 } : { rotateX: 0, rotateY: 0 }}
               transition={{ duration: 0.3 }}
             >

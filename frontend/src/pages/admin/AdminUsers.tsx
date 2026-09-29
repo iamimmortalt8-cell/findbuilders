@@ -168,7 +168,7 @@ export default function AdminUsersPage() {
         <div className="max-w-7xl mx-auto">
             <Reveal>
                 <div className="flex items-center gap-3 mb-8">
-                    <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-[#D8C7A5] to-[#214C37]" />
+                    <div className="w-1.5 h-8 rounded-full bg-linear-to-b from-[#D8C7A5] to-[#214C37]" />
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight text-[#F5F1E8]">Users</h1>
                         <p className="text-[#8C958E] text-sm mt-0.5">{users.length} registered users</p>
@@ -281,7 +281,7 @@ export default function AdminUsersPage() {
                                                 value={editData.bio}
                                                 onChange={(e) => setEditData({ ...editData, bio: e.target.value })}
                                                 rows={10}
-                                                className="w-full bg-[#101814] border border-[#29342E] rounded-lg px-3 py-2 text-sm text-[#F5F1E8] focus:border-[#789181] focus:outline-none resize-none font-mono text-xs"
+                                                className="w-full bg-[#101814] border border-[#29342E] rounded-lg px-3 py-2 text-[#F5F1E8] focus:border-[#789181] focus:outline-none resize-none font-mono text-xs"
                                             />
                                         </div>
 
@@ -330,7 +330,7 @@ export default function AdminUsersPage() {
                                                     <User className="w-4 h-4 text-[#789181] mt-0.5 shrink-0" />
                                                     <div className="min-w-0">
                                                         <p className="text-[10px] font-bold text-[#789181] uppercase tracking-[0.12em]">Bio</p>
-                                                        <p className="text-xs text-[#C5C8C1] mt-0.5 whitespace-pre-wrap break-words">{selectedUser.bioText}</p>
+                                                        <p className="text-xs text-[#C5C8C1] mt-0.5 whitespace-pre-wrap wrap-break-word">{selectedUser.bioText}</p>
                                                     </div>
                                                 </div>
                                             )}

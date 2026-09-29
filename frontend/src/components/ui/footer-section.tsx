@@ -16,7 +16,7 @@ export function Footer() {
     return (
         <footer className="relative w-full flex flex-col items-center justify-center border-t border-[#202A25] bg-[#0B100E] px-4 sm:px-6 py-10 sm:py-12 lg:py-16 text-[#F5F1E8] overflow-hidden">
             {/* Ambient accent line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#214C37]/60 to-transparent" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-transparent via-[#214C37]/60 to-transparent" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-8 bg-[#214C37]/10 blur-3xl rounded-full" />
 
             <div className="flex flex-col lg:flex-row w-full max-w-6xl mx-auto gap-8 justify-between relative z-10">

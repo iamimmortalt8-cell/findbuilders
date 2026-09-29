@@ -105,7 +105,7 @@ export default function BuilderDashboard() {
             <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
                 <Reveal>
                     <div className="flex items-center gap-3 mb-8 sm:mb-10">
-                        <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-[#2E6549] to-[#214C37]" />
+                        <div className="w-1.5 h-8 rounded-full bg-linear-to-b from-[#2E6549] to-[#214C37]" />
                         <div>
                             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F5F1E8]">My Products</h1>
                             <p className="text-[#8C958E] text-xs sm:text-sm mt-0.5">Manage your submitted products</p>

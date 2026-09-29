@@ -120,7 +120,7 @@ const cardVariants = {
 
 export default function FeaturesPage() {
     return (
-        <div className="bg-[#0B100E] text-[#F5F1E8] font-[family-name:var(--font-heading)] min-h-screen">
+        <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen">
             <SEO
                 title="Platform Features - Product Discovery, Upvotes & Maker Showcase | FindBuilders"
                 description="Explore FindBuilders platform features: curated product discovery, community upvotes, maker profiles, category navigation, and quality moderation."
@@ -148,7 +148,7 @@ export default function FeaturesPage() {
                     <span className="inline-block px-4 py-1.5 rounded-full bg-[#151D19] border border-[#202A25] text-xs sm:text-sm text-[#789181] font-medium tracking-widest mb-6 sm:mb-8">
                         PLATFORM FEATURES
                     </span>
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.02em] leading-[1.08] bg-gradient-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-6 sm:mb-8">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.02em] leading-[1.08] bg-linear-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-6 sm:mb-8">
                         Everything you need to discover and showcase products.
                     </h1>
                 </motion.div>
@@ -156,7 +156,7 @@ export default function FeaturesPage() {
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.15 }}
-                    className="text-base sm:text-lg md:text-xl text-[#8C958E] font-[family-name:var(--font-body)] leading-relaxed max-w-3xl mx-auto"
+                    className="text-base sm:text-lg md:text-xl text-[#8C958E] font-(family-name:--font-body) leading-relaxed max-w-3xl mx-auto"
                 >
                     Everything is designed to help makers showcase their products and help people discover what is being built. From submission to discovery, we keep the experience simple, fast, and community-focused.
                 </motion.p>
@@ -173,14 +173,14 @@ export default function FeaturesPage() {
                                     whileHover={{ y: -6 }}
                                     className="group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
-                                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
+                                    <div className="absolute inset-0 bg-linear-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
+                                    <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                     <div className="relative z-10">
                                         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-5 sm:mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
                                             <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
                                         </div>
                                         <h3 className="text-lg sm:text-xl font-bold text-[#F5F1E8] mb-2 sm:mb-3 tracking-tight">{feature.title}</h3>
-                                        <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-sm sm:text-[15px]">{feature.description}</p>
+                                        <p className="text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">{feature.description}</p>
                                     </div>
                                 </motion.div>
                             </StaggerItem>
@@ -197,10 +197,10 @@ export default function FeaturesPage() {
                             <span className="inline-block px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-6 sm:mb-8">
                                 DISCOVER PRODUCTS
                             </span>
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-gradient-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-linear-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
                                 Browse by Category
                             </h2>
-                            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-[#8C958E] max-w-2xl mx-auto leading-relaxed font-[family-name:var(--font-body)]">
+                            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-[#8C958E] max-w-2xl mx-auto leading-relaxed font-(family-name:--font-body)">
                                 Explore products built by indie makers and new builders. Find useful tools, apps, and ideas across different categories.
                             </p>
                         </div>
@@ -225,8 +225,8 @@ export default function FeaturesPage() {
                                         to={`/products?category=${encodeURIComponent(category.query)}`}
                                         className="block group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
-                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
+                                        <div className="absolute inset-0 bg-linear-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
+                                        <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                         <div className="relative z-10">
                                             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#101814] border border-[#202A25] flex items-center justify-center mb-5 sm:mb-6 group-hover:border-[#2E6549] group-hover:bg-[#1B2520] transition-all duration-500">
                                                 <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#789181] group-hover:text-[#D8C7A5] transition-colors duration-500" />
@@ -235,7 +235,7 @@ export default function FeaturesPage() {
                                                 <h3 className="text-lg sm:text-xl font-bold text-[#F5F1E8] tracking-tight">{category.title}</h3>
                                                 <ArrowRight className="w-4 h-4 text-[#789181] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                                             </div>
-                                            <p className="text-[#8C958E] leading-relaxed font-[family-name:var(--font-body)] text-sm sm:text-[15px]">{category.description}</p>
+                                            <p className="text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">{category.description}</p>
                                         </div>
                                     </Link>
                                 </motion.div>
@@ -255,7 +255,7 @@ export default function FeaturesPage() {
                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#F5F1E8] mb-4 sm:mb-6">
                             Ready to explore or showcase your product?
                         </h2>
-                        <p className="text-sm sm:text-base text-[#8C958E] max-w-xl mx-auto mb-8 font-[family-name:var(--font-body)]">
+                        <p className="text-sm sm:text-base text-[#8C958E] max-w-xl mx-auto mb-8 font-(family-name:--font-body)">
                             Join other indie makers, discover emerging startup products, and share your work with an active community.
                         </p>
                         <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4">

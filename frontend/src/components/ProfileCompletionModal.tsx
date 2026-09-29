@@ -52,7 +52,7 @@ export default function ProfileCompletionModal() {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 sm:p-6">
+      <div className="fixed inset-0 z-150 flex items-center justify-center p-4 sm:p-6">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -90,13 +90,13 @@ export default function ProfileCompletionModal() {
 
           {/* Icon + Title Header */}
           <div className="flex items-start gap-3.5 mb-4">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-[#214C37]/50 to-[#101814] border border-[#2E6549]/40 flex items-center justify-center text-[#D8C7A5] shadow-[0_0_20px_rgba(216,199,165,0.12)] shrink-0">
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-linear-to-br from-[#214C37]/50 to-[#101814] border border-[#2E6549]/40 flex items-center justify-center text-[#D8C7A5] shadow-[0_0_20px_rgba(216,199,165,0.12)] shrink-0">
               <UserCheck className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div className="pr-6">
               <h2
                 id="profile-completion-title"
-                className="text-lg sm:text-xl font-bold text-[#F5F1E8] tracking-tight font-[family-name:var(--font-heading)]"
+                className="text-lg sm:text-xl font-bold text-[#F5F1E8] tracking-tight font-(family-name:--font-heading)"
               >
                 Complete your profile
               </h2>
