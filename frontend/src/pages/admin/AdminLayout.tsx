@@ -12,7 +12,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     React.useEffect(() => {
         if (!loading) {
             if (!user) {
-                navigate("/admin/login");
+                navigate("/login");
             } else if (!isAdmin) {
                 navigate("/");
             }

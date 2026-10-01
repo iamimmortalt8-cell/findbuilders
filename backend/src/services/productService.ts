@@ -138,6 +138,29 @@ export class ProductService {
       submission
     });
 
+    // Guard against rapid duplicate submissions (e.g. double-click or fast retry of same submission)
+    const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000).toISOString();
+    let duplicateQuery = supabaseAdmin
+      .from('products')
+      .select('*')
+      .eq('maker_id', userId)
+      .eq('name', submission.name.trim())
+      .gte('created_at', twoMinutesAgo);
+
+    if (submission.website_url) {
+      duplicateQuery = duplicateQuery.eq('website_url', submission.website_url.trim());
+    }
+
+    const { data: existingRecent } = await duplicateQuery
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (existingRecent) {
+      console.log('[createProduct] Detected duplicate submission within window, returning existing product:', existingRecent.id);
+      return existingRecent as Product;
+    }
+
     const status = submission.status || 'pending';
     const { data, error } = await supabaseAdmin
       .from('products')
@@ -491,6 +514,20 @@ export class ProductService {
   }
 
   async uploadProductImage(productId: string, userId: string, file: Buffer, fileName: string, contentType: string): Promise<string> {
+    const { data: product, error: fetchErr } = await supabaseAdmin
+      .from('products')
+      .select('maker_id, image_url')
+      .eq('id', productId)
+      .single();
+
+    if (fetchErr || !product) {
+      throw new AppError(404, 'Product not found');
+    }
+
+    if (product.maker_id !== userId) {
+      throw new AppError(403, 'Not authorized');
+    }
+
     const path = `${productId}/${userId}/${Date.now()}-${fileName}`;
 
     const { error: uploadError } = await supabaseAdmin.storage
@@ -506,18 +543,8 @@ export class ProductService {
 
     const { data: urlData } = supabaseAdmin.storage.from('product-images').getPublicUrl(path);
 
-    const { data: product } = await supabaseAdmin
-      .from('products')
-      .select('maker_id, image_url')
-      .eq('id', productId)
-      .single();
-
-    if (product && product.maker_id !== userId) {
-      throw new AppError(403, 'Not authorized');
-    }
-
     // Delete old logo if exists
-    if (product && product.image_url) {
+    if (product.image_url) {
       try {
         const oldMatch = product.image_url.match(/\/storage\/v1\/object\/(?:public|authenticated|sign)\/([^/?#]+)\/([^?#]+)/i);
         if (oldMatch && oldMatch[1] && oldMatch[2]) {
@@ -539,13 +566,17 @@ export class ProductService {
   }
 
   async uploadProductScreenshots(productId: string, userId: string, files: Array<{ buffer: Buffer; fileName: string; contentType: string }>): Promise<string[]> {
-    const { data: product } = await supabaseAdmin
+    const { data: product, error: fetchErr } = await supabaseAdmin
       .from('products')
       .select('maker_id')
       .eq('id', productId)
       .single();
 
-    if (product && product.maker_id !== userId) {
+    if (fetchErr || !product) {
+      throw new AppError(404, 'Product not found');
+    }
+
+    if (product.maker_id !== userId) {
       throw new AppError(403, 'Not authorized');
     }
 

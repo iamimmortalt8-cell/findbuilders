@@ -17,11 +17,20 @@ export default function EditProduct() {
     const { user, profile, loading: authLoading } = useAuth();
     const toast = useToast();
     
+    const DRAFT_STORAGE_KEY = 'findbuilders_product_draft';
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    // Submission lifecycle state
+    const [submissionStage, setSubmissionStage] = useState<'idle' | 'validating' | 'submitting' | 'uploading_logo' | 'uploading_screenshots' | 'processing' | 'success' | 'auth_expired' | 'ambiguous_timeout' | 'error'>('idle');
+    const [stageMessage, setStageMessage] = useState<string>('');
+    const [createdProductId, setCreatedProductId] = useState<string | null>(id || null);
+    const [authExpiredNotice, setAuthExpiredNotice] = useState<boolean>(false);
+    const [timeoutNotice, setTimeoutNotice] = useState<boolean>(false);
+    const [draftRestored, setDraftRestored] = useState<boolean>(false);
     
     // Main Logo
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -39,8 +48,32 @@ export default function EditProduct() {
     const [rejectionReason, setRejectionReason] = useState<string>("");
 
     useEffect(() => {
-        if (!authLoading && !user) navigate("/login");
-    }, [user, authLoading, navigate]);
+        if (!authLoading && !user && submissionStage !== 'auth_expired') navigate("/login");
+    }, [user, authLoading, navigate, submissionStage]);
+
+    // Restore draft if in creation mode
+    useEffect(() => {
+        if (!id && !createdProductId) {
+            try {
+                const rawDraft = localStorage.getItem(DRAFT_STORAGE_KEY);
+                if (rawDraft) {
+                    const parsed = JSON.parse(rawDraft);
+                    if (parsed && typeof parsed === 'object') {
+                        setForm(prev => ({
+                            name: parsed.name || prev.name,
+                            tagline: parsed.tagline || prev.tagline,
+                            description: parsed.description || prev.description,
+                            website_url: parsed.website_url || prev.website_url,
+                            category_id: parsed.category_id || prev.category_id,
+                        }));
+                        setDraftRestored(true);
+                    }
+                }
+            } catch {
+                // Ignore parsing errors
+            }
+        }
+    }, [id, createdProductId]);
 
     useEffect(() => {
         if (!user) return;
@@ -91,7 +124,17 @@ export default function EditProduct() {
     }, [id, user, profile, navigate]);
 
     const handleFieldChange = (field: string, value: string) => {
-        setForm(prev => ({ ...prev, [field]: value }));
+        setForm(prev => {
+            const updated = { ...prev, [field]: value };
+            if (!id && !createdProductId) {
+                try {
+                    localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(updated));
+                } catch {
+                    // Ignore storage quota errors
+                }
+            }
+            return updated;
+        });
         if (fieldErrors[field]) {
             setFieldErrors(prev => {
                 const updated = { ...prev };
@@ -200,42 +243,58 @@ export default function EditProduct() {
     };
 
     const submitForm = async (targetStatus: 'draft' | 'pending') => {
-        if (!user) return;
+        if (!user) {
+            toast.error("Please sign in to submit your product.");
+            return;
+        }
         
+        setSubmissionStage('validating');
+        setStageMessage("Validating product details...");
+        setAuthExpiredNotice(false);
+        setTimeoutNotice(false);
+
         if (!validateForm()) {
+            setSubmissionStage('idle');
+            setStageMessage('');
             toast.error("Please fix the errors in the form before submitting.");
             return;
         }
         
         setSaving(true);
-        try {
-            let currentProductId = id;
+        let activeProductId = id || createdProductId;
 
-            if (id) {
-                // Edit Mode
-                await updateProduct(id, { ...form, status: targetStatus });
+        try {
+            if (activeProductId) {
+                // Edit / Update mode (either existing product or created in earlier step)
+                setSubmissionStage('submitting');
+                setStageMessage(targetStatus === 'draft' ? "Saving draft changes..." : "Updating product details...");
+                await updateProduct(activeProductId, { ...form, status: targetStatus });
             } else {
                 // Create Mode
+                setSubmissionStage('submitting');
+                setStageMessage("Submitting product details...");
                 const newProduct = await submitProduct({ ...form, image_url: "", status: targetStatus }, user.id);
-                currentProductId = newProduct.id;
+                activeProductId = newProduct.id;
+                setCreatedProductId(newProduct.id);
             }
 
             // Upload new logo if changed
-            if (imageFile && currentProductId) {
-                await api.uploadProductImage(currentProductId, imageFile);
+            if (imageFile && activeProductId) {
+                setSubmissionStage('uploading_logo');
+                setStageMessage("Uploading product logo...");
+                await api.uploadProductImage(activeProductId, imageFile);
             }
 
             // Upload new screenshots if any
-            if (screenshotFiles.length > 0 && currentProductId) {
-                await api.uploadProductScreenshots(currentProductId, screenshotFiles);
+            if (screenshotFiles.length > 0 && activeProductId) {
+                setSubmissionStage('uploading_screenshots');
+                setStageMessage(`Uploading ${screenshotFiles.length} screenshot${screenshotFiles.length > 1 ? 's' : ''}...`);
+                await api.uploadProductScreenshots(activeProductId, screenshotFiles);
                 
                 if (id) {
-                    // Clear selected files after successful upload in Edit Mode
                     setScreenshotFiles([]);
                     setScreenshotPreviews([]);
-                    
-                    // Refresh existing screenshots
-                    const updatedImages = await api.getProductImages(currentProductId);
+                    const updatedImages = await api.getProductImages(activeProductId);
                     if (updatedImages) {
                         setExistingScreenshots(updatedImages.map(img => ({
                             id: img.id,
@@ -246,15 +305,57 @@ export default function EditProduct() {
                 }
             }
 
-            if (id) {
-                toast.success(targetStatus === 'draft' ? "Draft saved successfully!" : "Changes saved and submitted for review!");
+            setSubmissionStage('processing');
+            setStageMessage("Finalizing submission...");
+
+            try {
+                localStorage.removeItem(DRAFT_STORAGE_KEY);
+            } catch {}
+
+            setSubmissionStage('success');
+            setStageMessage(targetStatus === 'draft' ? "Draft saved successfully!" : "Product submitted for review!");
+            toast.success(targetStatus === 'draft' ? "Draft saved successfully!" : "Product submitted for review!");
+
+            setTimeout(() => {
                 navigate("/builder");
-            } else {
-                toast.success(targetStatus === 'draft' ? "Draft saved successfully!" : "Product submitted for review!");
-                navigate("/builder");
-            }
+            }, 800);
+
         } catch (err: any) {
-            toast.error(err.message || (id ? "Failed to update product" : "Failed to submit product"));
+            console.error("Submission failed:", err);
+
+            if (err?.isAuthExpired || err?.status === 401) {
+                setSubmissionStage('auth_expired');
+                setAuthExpiredNotice(true);
+                setStageMessage("Your session expired. Your entered form data is safely preserved.");
+                toast.error("Your session expired. Please sign in again to continue.");
+            } else if (err?.isTimeout) {
+                setSubmissionStage('ambiguous_timeout');
+                setTimeoutNotice(true);
+                setStageMessage("Request timed out. Verifying whether your submission was saved...");
+
+                try {
+                    const myProducts = await api.getMyProducts();
+                    const matched = myProducts.find(p => p.id === activeProductId || (p.name.trim().toLowerCase() === form.name.trim().toLowerCase()));
+                    if (matched) {
+                        setCreatedProductId(matched.id);
+                        setSubmissionStage('success');
+                        setTimeoutNotice(false);
+                        try { localStorage.removeItem(DRAFT_STORAGE_KEY); } catch {}
+                        toast.success("Submission confirmed! Your product was saved.");
+                        setTimeout(() => navigate("/builder"), 1000);
+                        return;
+                    }
+                } catch (verifyErr) {
+                    console.warn("Could not verify submission via /my-products:", verifyErr);
+                }
+
+                toast.error("We couldn't confirm the submission. Please check your dashboard before trying again.");
+            } else {
+                setSubmissionStage('error');
+                const errMsg = err?.message || (id ? "Failed to update product" : "Failed to submit product");
+                setStageMessage(errMsg);
+                toast.error(errMsg);
+            }
         } finally {
             setSaving(false);
         }
@@ -291,6 +392,72 @@ export default function EditProduct() {
                 </Reveal>
 
                 <Reveal delay={0.1}>
+                    {/* Session Expired Alert */}
+                    {authExpiredNotice && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#302817]/60 border border-[#C9A96A]/40 rounded-2xl mb-6">
+                            <div className="flex items-start justify-between gap-3">
+                                <div className="flex items-start gap-3">
+                                    <AlertCircle className="w-5 h-5 text-[#C9A96A] shrink-0 mt-0.5" />
+                                    <div>
+                                        <h3 className="text-[#C9A96A] font-bold text-sm uppercase tracking-wider mb-1">Session Expired</h3>
+                                        <p className="text-[#F5F1E8] text-sm leading-relaxed">
+                                            Your authentication token expired while filling the form, but your form data has been <strong>safely preserved</strong>. Please sign in in another tab or click below to restore your session, then submit again.
+                                        </p>
+                                    </div>
+                                </div>
+                                <a
+                                    href="/login"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-3.5 py-1.5 bg-[#C9A96A] hover:bg-[#D8C7A5] text-[#1A1A16] font-semibold text-xs rounded-xl transition shrink-0 inline-flex items-center gap-1.5"
+                                >
+                                    Sign In
+                                </a>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* Ambiguous Timeout Alert */}
+                    {timeoutNotice && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#302817]/60 border border-[#C9A96A]/40 rounded-2xl mb-6">
+                            <div className="flex items-start gap-3">
+                                <AlertCircle className="w-5 h-5 text-[#C9A96A] shrink-0 mt-0.5" />
+                                <div>
+                                    <h3 className="text-[#C9A96A] font-bold text-sm uppercase tracking-wider mb-1">Slow Connection • Verification Needed</h3>
+                                    <p className="text-[#F5F1E8] text-sm leading-relaxed">
+                                        The submission timed out before the server confirmed it. We could not verify whether your product was created. Please check your <Link to="/builder" target="_blank" className="text-[#D8C7A5] underline font-semibold">dashboard</Link> before attempting to submit again to avoid creating a duplicate.
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+
+                    {/* Active Submission Progress Alert */}
+                    {saving && stageMessage && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-4 bg-[#151D19] border border-[#214C37] rounded-2xl mb-6 flex items-center gap-3">
+                            <Loader2 className="w-4 h-4 animate-spin text-[#D8C7A5] shrink-0" />
+                            <span className="text-xs sm:text-sm font-medium text-[#D8C7A5]">{stageMessage}</span>
+                        </motion.div>
+                    )}
+
+                    {/* Draft Restored Notice */}
+                    {draftRestored && !id && (
+                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-3 bg-[#151D19] border border-[#202A25] rounded-xl mb-4 flex items-center justify-between text-xs text-[#8C958E]">
+                            <span>Restored your unsaved draft form data.</span>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    try { localStorage.removeItem(DRAFT_STORAGE_KEY); } catch {}
+                                    setForm({ name: "", tagline: "", description: "", website_url: "", category_id: "" });
+                                    setDraftRestored(false);
+                                }}
+                                className="text-[#C97878] hover:underline cursor-pointer"
+                            >
+                                Clear draft
+                            </button>
+                        </motion.div>
+                    )}
+
                     <form onSubmit={(e) => e.preventDefault()} noValidate className="space-y-8">
                         {productStatus === 'rejected' && rejectionReason && (
                             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-5 bg-[#321C1C]/40 border border-[#C97878]/30 rounded-2xl">
@@ -515,7 +682,7 @@ export default function EditProduct() {
                                     onClick={() => submitForm('draft')}
                                     disabled={saving}
                                     whileTap={{ scale: 0.98 }}
-                                    className="flex-1 sm:flex-none items-center justify-center gap-2 px-6 py-2.5 bg-[#151D19] border border-[#202A25] hover:bg-[#1B2520] text-[#D8C7A5] text-sm font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 cursor-pointer"
+                                    className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 bg-[#151D19] border border-[#202A25] hover:bg-[#1B2520] text-[#D8C7A5] text-sm font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 cursor-pointer"
                                 >
                                     <Save className="w-4 h-4" />
                                     Save Draft
@@ -530,12 +697,12 @@ export default function EditProduct() {
                                     {saving ? (
                                         <>
                                             <Loader2 className="w-4 h-4 animate-spin text-[#1A1A16]" />
-                                            {id ? "Saving..." : "Submitting..."}
+                                            {stageMessage || (id || createdProductId ? "Saving..." : "Submitting...")}
                                         </>
                                     ) : (
                                         <>
                                             <UploadCloud className="w-4 h-4 text-[#1A1A16]" />
-                                            Submit for Review
+                                            {id || createdProductId ? "Save & Submit Changes" : "Submit for Review"}
                                         </>
                                     )}
                                 </motion.button>

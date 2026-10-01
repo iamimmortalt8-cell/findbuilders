@@ -102,7 +102,7 @@ export default function ProductDetail() {
     }, [id, user]);
 
     const handleVote = async () => {
-        if (!user || !id) return;
+        if (!user || !id || voting) return;
         setVoting(true);
         try {
             const added = await toggleVote(id, user.id);
@@ -110,8 +110,13 @@ export default function ProductDetail() {
             setProduct((prev) =>
                 prev ? { ...prev, upvotes_count: prev.upvotes_count + (added ? 1 : -1) } : prev
             );
-        } catch (err) {
+        } catch (err: any) {
             console.error("Vote error:", err);
+            if (err?.isAuthExpired || err?.status === 401) {
+                toast.error("Your session expired. Please sign in again to upvote.");
+            } else {
+                toast.error(err.message || "Failed to update vote.");
+            }
         } finally {
             setVoting(false);
         }
@@ -170,7 +175,7 @@ export default function ProductDetail() {
 
     const handleComment = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!user || !id || !newComment.trim()) return;
+        if (!user || !id || !newComment.trim() || commenting) return;
         setCommenting(true);
         try {
             const comment = await addComment(id, user.id, newComment.trim());
@@ -180,7 +185,11 @@ export default function ProductDetail() {
             toast.success("Comment added!");
         } catch (err: any) {
             console.error("Comment error:", err);
-            toast.error(err.message || "Failed to add comment.");
+            if (err?.isAuthExpired || err?.status === 401) {
+                toast.error("Your session expired. Please sign in again to comment.");
+            } else {
+                toast.error(err.message || "Failed to add comment.");
+            }
         } finally {
             setCommenting(false);
         }
@@ -191,11 +200,15 @@ export default function ProductDetail() {
         try {
             await deleteComment(commentId);
             setComments((prev) => prev.filter((c) => c.id !== commentId));
-            setProduct((prev) => prev ? { ...prev, comments_count: prev.comments_count - 1 } : prev);
+            setProduct((prev) => prev ? { ...prev, comments_count: Math.max(0, prev.comments_count - 1) } : prev);
             toast.success("Comment deleted.");
         } catch (err: any) {
             console.error("Delete comment error:", err);
-            toast.error(err.message || "Failed to delete comment.");
+            if (err?.isAuthExpired || err?.status === 401) {
+                toast.error("Your session expired. Please sign in again.");
+            } else {
+                toast.error(err.message || "Failed to delete comment.");
+            }
         }
     };
 

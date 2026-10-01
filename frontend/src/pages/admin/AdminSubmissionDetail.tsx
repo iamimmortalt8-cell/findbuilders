@@ -12,7 +12,7 @@ import {
     Clock,
     Loader2,
 } from "lucide-react";
-import { fetchProduct, approveProduct, rejectProduct } from "@/lib/api";
+import { api, fetchProduct, approveProduct, rejectProduct } from "@/lib/api";
 import { Reveal } from "@/components/Reveal";
 import type { Product } from "@/lib/types";
 
@@ -27,7 +27,14 @@ export default function AdminSubmissionDetail() {
 
     useEffect(() => {
         if (!id) return;
-        fetchProduct(id).then(setProduct).catch(console.error).finally(() => setLoading(false));
+        api.getSubmission(id)
+            .then(setProduct)
+            .catch((err) => {
+                console.warn("Failed to load via api.getSubmission, trying fetchProduct:", err);
+                return fetchProduct(id).then(setProduct);
+            })
+            .catch(console.error)
+            .finally(() => setLoading(false));
     }, [id]);
 
     const handleApprove = async () => {

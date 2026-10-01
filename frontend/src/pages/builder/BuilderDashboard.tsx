@@ -18,7 +18,7 @@ import {
     CheckCircle2,
 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
-import { fetchUserProducts } from "@/lib/api";
+import { api, fetchUserProducts } from "@/lib/api";
 import { Reveal, StaggerContainer, StaggerItem } from "@/components/Reveal";
 import { DeleteProductModal } from "@/components/DeleteProductModal";
 import { useToast } from "@/lib/toast-context";
@@ -38,7 +38,14 @@ export default function BuilderDashboard() {
 
     useEffect(() => {
         if (user) {
-            fetchUserProducts(user.id).then(setProducts).catch(console.error).finally(() => setLoading(false));
+            api.getMyProducts()
+                .then(setProducts)
+                .catch((err) => {
+                    console.warn("Failed to load products via /my-products, falling back:", err);
+                    return fetchUserProducts(user.id).then(setProducts);
+                })
+                .catch(console.error)
+                .finally(() => setLoading(false));
         }
     }, [user]);
 

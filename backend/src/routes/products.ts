@@ -136,7 +136,7 @@ router.patch('/comments/:id', verifyToken, validate(commentUpdateSchema), asyncH
   res.json({ data: comment, message: 'Comment updated' });
 }));
 
-router.delete('/comments/:id', verifyToken, validate(commentUpdateSchema), asyncHandler(async (req: AuthenticatedRequest, res) => {
+router.delete('/comments/:id', verifyToken, validate(productIdSchema), asyncHandler(async (req: AuthenticatedRequest, res) => {
   await commentService.deleteComment(req.params.id, req.user!.sub, req.userProfile?.role === 'admin');
   res.json({ message: 'Comment deleted' });
 }));

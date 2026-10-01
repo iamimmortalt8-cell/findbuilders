@@ -2,6 +2,9 @@ import type { Product, Category, Profile, Comment, AdminStats, ProductFilters, P
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
+import { ApiError, isTokenExpired } from './api-error.ts';
+export { ApiError, isTokenExpired };
+
 interface PaginatedResponse<T> {
   data: T[];
   count: number;
@@ -10,11 +13,37 @@ interface PaginatedResponse<T> {
   totalPages: number;
 }
 
+interface RequestOptions extends RequestInit {
+  timeoutMs?: number;
+  skipAuthRefresh?: boolean;
+  _retryCount?: number;
+}
+
 class ApiClient {
   private refreshPromise: Promise<{ accessToken: string }> | null = null;
 
-  private getAuthHeader(): HeadersInit {
+  private async ensureValidToken(): Promise<string | null> {
     const token = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+
+    if (token && !isTokenExpired(token, 30)) {
+      return token;
+    }
+
+    if (refreshToken) {
+      try {
+        const { accessToken } = await this.refreshToken(refreshToken);
+        return accessToken;
+      } catch {
+        return null;
+      }
+    }
+
+    return null;
+  }
+
+  private async getAuthHeader(skipRefresh = false): Promise<Record<string, string>> {
+    const token = skipRefresh ? localStorage.getItem('access_token') : await this.ensureValidToken();
     return token ? { Authorization: `Bearer ${token}` } : {};
   }
 
@@ -28,27 +57,126 @@ class ApiClient {
     }
   }
 
-  private toError(response: Response, data: any): Error {
-    const message =
-      data?.error ||
-      data?.message ||
-      (response.ok ? 'Request failed' : `Request failed with status ${response.status}`);
-    const err: any = new Error(message);
-    err.status = response.status;
-    return err;
+  private toError(response: Response, data: any): ApiError {
+    const rawMessage = data?.error || data?.message;
+    let message = rawMessage;
+
+    if (!message) {
+      switch (response.status) {
+        case 400:
+          message = 'Invalid request. Please check your submission.';
+          break;
+        case 401:
+          message = 'Your session expired. Please sign in again to continue.';
+          break;
+        case 403:
+          message = 'You do not have permission to perform this action.';
+          break;
+        case 404:
+          message = 'The requested resource was not found.';
+          break;
+        case 409:
+          message = 'A duplicate record already exists.';
+          break;
+        case 422:
+          message = 'Validation failed. Please check your input.';
+          break;
+        case 429:
+          message = 'Too many requests. Please wait a moment and try again.';
+          break;
+        case 500:
+          message = 'An unexpected server error occurred. Please try again.';
+          break;
+        case 502:
+        case 503:
+        case 504:
+          message = 'Service temporarily unavailable. Please try again shortly.';
+          break;
+        default:
+          message = response.ok ? 'Request failed' : `Request failed with status ${response.status}`;
+      }
+    } else if (response.status === 401) {
+      message = 'Your session expired. Please sign in again to continue.';
+    }
+
+    return new ApiError(message, {
+      status: response.status,
+      details: data?.details,
+      isAuthExpired: response.status === 401,
+    });
   }
 
-  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  private async fetchWithTimeout(url: string, options: RequestOptions = {}): Promise<Response> {
+    const timeoutMs = options.timeoutMs || (options.body instanceof FormData ? 60000 : 30000);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, timeoutMs);
+
+    if (options.signal) {
+      options.signal.addEventListener('abort', () => controller.abort());
+    }
+
+    try {
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+        throw new ApiError('No internet connection. Please check your network and try again.', {
+          isNetworkError: true,
+        });
+      }
+
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+      return response;
+    } catch (err: any) {
+      if (err.name === 'AbortError' || controller.signal.aborted) {
+        throw new ApiError('Request timed out. The server may still be processing your request. Please check before retrying.', {
+          isTimeout: true,
+        });
+      }
+      if (err instanceof ApiError) {
+        throw err;
+      }
+      throw new ApiError(err.message || 'Unable to connect to the server. Please check your connection.', {
+        isNetworkError: true,
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+
+  private async request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
+    const skipRefresh = options.skipAuthRefresh || false;
+    const authHeaders = await this.getAuthHeader(skipRefresh);
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...authHeaders,
+      ...((options.headers as Record<string, string>) || {}),
+    };
+
+    const response = await this.fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
       ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...this.getAuthHeader(),
-        ...options.headers,
-      },
+      headers,
     });
 
     const data = await this.parseBody(response);
+
+    if (response.status === 401 && !skipRefresh && (options._retryCount || 0) < 1) {
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (refreshToken) {
+        try {
+          await this.refreshToken(refreshToken);
+          return await this.request<T>(endpoint, {
+            ...options,
+            _retryCount: (options._retryCount || 0) + 1,
+          });
+        } catch {
+          // Refresh failed; throw toError
+        }
+      }
+    }
 
     if (!response.ok) {
       throw this.toError(response, data);
@@ -57,17 +185,37 @@ class ApiClient {
     return data?.data;
   }
 
-  private async requestFull<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  private async requestFull<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
+    const skipRefresh = options.skipAuthRefresh || false;
+    const authHeaders = await this.getAuthHeader(skipRefresh);
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...authHeaders,
+      ...((options.headers as Record<string, string>) || {}),
+    };
+
+    const response = await this.fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
       ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...this.getAuthHeader(),
-        ...options.headers,
-      },
+      headers,
     });
 
     const data = await this.parseBody(response);
+
+    if (response.status === 401 && !skipRefresh && (options._retryCount || 0) < 1) {
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (refreshToken) {
+        try {
+          await this.refreshToken(refreshToken);
+          return await this.requestFull<T>(endpoint, {
+            ...options,
+            _retryCount: (options._retryCount || 0) + 1,
+          });
+        } catch {
+          // Fall through
+        }
+      }
+    }
 
     if (!response.ok) {
       throw this.toError(response, data);
@@ -76,17 +224,39 @@ class ApiClient {
     return data;
   }
 
-  private async requestForm<T>(endpoint: string, formData: FormData): Promise<T> {
-    const token = localStorage.getItem('access_token');
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+  private async requestForm<T>(endpoint: string, formData: FormData, options: RequestOptions = {}): Promise<T> {
+    const token = await this.ensureValidToken();
+    const authHeaders: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+
+    const headers: Record<string, string> = {
+      ...authHeaders,
+      ...((options.headers as Record<string, string>) || {}),
+    };
+
+    const response = await this.fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
+      ...options,
       method: 'POST',
-      headers: {
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
+      headers,
       body: formData,
+      timeoutMs: options.timeoutMs || 60000,
     });
 
     const data = await this.parseBody(response);
+
+    if (response.status === 401 && (options._retryCount || 0) < 1) {
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (refreshToken) {
+        try {
+          await this.refreshToken(refreshToken);
+          return await this.requestForm<T>(endpoint, formData, {
+            ...options,
+            _retryCount: (options._retryCount || 0) + 1,
+          });
+        } catch {
+          // Fall through
+        }
+      }
+    }
 
     if (!response.ok) {
       throw this.toError(response, data);
@@ -100,6 +270,7 @@ class ApiClient {
     return this.request<{ access_token: string; refresh_token: string }>('/auth/signup', {
       method: 'POST',
       body: JSON.stringify({ email, password, displayName }),
+      skipAuthRefresh: true,
     });
   }
 
@@ -107,17 +278,19 @@ class ApiClient {
     return this.request<{ access_token: string; refresh_token: string }>('/auth/signin', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
+      skipAuthRefresh: true,
     });
   }
 
   async signInWithGoogle(): Promise<{ url: string }> {
-    return this.request<{ url: string }>('/auth/oauth/google', { method: 'POST' });
+    return this.request<{ url: string }>('/auth/oauth/google', { method: 'POST', skipAuthRefresh: true });
   }
 
   async exchangeSupabaseToken(supabaseAccessToken: string): Promise<{ access_token: string; refresh_token: string }> {
     return this.request<{ access_token: string; refresh_token: string }>('/auth/exchange', {
       method: 'POST',
       body: JSON.stringify({ supabaseAccessToken }),
+      skipAuthRefresh: true,
     });
   }
 
@@ -128,15 +301,41 @@ class ApiClient {
 
     this.refreshPromise = (async () => {
       try {
-        const data = await this.request<{ accessToken?: string; access_token?: string }>('/auth/refresh', {
+        const response = await this.fetchWithTimeout(`${API_BASE_URL}/auth/refresh`, {
           method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ refreshToken }),
+          skipAuthRefresh: true,
+          timeoutMs: 15000,
         });
-        const newToken = data.accessToken || data.access_token || '';
+
+        const data = await this.parseBody(response);
+
+        if (!response.ok) {
+          if (response.status >= 400 && response.status < 500) {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('findbuilders:auth_expired'));
+            }
+          }
+          throw this.toError(response, data);
+        }
+
+        const newToken = data?.data?.accessToken || data?.data?.access_token || data?.accessToken || data?.access_token || '';
         if (newToken) {
           localStorage.setItem('access_token', newToken);
         }
         return { accessToken: newToken };
+      } catch (err: any) {
+        if (err?.status >= 400 && err?.status < 500) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('findbuilders:auth_expired'));
+          }
+        }
+        throw err;
       } finally {
         this.refreshPromise = null;
       }
@@ -425,16 +624,30 @@ export const fetchProducts = async (filters: ProductFilters = {}) => {
 };
 
 export const fetchProduct = async (id: string) => {
-  const { data, error } = await supabase
-    .from('products')
-    .select('*, category:categories(*), maker:profiles(id, display_name, avatar_url, bio)')
-    .eq('id', id)
-    .single();
-  if (error) throw error;
-  return data as Product;
+  try {
+    return await api.getProduct(id);
+  } catch (err: any) {
+    // If backend returns an error or is unreachable, fallback to public Supabase query
+    const { data, error } = await supabase
+      .from('products')
+      .select('*, category:categories(*), maker:profiles(id, display_name, avatar_url, bio)')
+      .eq('id', id)
+      .single();
+    if (error) throw err || error;
+    return data as Product;
+  }
 };
 
 export const fetchUserProducts = async (userId: string) => {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    try {
+      return await api.getMyProducts();
+    } catch (e) {
+      console.warn('[api] Failed to fetch via /my-products, falling back to public query:', e);
+    }
+  }
+
   const { data, error } = await supabase
     .from('products')
     .select('*, category:categories(*)')
@@ -444,7 +657,7 @@ export const fetchUserProducts = async (userId: string) => {
   return data as Product[];
 };
 
-export const submitProduct = (submission: ProductSubmission, userId: string) => api.submitProduct(submission);
+export const submitProduct = (submission: ProductSubmission, _userId?: string) => api.submitProduct(submission);
 export const updateProduct = (id: string, updates: Partial<Product>) => api.updateProduct(id, updates);
 export const deleteProduct = (id: string) => api.deleteProduct(id);
 
@@ -454,47 +667,41 @@ export const fetchCategories = async () => {
   return data as Category[];
 };
 
-export const toggleVote = async (productId: string, userId: string) => {
-  // First check if vote exists
-  const { data: existing } = await supabase.from('votes').select('*').eq('product_id', productId).eq('user_id', userId).single();
-  
-  if (existing) {
-    await supabase.from('votes').delete().eq('product_id', productId).eq('user_id', userId);
+export const toggleVote = async (productId: string, _userId?: string) => {
+  const res = await api.toggleVote(productId);
+  return res.voted;
+};
+
+export const checkUserVote = async (productId: string, _userId?: string) => {
+  try {
+    const res = await api.checkVote(productId);
+    return res.voted;
+  } catch {
     return false;
-  } else {
-    await supabase.from('votes').insert({ product_id: productId, user_id: userId });
-    return true;
   }
 };
 
-export const checkUserVote = async (productId: string, userId: string) => {
-  const { data } = await supabase.from('votes').select('id').eq('product_id', productId).eq('user_id', userId).single();
-  return !!data;
-};
-
 export const fetchComments = async (productId: string) => {
-  const { data, error } = await supabase
-    .from('comments')
-    .select('*, user:profiles(id, display_name, avatar_url, bio)')
-    .eq('product_id', productId)
-    .order('created_at', { ascending: true });
-  if (error) throw error;
-  return data as Comment[];
+  try {
+    return await api.getComments(productId);
+  } catch {
+    const { data, error } = await supabase
+      .from('comments')
+      .select('*, user:profiles(id, display_name, avatar_url, bio)')
+      .eq('product_id', productId)
+      .order('created_at', { ascending: true });
+    if (error) throw error;
+    return data as Comment[];
+  }
 };
 
-export const addComment = async (productId: string, userId: string, content: string) => {
-  const { data, error } = await supabase
-    .from('comments')
-    .insert({ product_id: productId, user_id: userId, content })
-    .select('*, user:profiles(id, display_name, avatar_url, bio)')
-    .single();
-  if (error) throw error;
-  return data as Comment;
+export const addComment = async (productId: string, arg2: string, arg3?: string) => {
+  const content = arg3 !== undefined ? arg3 : arg2;
+  return await api.addComment(productId, content);
 };
 
 export const deleteComment = async (id: string) => {
-  const { error } = await supabase.from('comments').delete().eq('id', id);
-  if (error) throw error;
+  return await api.deleteComment(id);
 };
 
 export const getProductImages = async (productId: string) => {

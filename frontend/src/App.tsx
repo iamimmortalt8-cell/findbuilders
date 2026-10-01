@@ -29,6 +29,14 @@ import EditProduct from "@/pages/builder/EditProduct";
 import ProfileSettings from "@/pages/builder/ProfileSettings";
 import AccountSettings from "@/pages/builder/AccountSettings";
 
+// Admin Pages
+import AdminLayout from "@/pages/admin/AdminLayout";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
+import AdminSubmissions from "@/pages/admin/AdminSubmissions";
+import AdminSubmissionDetail from "@/pages/admin/AdminSubmissionDetail";
+import AdminProducts from "@/pages/admin/AdminProducts";
+import AdminUsers from "@/pages/admin/AdminUsers";
+
 function App() {
     return (
         <Suspense
@@ -70,6 +78,13 @@ function App() {
                 <Route path="/builder/product/:id/edit" element={<EditProduct />} />
                 <Route path="/settings/profile" element={<ClientLayout><ProfileSettings /></ClientLayout>} />
                 <Route path="/settings/account" element={<ClientLayout><AccountSettings /></ClientLayout>} />
+
+                {/* Admin Routes */}
+                <Route path="/admin" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
+                <Route path="/admin/submissions" element={<AdminLayout><AdminSubmissions /></AdminLayout>} />
+                <Route path="/admin/submissions/:id" element={<AdminLayout><AdminSubmissionDetail /></AdminLayout>} />
+                <Route path="/admin/products" element={<AdminLayout><AdminProducts /></AdminLayout>} />
+                <Route path="/admin/users" element={<AdminLayout><AdminUsers /></AdminLayout>} />
 
                 {/* 404 Catch-All Route */}
                 <Route path="*" element={<ClientLayout><NotFound /></ClientLayout>} />

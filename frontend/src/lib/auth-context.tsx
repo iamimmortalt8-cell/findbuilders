@@ -258,6 +258,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initializeAuth();
   }, [initializeAuth]);
 
+  useEffect(() => {
+    const handleAuthExpired = () => {
+      setUser(null);
+      setProfile(null);
+    };
+    window.addEventListener('findbuilders:auth_expired', handleAuthExpired);
+    return () => window.removeEventListener('findbuilders:auth_expired', handleAuthExpired);
+  }, []);
+
   const signUp = async (email: string, password: string, displayName: string) => {
     try {
       const tokens = await api.signUp(email, password, displayName);
