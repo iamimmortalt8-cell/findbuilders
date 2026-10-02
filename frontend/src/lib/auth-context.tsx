@@ -216,7 +216,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logTokenInfo('Calling /me', token, 'active_session');
         const me = await api.getMe();
         setUser({ id: me.id, email: me.email });
-        await fetchProfile(me.id);
+        if (me) {
+          setProfile(me as any);
+        }
       } catch (error: any) {
         if (error?.status === 401 && refreshToken) {
           logTokenInfo('/me failed, attempting fallback refresh', token, 'fallback');
@@ -225,7 +227,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             token = newToken;
             const retryMe = await api.getMe();
             setUser({ id: retryMe.id, email: retryMe.email });
-            await fetchProfile(retryMe.id);
+            if (retryMe) {
+              setProfile(retryMe as any);
+            }
           } catch (retryError: any) {
             if (retryError?.status >= 400 && retryError?.status < 500) {
               localStorage.removeItem(TOKEN_KEY);
@@ -252,7 +256,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return initPromiseRef.current;
-  }, [fetchProfile, performTokenRefresh]);
+  }, [performTokenRefresh]);
 
   useEffect(() => {
     initializeAuth();
@@ -274,7 +278,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
       const me = await api.getMe();
       setUser({ id: me.id, email: me.email });
-      await fetchProfile(me.id);
+      if (me) {
+        setProfile(me as any);
+      }
       return { error: null };
     } catch (error) {
       return { error: error as Error };
@@ -288,7 +294,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refresh_token);
       const me = await api.getMe();
       setUser({ id: me.id, email: me.email });
-      await fetchProfile(me.id);
+      if (me) {
+        setProfile(me as any);
+      }
       return { error: null };
     } catch (error) {
       return { error: error as Error };

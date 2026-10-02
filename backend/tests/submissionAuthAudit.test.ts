@@ -67,6 +67,42 @@ test('product submission validation: requires valid name, description (>=10 char
   assert.equal(productSubmissionSchema.safeParse(shortDesc).success, false);
 });
 
+test('product draft validation: allows incomplete fields when status is draft', () => {
+  // Draft with only name and partial fields
+  const partialDraft = {
+    body: {
+      name: 'Draft Product',
+      tagline: 'Work in progress',
+      description: 'Short', // < 10 chars is allowed for draft
+      status: 'draft',
+    },
+  };
+  const parseResult = productSubmissionSchema.safeParse(partialDraft);
+  assert.equal(parseResult.success, true);
+
+  // Draft with empty website and empty/undefined category is allowed
+  const emptyFieldsDraft = {
+    body: {
+      name: 'Draft Product 2',
+      website_url: '',
+      category_id: '',
+      description: '',
+      status: 'draft',
+    },
+  };
+  assert.equal(productSubmissionSchema.safeParse(emptyFieldsDraft).success, true);
+
+  // Submitting for review with incomplete fields MUST still be rejected
+  const invalidFinalSubmission = {
+    body: {
+      name: 'Draft Product',
+      description: 'Short',
+      status: 'pending',
+    },
+  };
+  assert.equal(productSubmissionSchema.safeParse(invalidFinalSubmission).success, false);
+});
+
 test('JWT token verification: detects expired token and validates active token', () => {
   const secret = 'test-secret-key-1234567890';
   const validToken = jwt.sign({ sub: 'user-123', email: 'test@example.com' }, secret, { expiresIn: '15m' });

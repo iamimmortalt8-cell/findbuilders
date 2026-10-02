@@ -74,11 +74,11 @@ export interface Comment {
 
 export interface ProductSubmission {
   name: string;
-  tagline: string;
-  description: string;
-  website_url: string;
-  category_id: string;
-  image_url: string;
+  tagline?: string;
+  description?: string;
+  website_url?: string;
+  category_id?: string | null;
+  image_url?: string | null;
   screenshots?: string[];
   status?: ProductStatus;
 }

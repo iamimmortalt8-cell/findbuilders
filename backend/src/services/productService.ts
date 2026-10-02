@@ -166,11 +166,11 @@ export class ProductService {
       .from('products')
       .insert({
         name: submission.name,
-        tagline: submission.tagline,
-        description: submission.description,
-        website_url: submission.website_url,
-        category_id: submission.category_id,
-        image_url: submission.image_url,
+        tagline: submission.tagline || '',
+        description: submission.description || '',
+        website_url: submission.website_url || '',
+        category_id: submission.category_id || null,
+        image_url: submission.image_url || null,
         maker_id: userId,
         status,
       })
@@ -237,6 +237,8 @@ export class ProductService {
     
     if (updates.status && existing.status === 'draft' && updates.status === 'pending') {
       newStatus = 'pending';
+    } else if (updates.status === 'draft' && (existing.status === 'draft' || existing.status === 'pending')) {
+      newStatus = 'draft';
     } else if (updates.status && isAdmin) {
       newStatus = updates.status;
     } else if (!isAdmin && existing.status === 'approved') {
@@ -253,9 +255,30 @@ export class ProductService {
       newStatus = 'pending';
     }
 
+    const updatePayload: Record<string, any> = {
+      ...updates,
+      status: newStatus,
+      updated_at: new Date().toISOString()
+    };
+    if (updates.category_id !== undefined) {
+      updatePayload.category_id = updates.category_id || null;
+    }
+    if (updates.website_url !== undefined) {
+      updatePayload.website_url = updates.website_url || '';
+    }
+    if (updates.tagline !== undefined) {
+      updatePayload.tagline = updates.tagline || '';
+    }
+    if (updates.description !== undefined) {
+      updatePayload.description = updates.description || '';
+    }
+    if (updates.image_url !== undefined) {
+      updatePayload.image_url = updates.image_url || null;
+    }
+
     const { data, error } = await supabaseAdmin
       .from('products')
-      .update({ ...updates, status: newStatus, updated_at: new Date().toISOString() })
+      .update(updatePayload as any)
       .eq('id', id)
       .select()
       .single();

@@ -632,8 +632,9 @@ export const fetchProduct = async (id: string) => {
       .from('products')
       .select('*, category:categories(*), maker:profiles(id, display_name, avatar_url, bio)')
       .eq('id', id)
-      .single();
+      .maybeSingle();
     if (error) throw err || error;
+    if (!data) throw err || new Error('Product not found');
     return data as Product;
   }
 };

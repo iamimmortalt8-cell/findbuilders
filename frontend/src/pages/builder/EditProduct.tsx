@@ -188,6 +188,31 @@ export default function EditProduct() {
         return Object.keys(errors).length === 0;
     };
 
+    const validateDraft = (): boolean => {
+        const errors: Record<string, string> = {};
+
+        if (!form.name.trim()) {
+            errors.name = "Please enter a product name to save a draft.";
+        } else if (form.name.trim().length > 100) {
+            errors.name = "Product name must be 100 characters or less.";
+        }
+
+        if (form.tagline && form.tagline.trim().length > 150) {
+            errors.tagline = "Tagline must be 150 characters or less.";
+        }
+
+        if (form.description && form.description.trim().length > 5000) {
+            errors.description = "Description must be 5000 characters or less.";
+        }
+
+        setFieldErrors(errors);
+        if (Object.keys(errors).length > 0) {
+            toast.error(errors.name || "Please enter a valid product name to save a draft.");
+            return false;
+        }
+        return true;
+    };
+
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -249,31 +274,45 @@ export default function EditProduct() {
         }
         
         setSubmissionStage('validating');
-        setStageMessage("Validating product details...");
+        setStageMessage(targetStatus === 'draft' ? "Checking draft details..." : "Validating product details...");
         setAuthExpiredNotice(false);
         setTimeoutNotice(false);
 
-        if (!validateForm()) {
-            setSubmissionStage('idle');
-            setStageMessage('');
-            toast.error("Please fix the errors in the form before submitting.");
-            return;
+        if (targetStatus === 'pending') {
+            if (!validateForm()) {
+                setSubmissionStage('idle');
+                setStageMessage('');
+                toast.error("Please fix the errors in the form before submitting.");
+                return;
+            }
+        } else {
+            if (!validateDraft()) {
+                setSubmissionStage('idle');
+                setStageMessage('');
+                return;
+            }
         }
         
         setSaving(true);
         let activeProductId = id || createdProductId;
+
+        const payload = {
+            ...form,
+            category_id: form.category_id || undefined,
+            status: targetStatus,
+        };
 
         try {
             if (activeProductId) {
                 // Edit / Update mode (either existing product or created in earlier step)
                 setSubmissionStage('submitting');
                 setStageMessage(targetStatus === 'draft' ? "Saving draft changes..." : "Updating product details...");
-                await updateProduct(activeProductId, { ...form, status: targetStatus });
+                await updateProduct(activeProductId, payload);
             } else {
                 // Create Mode
                 setSubmissionStage('submitting');
-                setStageMessage("Submitting product details...");
-                const newProduct = await submitProduct({ ...form, image_url: "", status: targetStatus }, user.id);
+                setStageMessage(targetStatus === 'draft' ? "Saving draft..." : "Submitting product details...");
+                const newProduct = await submitProduct({ ...payload, image_url: "" }, user.id);
                 activeProductId = newProduct.id;
                 setCreatedProductId(newProduct.id);
             }

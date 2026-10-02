@@ -24,7 +24,7 @@ export const supabaseProfileService = {
             .from('profiles')
             .select('*')
             .eq('id', userId)
-            .single();
+            .maybeSingle();
 
         if (error) {
             console.error('Error fetching profile:', error);
@@ -38,7 +38,7 @@ export const supabaseProfileService = {
             .from('profiles')
             .select('id, display_name, avatar_url, bio, created_at')
             .eq('id', userId)
-            .single();
+            .maybeSingle();
 
         if (error) {
             console.error('Error fetching profile:', error);
@@ -185,7 +185,7 @@ export const supabaseProfileService = {
                 .select('created_at')
                 .eq('follower_id', currentUserId)
                 .eq('following_id', userId)
-                .single();
+                .maybeSingle();
             isFollowing = !!data;
         }
 

@@ -37,26 +37,96 @@ export const updateProfileSchema = z.object({
 export const productSubmissionSchema = z.object({
   body: z.object({
     name: z.string().min(1, 'Product name is required').max(100, 'Name too long'),
-    tagline: z.string().max(150).optional(),
-    description: z.string().min(10, 'Description must be at least 10 characters').max(5000, 'Description too long'),
-    website_url: z.string().url('Invalid URL'),
-    category_id: z.string().uuid('Invalid category ID'),
-    image_url: z.string().url().optional().or(z.literal('')),
+    tagline: z.string().max(150).optional().or(z.literal('')),
+    description: z.string().max(5000, 'Description too long').optional().or(z.literal('')),
+    website_url: z.string().max(2000).optional().or(z.literal('')),
+    category_id: z.string().uuid('Invalid category ID').optional().or(z.literal('')).nullable(),
+    image_url: z.string().url().optional().or(z.literal('')).nullable(),
     screenshots: z.array(z.string().url()).optional(),
     status: z.enum(['draft', 'pending', 'approved', 'rejected']).optional(),
+  }).superRefine((data, ctx) => {
+    const isDraft = data.status === 'draft';
+    if (!isDraft) {
+      if (!data.description || data.description.trim().length < 10) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Description must be at least 10 characters',
+          path: ['description'],
+        });
+      }
+      if (!data.website_url || !data.website_url.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Invalid URL',
+          path: ['website_url'],
+        });
+      } else {
+        try {
+          const parsed = new URL(data.website_url.trim());
+          if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: 'Invalid URL',
+              path: ['website_url'],
+            });
+          }
+        } catch {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Invalid URL',
+            path: ['website_url'],
+          });
+        }
+      }
+      if (!data.category_id || !data.category_id.trim()) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Invalid category ID',
+          path: ['category_id'],
+        });
+      }
+    }
   }),
 });
 
 export const productUpdateSchema = z.object({
   body: z.object({
     name: z.string().min(1).max(100).optional(),
-    tagline: z.string().max(150).optional(),
-    description: z.string().min(10).max(5000).optional(),
-    website_url: z.string().url().optional(),
-    category_id: z.string().uuid().optional(),
-    image_url: z.string().url().optional().or(z.literal('')),
+    tagline: z.string().max(150).optional().or(z.literal('')),
+    description: z.string().max(5000).optional().or(z.literal('')),
+    website_url: z.string().max(2000).optional().or(z.literal('')),
+    category_id: z.string().uuid('Invalid category ID').optional().or(z.literal('')).nullable(),
+    image_url: z.string().url().optional().or(z.literal('')).nullable(),
     status: z.enum(['draft', 'pending', 'approved', 'rejected']).optional(),
     rejection_reason: z.string().optional(),
+  }).superRefine((data, ctx) => {
+    if (data.status === 'pending') {
+      if (data.description !== undefined && data.description.trim().length < 10) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Description must be at least 10 characters',
+          path: ['description'],
+        });
+      }
+      if (data.website_url !== undefined && data.website_url.trim()) {
+        try {
+          const parsed = new URL(data.website_url.trim());
+          if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: 'Invalid URL',
+              path: ['website_url'],
+            });
+          }
+        } catch {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: 'Invalid URL',
+            path: ['website_url'],
+          });
+        }
+      }
+    }
   }),
   params: z.object({
     id: z.string().uuid(),
