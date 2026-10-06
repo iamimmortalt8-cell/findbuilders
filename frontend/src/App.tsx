@@ -65,6 +65,7 @@ function App() {
                 <Route path="/faq" element={<ClientLayout><FAQ /></ClientLayout>} />
                 <Route path="/terms" element={<ClientLayout><Terms /></ClientLayout>} />
                 <Route path="/privacy-policy" element={<ClientLayout><PrivacyPolicy /></ClientLayout>} />
+                <Route path="/privacy" element={<ClientLayout><PrivacyPolicy /></ClientLayout>} />
                 <Route path="/support" element={<ClientLayout><Support /></ClientLayout>} />
 
                 {/* Auth Routes (no layout) */}

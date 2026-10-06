@@ -109,8 +109,7 @@ export function Footer() {
                     Founded by{" "}
                     <Link to="/about-founder" className="text-[#8C958E] hover:text-[#D8C7A5] transition-colors underline decoration-[#202A25] hover:decoration-[#D8C7A5]">
                         Bharath Thommandru
-                    </Link>{" "}
-                    &amp; Rishi Chowdary Karumanchi.
+                    </Link>.
                 </p>
             </div>
         </footer>

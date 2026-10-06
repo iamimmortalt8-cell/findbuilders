@@ -110,23 +110,6 @@ export default function Support() {
                                         </p>
                                     </div>
                                 </a>
-
-                                <a
-                                    href="mailto:rishichowdary2099@gmail.com"
-                                    className="group flex items-center gap-4 p-4 rounded-xl bg-[#101814] border border-[#202A25] hover:border-[#2E6549] hover:bg-[#121B17] transition-all"
-                                >
-                                    <div className="w-10 h-10 rounded-lg bg-[#151D19] border border-[#29342E] flex items-center justify-center text-[#D8C7A5] group-hover:text-[#F5F1E8] group-hover:border-[#789181] transition-colors shrink-0">
-                                        <Mail className="w-5 h-5" />
-                                    </div>
-                                    <div className="min-w-0 flex-1">
-                                        <p className="text-xs font-medium text-[#789181] uppercase tracking-wider mb-0.5">
-                                            Direct Contact
-                                        </p>
-                                        <p className="text-sm sm:text-base font-medium text-[#F5F1E8] group-hover:text-[#D8C7A5] transition-colors truncate">
-                                            rishichowdary2099@gmail.com
-                                        </p>
-                                    </div>
-                                </a>
                             </div>
                         </div>
                     </section>

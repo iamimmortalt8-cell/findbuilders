@@ -77,19 +77,6 @@ export const ORGANIZATION_SCHEMA = {
         "Artificial Intelligence",
         "Web Development"
       ]
-    },
-    {
-      "@type": "Person",
-      "@id": `${SITE_URL}#/schema/person/rishi-chowdary-karumanchi`,
-      name: "Rishi Chowdary Karumanchi",
-      jobTitle: "Founder & SDE Engineer",
-      url: `${SITE_URL}/about`,
-      image: `${SITE_URL}/Rishi.png`,
-      worksFor: {
-        "@type": "Organization",
-        name: "FindBuilders",
-        url: SITE_URL
-      }
     }
   ],
   contactPoint: {

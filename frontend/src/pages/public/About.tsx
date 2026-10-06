@@ -41,7 +41,7 @@ export default function AboutPage() {
         <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen">
             <SEO
                 title="About FindBuilders - The Product Discovery Platform for Makers"
-                description="Learn about FindBuilders, our mission to help indie makers get their products discovered, and the founding team Bharath Thommandru and Rishi Chowdary Karumanchi."
+                description="Learn about FindBuilders, our mission to help indie makers get their products discovered, and founder Bharath Thommandru."
                 canonical="/about"
                 breadcrumbs={[
                     { name: "Home", url: "/" },
@@ -87,47 +87,51 @@ export default function AboutPage() {
                 </motion.p>
             </section>
 
-            {/* The People Behind FindBuilders */}
+            {/* The Person Behind FindBuilders */}
             <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 border-t border-[#202A25]">
-                <div className="max-w-5xl mx-auto">
+                <div className="max-w-4xl mx-auto">
                     <Reveal>
                         <div className="text-center mb-10 sm:mb-16">
                             <span className="inline-block px-4 sm:px-5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#789181] border border-[#202A25] bg-[#151D19] rounded-full mb-6 sm:mb-8">
-                                THE TEAM
+                                THE FOUNDER
                             </span>
                             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-linear-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
-                                The People Behind FindBuilders
+                                The Person Behind FindBuilders
                             </h2>
                         </div>
                     </Reveal>
 
-                    <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8" staggerDelay={0.15}>
-                        {/* Bharath */}
-                        <StaggerItem>
+                    <div className="max-w-xl mx-auto">
+                        <Reveal>
                             <motion.div
                                 whileHover={{ y: -4 }}
-                                className="group relative rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
+                                className="group relative rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90"
                             >
                                 <div className="absolute inset-0 bg-linear-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
                                 <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
                                 <div className="relative z-10">
-                                    <div className="w-full aspect-4/3 bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
+                                    <div className="w-full aspect-4/3 max-h-[360px] bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
                                         <img
                                             src="/bharath.png"
                                             alt="Bharath Thommandru - Founder & AI Engineer at FindBuilders"
                                             className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                                         />
                                     </div>
-                                    <div className="p-5 sm:p-8">
+                                    <div className="p-6 sm:p-8">
                                         <h3 className="text-xl sm:text-2xl font-bold text-[#F5F1E8] mb-1 tracking-tight">Bharath Thommandru</h3>
-                                        <p className="text-xs sm:text-sm text-[#D8C7A5] font-semibold uppercase tracking-wider mb-3 sm:mb-4">Founder & AI Engineer</p>
-                                        <p className="text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">
-                                            Bharath is a curious builder who enjoys turning ideas into products that people can actually use. He is driven by the process of experimenting, learning, and creating from the ground up, with a strong belief that good ideas deserve a place to be seen and explored.
-                                        </p>
-                                        <div className="pt-4 mt-4 border-t border-[#202A25]/60">
+                                        <p className="text-xs sm:text-sm text-[#D8C7A5] font-semibold uppercase tracking-wider mb-4">Founder & AI Engineer</p>
+                                        <div className="space-y-3 text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">
+                                            <p>
+                                                I’m Bharath Thommandru, the Founder & AI Engineer behind FindBuilders.
+                                            </p>
+                                            <p>
+                                                I enjoy turning ideas into real products and building tools that are useful to the people who use them. FindBuilders came from that same mindset — creating a place where builders can discover products, showcase what they’re building, and connect with other people who are building.
+                                            </p>
+                                        </div>
+                                        <div className="pt-4 mt-5 border-t border-[#202A25]/60 flex items-center justify-between">
                                             <Link
                                                 to="/about-founder"
-                                                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D8C7A5] hover:text-[#F5F1E8] transition-colors"
+                                                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#D8C7A5] hover:text-[#F5F1E8] transition-colors"
                                             >
                                                 Meet the Founder &rarr;
                                             </Link>
@@ -135,35 +139,8 @@ export default function AboutPage() {
                                     </div>
                                 </div>
                             </motion.div>
-                        </StaggerItem>
-
-                        {/* Co-Founder */}
-                        <StaggerItem>
-                            <motion.div
-                                whileHover={{ y: -4 }}
-                                className="group relative rounded-3xl bg-[#151D19]/60 backdrop-blur-sm border border-[#202A25] overflow-hidden transition-all duration-500 hover:shadow-[0_8px_40px_rgba(33,76,55,0.2)] hover:border-[#2E6549] hover:bg-[#151D19]/90 h-full"
-                            >
-                                <div className="absolute inset-0 bg-linear-to-br from-[#214C37]/0 to-transparent group-hover:from-[#214C37]/15 transition-colors duration-500" />
-                                <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-[#D8C7A5]/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-left" />
-                                <div className="relative z-10">
-                                    <div className="w-full aspect-4/3 bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/Rishi.png"
-                                            alt="Karumanchi Rishi Chowdary - Founder & SDE Engineer at FindBuilders"
-                                            className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-                                        />
-                                    </div>
-                                    <div className="p-5 sm:p-8">
-                                        <h3 className="text-xl sm:text-2xl font-bold text-[#F5F1E8] mb-1 tracking-tight">Rishi Chowdary Karumanchi</h3>
-                                        <p className="text-xs sm:text-sm text-[#D8C7A5] font-semibold uppercase tracking-wider mb-3 sm:mb-4">Founder & SDE Engineer</p>
-                                        <p className="text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">
-                                            Rishi is a creative-minded builder who enjoys shaping ideas into thoughtful digital experiences. He brings a strong sense of curiosity and attention to detail to everything he creates, and shares the vision of building products that are meaningful, useful, and worth discovering.
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </StaggerItem>
-                    </StaggerContainer>
+                        </Reveal>
+                    </div>
                 </div>
             </section>
 

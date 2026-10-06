@@ -279,7 +279,7 @@ export default function AboutFounder() {
                 FindBuilders originated from a direct observation in the maker community. Countless independent creators, engineers, and designers spend weeks or months pouring creativity and code into exceptional projects, only to hit a wall when attempting to get their work discovered.
               </p>
               <p>
-                Together with co-founder Rishi Chowdary Karumanchi, Bharath set out to build a platform that serves as a launchpad for products of all sizes. FindBuilders was created not as another cluttered link directory, but as an engaging discovery environment where makers can display their creations with pride, gather authentic feedback, and connect with early adopters searching for the next breakthrough tool.
+                Bharath set out to build a platform that serves as a launchpad for products of all sizes. FindBuilders was created not as another cluttered link directory, but as an engaging discovery environment where makers can display their creations with pride, gather authentic feedback, and connect with early adopters searching for the next breakthrough tool.
               </p>
             </div>
           </motion.div>

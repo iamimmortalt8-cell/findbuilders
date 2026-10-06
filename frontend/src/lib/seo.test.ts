@@ -45,8 +45,8 @@ test('Organization schema contains verified founder and entity information', () 
   assert.equal(ORGANIZATION_SCHEMA.contactPoint.email, 'bharathtommandru1@gmail.com');
 
   const founderNames = ORGANIZATION_SCHEMA.founders.map(f => f.name);
+  assert.equal(ORGANIZATION_SCHEMA.founders.length, 1);
   assert.ok(founderNames.includes('Bharath Thommandru'));
-  assert.ok(founderNames.includes('Rishi Chowdary Karumanchi'));
 
   const bharath = ORGANIZATION_SCHEMA.founders.find(f => f.name === 'Bharath Thommandru') as any;
   assert.equal(bharath.givenName, 'Bharath');
