@@ -57,8 +57,8 @@ export default function Navbar() {
                     <div
                         className={`flex items-center justify-between rounded-full border transition-all duration-500 px-3 sm:px-6 py-2 sm:py-3 ${
                             scrolled
-                                ? "bg-[#0B100E]/85 backdrop-blur-2xl border-[#202A25] shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-                                : "bg-[#0B100E]/60 backdrop-blur-xl border-[#202A25]/60"
+                                ? "bg-[#0B120E]/80 backdrop-blur-2xl backdrop-saturate-180 border-[#2E6549]/35 shadow-[0_12px_40px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15),inset_0_0_20px_rgba(46,101,73,0.1)]"
+                                : "bg-[#0E1712]/50 backdrop-blur-xl backdrop-saturate-150 border-[#2E6549]/25 hover:border-[#2E6549]/45 shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.12),inset_0_0_16px_rgba(46,101,73,0.06)]"
                         }`}
                     >
                         {/* Logo */}
@@ -97,14 +97,14 @@ export default function Navbar() {
                                     <>
                                         <Link
                                             to="/builder"
-                                            className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
+                                            className="rounded-full bg-[#16231B]/60 hover:bg-[#1E3227]/80 px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#2E6549]/35 hover:border-[#2E6549]/70 transition-all duration-300 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                                         >
                                             My Products
                                         </Link>
                                         <div className="relative profile-dropdown-container">
                                             <button
                                                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                                                className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1B2520] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 overflow-hidden shrink-0 cursor-pointer"
+                                                className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#16231B]/60 border border-[#2E6549]/35 hover:bg-[#1E3227]/80 hover:border-[#2E6549]/70 transition-all duration-300 overflow-hidden shrink-0 cursor-pointer shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                                             >
                                                 {profile?.avatar_url ? (
                                                     <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
@@ -120,7 +120,7 @@ export default function Navbar() {
                                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                                         transition={{ duration: 0.15 }}
-                                                        className="absolute right-0 mt-3 w-40 rounded-2xl bg-[#1B2520] border border-[#29342E] shadow-2xl overflow-hidden py-1.5 z-50"
+                                                        className="absolute right-0 mt-3 w-40 rounded-2xl bg-[#0D1511]/90 backdrop-blur-2xl border border-[#2E6549]/35 shadow-[0_16px_40px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.1)] overflow-hidden py-1.5 z-50"
                                                     >
                                                         <Link
                                                             to={`/profile/${profile?.id}`}
@@ -145,13 +145,13 @@ export default function Navbar() {
                                     <>
                                         <Link
                                             to="/login"
-                                            className="rounded-full bg-[#1B2520] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] hover:border-[#2E6549] transition-all duration-300 backdrop-blur-sm"
+                                            className="rounded-full bg-[#16231B]/60 hover:bg-[#1E3227]/80 px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#F5F1E8] border border-[#2E6549]/35 hover:border-[#2E6549]/70 transition-all duration-300 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
                                         >
                                             Sign In
                                         </Link>
                                         <Link
                                             to="/signup"
-                                            className="rounded-full bg-[#D8C7A5] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] hover:border-[#E5D5B5] transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_20px_rgba(216,199,165,0.2)]"
+                                            className="rounded-full bg-[#D8C7A5] px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] hover:border-[#E5D5B5] transition-all duration-300 flex items-center gap-1.5 shadow-[0_0_20px_rgba(216,199,165,0.25)] hover:shadow-[0_0_30px_rgba(216,199,165,0.4)]"
                                         >
                                             <UserPlus className="w-3.5 h-3.5" />
                                             Get Started
@@ -163,7 +163,7 @@ export default function Navbar() {
                             {/* Mobile hamburger */}
                             <button
                                 onClick={() => setIsOpen(!isOpen)}
-                                className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 min-w-9 min-h-9 rounded-full text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#1B2520] transition-all active:bg-[#202B25] shrink-0"
+                                className="lg:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 min-w-9 min-h-9 rounded-full text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#16231B]/60 border border-transparent hover:border-[#2E6549]/30 transition-all active:bg-[#1E3227] shrink-0"
                                 aria-label="Toggle menu"
                             >
                                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -179,7 +179,7 @@ export default function Navbar() {
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: -10, scale: 0.97 }}
                                 transition={{ duration: 0.2, ease: "easeOut" }}
-                                className="lg:hidden mt-2 sm:mt-3 rounded-2xl bg-[#101814]/98 backdrop-blur-2xl border border-[#202A25] shadow-[0_8px_40px_rgba(0,0,0,0.7)] overflow-hidden max-h-[calc(100dvh-5.5rem)] overflow-y-auto"
+                                className="lg:hidden mt-2 sm:mt-3 rounded-2xl bg-[#0D1511]/92 backdrop-blur-2xl backdrop-saturate-180 border border-[#2E6549]/35 shadow-[0_16px_48px_rgba(0,0,0,0.75),inset_0_1px_1px_rgba(255,255,255,0.12)] overflow-hidden max-h-[calc(100dvh-5.5rem)] overflow-y-auto"
                             >
                                 <nav className="flex flex-col py-2 sm:py-3">
                                     {navLinks.map((link) => (
@@ -187,35 +187,35 @@ export default function Navbar() {
                                             key={link.href}
                                             to={link.href}
                                             onClick={() => setIsOpen(false)}
-                                            className={`px-5 sm:px-6 py-3 text-sm sm:text-base font-medium transition-colors active:bg-[#1B2520] ${
+                                            className={`px-5 sm:px-6 py-3 text-sm sm:text-base font-medium transition-colors active:bg-[#16231B] ${
                                                 isActive(link.href)
-                                                    ? "text-[#F5F1E8] bg-[#1B2520]"
-                                                    : "text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#151D19]"
+                                                    ? "text-[#F5F1E8] bg-[#16231B]/70"
+                                                    : "text-[#C5C8C1] hover:text-[#F5F1E8] hover:bg-[#16231B]/40"
                                             }`}
                                         >
                                             {link.label}
                                         </Link>
                                     ))}
                                 </nav>
-                                <div className="border-t border-[#202A25] px-5 sm:px-6 py-3.5 sm:py-4 flex flex-col gap-2.5 sm:gap-3">
+                                <div className="border-t border-[#2E6549]/25 px-5 sm:px-6 py-3.5 sm:py-4 flex flex-col gap-2.5 sm:gap-3">
                                     {user ? (
                                         <>
-                                            <Link to="/builder" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to="/builder" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#16231B]/70 px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#2E6549]/35 hover:bg-[#1E3227] hover:border-[#2E6549]/60 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                                 My Products
                                             </Link>
-                                            <Link to={`/profile/${profile?.id}`} onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to={`/profile/${profile?.id}`} onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#16231B]/70 px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#2E6549]/35 hover:bg-[#1E3227] hover:border-[#2E6549]/60 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                                 My Profile
                                             </Link>
-                                            <Link to="/settings/account" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to="/settings/account" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#16231B]/70 px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#2E6549]/35 hover:bg-[#1E3227] hover:border-[#2E6549]/60 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                                 Settings
                                             </Link>
                                         </>
                                     ) : (
                                         <>
-                                            <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#1B2520] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#29342E] hover:bg-[#202B25] transition-all">
+                                            <Link to="/login" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#16231B]/70 px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#F5F1E8] border border-[#2E6549]/35 hover:bg-[#1E3227] hover:border-[#2E6549]/60 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                                 Sign In
                                             </Link>
-                                            <Link to="/signup" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#D8C7A5] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] transition-all">
+                                            <Link to="/signup" onClick={() => setIsOpen(false)} className="w-full text-center rounded-xl bg-[#D8C7A5] px-4 py-2.5 sm:py-3 text-sm font-semibold text-[#1A1A16] border border-[#D8C7A5] hover:bg-[#E5D5B5] transition-all shadow-[0_0_20px_rgba(216,199,165,0.25)]">
                                                 Get Started
                                             </Link>
                                         </>

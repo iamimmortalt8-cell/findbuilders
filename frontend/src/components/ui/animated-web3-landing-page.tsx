@@ -27,8 +27,25 @@ export function Web3HeroAnimated() {
                 ref={heroRef}
                 className="relative min-h-dvh w-full overflow-hidden bg-transparent text-white font-(family-name:--font-heading) flex flex-col justify-center sm:justify-start pt-[calc(4.5rem+env(safe-area-inset-top,0px))] sm:pt-24 lg:pt-24 pb-6 sm:pb-8"
             >
-                {/* ================= WEBGL BACKGROUND LAYER ================= */}
-                <WebGLShader className="absolute inset-0 w-full h-full pointer-events-none -z-20" />
+                {/* ================= PILLARS (BOXES ANIMATION - UNDER RAINBOW) ================= */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[48vh] sm:h-[54vh] overflow-hidden z-0">
+                    <div className="absolute inset-0 bg-linear-to-t from-[#0B100E] via-[#0B100E]/90 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-px">
+                        {pillars.map((h, i) => (
+                            <div
+                                key={i}
+                                className="flex-1 bg-linear-to-t from-white/[0.07] to-transparent transition-all duration-1000"
+                                style={{
+                                    height: isMounted ? `${h}%` : "0%",
+                                    transitionDelay: `${Math.abs(i - 8) * 60}ms`,
+                                }}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                {/* ================= WEBGL BACKGROUND LAYER (RAINBOW - OVER PILLARS) ================= */}
+                <WebGLShader className="absolute inset-0 w-full h-full pointer-events-none z-[1] mix-blend-screen" />
 
                 {/* ================= HERO CONTENT ================= */}
 
@@ -84,23 +101,6 @@ export function Web3HeroAnimated() {
                         </motion.div>
                     </div>
                 </motion.div>
-
-                {/* ================= PILLARS ================= */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[48vh] sm:h-[54vh] overflow-hidden">
-                    <div className="absolute inset-0 bg-linear-to-t from-[#0B100E] via-[#0B100E]/90 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 flex h-full items-end gap-px">
-                        {pillars.map((h, i) => (
-                            <div
-                                key={i}
-                                className="flex-1 bg-linear-to-t from-white/[0.07] to-transparent transition-all duration-1000"
-                                style={{
-                                    height: isMounted ? `${h}%` : "0%",
-                                    transitionDelay: `${Math.abs(i - 8) * 60}ms`,
-                                }}
-                            />
-                        ))}
-                    </div>
-                </div>
             </section>
         </>
     );
