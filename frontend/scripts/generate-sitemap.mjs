@@ -8,9 +8,26 @@ import { createClient } from '@supabase/supabase-js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const BASE_URL = process.env.VITE_APP_URL || 'http://localhost:5173';
+// Ensure we ONLY use the production domain if we are actually deploying to prod, 
+// but for tests it can be localhost.
+const BASE_URL = (process.env.VITE_APP_URL || 'https://findthebuilders.pages.dev').replace(/\/+$/, '');
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://xnlyxnffxmfsxlehsxps.supabase.co';
 const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_dBkR0WUad2kLgX9BqJpoYA_LhYtnEY9';
+
+function escapeXml(unsafe) {
+    return unsafe.replace(/[<>&'"]/g, function (c) {
+        switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+        }
+    });
+}
+
+// Current date for static routes
+const today = new Date().toISOString().split('T')[0];
 
 const STATIC_ROUTES = [
   { path: '/', priority: '1.0', changefreq: 'daily' },
@@ -81,8 +98,10 @@ async function generate() {
 
   // Core Static routes
   for (const r of STATIC_ROUTES) {
+    const loc = escapeXml(`${BASE_URL}${r.path}`);
     urls.push(`  <url>
-    <loc>${BASE_URL}${r.path}</loc>
+    <loc>${loc}</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>${r.changefreq}</changefreq>
     <priority>${r.priority}</priority>
   </url>`);
@@ -90,8 +109,10 @@ async function generate() {
 
   // Category routes
   for (const slug of CATEGORY_SLUGS) {
+    const loc = escapeXml(`${BASE_URL}/categories/${slug}`);
     urls.push(`  <url>
-    <loc>${BASE_URL}/categories/${slug}</loc>
+    <loc>${loc}</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>`);
@@ -100,8 +121,9 @@ async function generate() {
   // Approved products
   for (const p of approvedProducts) {
     const lastmod = p.updated_at ? p.updated_at.split('T')[0] : '';
+    const loc = escapeXml(`${BASE_URL}/product/${p.id}`);
     urls.push(`  <url>
-    <loc>${BASE_URL}/product/${p.id}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
+    <loc>${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>`);
@@ -110,8 +132,9 @@ async function generate() {
   // Public profiles
   for (const pr of publicProfiles) {
     const lastmod = pr.updated_at ? pr.updated_at.split('T')[0] : '';
+    const loc = escapeXml(`${BASE_URL}/profile/${pr.id}`);
     urls.push(`  <url>
-    <loc>${BASE_URL}/profile/${pr.id}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
+    <loc>${loc}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>`);

@@ -155,22 +155,25 @@ test('sitemap.xml exists, is valid XML, uses production domain and excludes priv
   assert.ok(existsSync(sitemapPath), 'sitemap.xml must exist in public directory');
   const content = readFileSync(sitemapPath, 'utf8');
 
-  assert.ok(content.includes('<?xml version="1.0" encoding="UTF-8"?>'));
-  assert.ok(content.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'));
-  assert.ok(content.includes('<loc>http://localhost:5173/</loc>'));
-  assert.ok(content.includes('<loc>http://localhost:5173/products</loc>'));
+  assert.ok(content.includes('<?xml version="1.0" encoding="UTF-8"?>'), 'Must have correct XML declaration');
+  assert.ok(content.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'), 'Must have sitemaps.org xmlns');
+  assert.ok(content.includes('<loc>http://localhost:5173/</loc>'), 'Must include root path');
+  assert.ok(content.includes('<loc>http://localhost:5173/products</loc>'), 'Must include products path');
   assert.ok(content.includes('<loc>http://localhost:5173/features</loc>'));
   assert.ok(content.includes('<loc>http://localhost:5173/about</loc>'));
   assert.ok(content.includes('<loc>http://localhost:5173/about-founder</loc>'));
   assert.ok(content.includes('<loc>http://localhost:5173/faq</loc>'));
   assert.ok(content.includes('<loc>http://localhost:5173/categories/ai</loc>'));
 
+  // Ensure lastmod exists and follows YYYY-MM-DD
+  assert.ok(content.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/), 'Must contain valid lastmod dates');
+
   // Ensure no private pages
-  assert.ok(!content.includes('/admin'), 'Must not include admin');
-  assert.ok(!content.includes('/builder'), 'Must not include builder');
-  assert.ok(!content.includes('/login'), 'Must not include login');
-  assert.ok(!content.includes('/signup'), 'Must not include signup');
-  assert.ok(!content.includes('/settings'), 'Must not include settings');
+  assert.ok(!content.includes('<loc>http://localhost:5173/admin'), 'Must not include admin');
+  assert.ok(!content.includes('<loc>http://localhost:5173/builder'), 'Must not include builder');
+  assert.ok(!content.includes('<loc>http://localhost:5173/login'), 'Must not include login');
+  assert.ok(!content.includes('<loc>http://localhost:5173/signup'), 'Must not include signup');
+  assert.ok(!content.includes('<loc>http://localhost:5173/settings'), 'Must not include settings');
   // we now fallback to localhost in dev so it may contain localhost
   assert.ok(!content.includes('findbuilders.app'), 'Must not contain old findbuilders.app domain');
 });
