@@ -19,14 +19,14 @@ const faqs: FAQItem[] = [
   {
     id: "what-is-findbuilders",
     category: "General",
-    question: "What is FindBuilders?",
+    question: "What is FindTheBuilders?",
     answer:
-      "FindBuilders is a curated product discovery and community platform created by indie builders for indie builders. It provides developers, solo founders, and creators with a dedicated place to showcase what they have built, while giving tech enthusiasts, developers, and early adopters an easy way to discover emerging tools, SaaS apps, and projects before they blow up."
+      "FindTheBuilders is a curated product discovery and community platform created by indie builders for indie builders. It provides developers, solo founders, and creators with a dedicated place to showcase what they have built, while giving tech enthusiasts, developers, and early adopters an easy way to discover emerging tools, SaaS apps, and projects before they blow up."
   },
   {
     id: "how-it-works",
     category: "General",
-    question: "How does FindBuilders work?",
+    question: "How does FindTheBuilders work?",
     answer:
       "Makers create an account, customize their builder profile, and submit their products with rich details including taglines, descriptions, URLs, categories, logos, and screenshots. Once reviewed and approved by moderators, products appear in the public discovery feed where visitors can browse, test, upvote, and leave direct feedback."
   },
@@ -35,21 +35,21 @@ const faqs: FAQItem[] = [
     category: "Submission",
     question: "How can I submit a product?",
     answer:
-      "To submit a product, sign in to your FindBuilders account and click 'Launch Your Product' or navigate to the product submission page. Fill in your product name, a concise punchy tagline, a comprehensive description, live website URL, primary category, logo, and up to four screenshots. Once submitted, your product enters the review queue."
+      "To submit a product, sign in to your FindTheBuilders account and click 'Launch Your Product' or navigate to the product submission page. Fill in your product name, a concise punchy tagline, a comprehensive description, live website URL, primary category, logo, and up to four screenshots. Once submitted, your product enters the review queue."
   },
   {
     id: "who-can-submit",
     category: "Submission",
     question: "Who can submit products?",
     answer:
-      "Anyone who builds digital products! Whether you are a solo software engineer, indie hacker, open-source maintainer, design agency, or early-stage startup team, FindBuilders welcomes software tools, AI products, developer libraries, productivity utilities, and SaaS applications."
+      "Anyone who builds digital products! Whether you are a solo software engineer, indie hacker, open-source maintainer, design agency, or early-stage startup team, FindTheBuilders welcomes software tools, AI products, developer libraries, productivity utilities, and SaaS applications."
   },
   {
     id: "how-discovery-works",
     category: "General",
     question: "How does product discovery work?",
     answer:
-      "Discovery on FindBuilders is multi-faceted: you can browse the newest launches, explore trending products sorted by community votes, filter by specific categories (such as AI, Developer Tools, Productivity, Education, Design, and Business), or use the search bar to locate products and makers."
+      "Discovery on FindTheBuilders is multi-faceted: you can browse the newest launches, explore trending products sorted by community votes, filter by specific categories (such as AI, Developer Tools, Productivity, Education, Design, and Business), or use the search bar to locate products and makers."
   },
   {
     id: "how-votes-work",
@@ -68,7 +68,7 @@ const faqs: FAQItem[] = [
   {
     id: "is-findbuilders-free",
     category: "General",
-    question: "Is FindBuilders free to use?",
+    question: "Is FindTheBuilders free to use?",
     answer:
       "Yes. Browsing products, searching makers, submitting products, and voting are completely free for all builders and visitors."
   },
@@ -95,8 +95,8 @@ export default function FAQPage() {
   return (
     <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen">
       <SEO
-        title="Frequently Asked Questions (FAQ) | FindBuilders"
-        description="Find answers to common questions about FindBuilders: how to submit products, how product discovery works, voting, maker profiles, and community guidelines."
+        title="Frequently Asked Questions (FAQ) | FindTheBuilders"
+        description="Find answers to common questions about FindTheBuilders: how to submit products, how product discovery works, voting, maker profiles, and community guidelines."
         canonical="/faq"
         breadcrumbs={[
           { name: "Home", url: "/" },
@@ -121,7 +121,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-sm sm:text-base md:text-xl text-[#8C958E] font-(family-name:--font-body) max-w-2xl mx-auto leading-relaxed">
-            Everything you need to know about FindBuilders, product submission, discovery, upvoting, and maker profiles.
+            Everything you need to know about FindTheBuilders, product submission, discovery, upvoting, and maker profiles.
           </p>
         </motion.div>
       </section>

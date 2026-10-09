@@ -18,10 +18,10 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          By creating an account or otherwise using FindBuilders, you agree to be bound by these Terms and by our Privacy Policy. If you do not agree to any part of these Terms, you may not use the service.
+          By creating an account or otherwise using FindTheBuilders, you agree to be bound by these Terms and by our Privacy Policy. If you do not agree to any part of these Terms, you may not use the service.
         </p>
         <p className="text-white/70 leading-relaxed">
-          These Terms apply to all visitors, users, and others who access or use FindBuilders.
+          These Terms apply to all visitors, users, and others who access or use FindTheBuilders.
         </p>
       </>
     ),
@@ -33,18 +33,18 @@ const sections = [
     iconClass: "text-orange-400",
     content: (
       <p className="text-white/70 leading-relaxed">
-        You may only use FindBuilders if you are legally able to enter into a binding agreement under the laws that apply to you. The service is not directed at children.
+        You may only use FindTheBuilders if you are legally able to enter into a binding agreement under the laws that apply to you. The service is not directed at children.
       </p>
     ),
   },
   {
-    title: "3. FindBuilders Accounts",
+    title: "3. FindTheBuilders Accounts",
     icon: Key,
     badgeClass: "bg-green-500/10 border-green-500/20",
     iconClass: "text-green-400",
     content: (
       <p className="text-white/70 leading-relaxed">
-        You can register for FindBuilders with an email address and password, or sign in with Google. You agree to provide accurate information and to keep your password confidential. You are responsible for all activity that happens through your account.
+        You can register for FindTheBuilders with an email address and password, or sign in with Google. You agree to provide accurate information and to keep your password confidential. You are responsible for all activity that happens through your account.
       </p>
     ),
   },
@@ -67,10 +67,10 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          Builders can submit products to FindBuilders, including a product name, tagline, description, website link, category, logo, and screenshots. You can save a product as a draft or submit it for review.
+          Builders can submit products to FindTheBuilders, including a product name, tagline, description, website link, category, logo, and screenshots. You can save a product as a draft or submit it for review.
         </p>
         <p className="text-white/70 leading-relaxed">
-          You are responsible for the products and content you submit. By submitting a product, you confirm that it is your own product or that you have permission from its owner to list it on FindBuilders, and that the information you provide is accurate and not misleading.
+          You are responsible for the products and content you submit. By submitting a product, you confirm that it is your own product or that you have permission from its owner to list it on FindTheBuilders, and that the information you provide is accurate and not misleading.
         </p>
       </>
     ),
@@ -83,10 +83,10 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          Submitted products may be reviewed by administrators before they are listed. We may approve a submission, reject it with a reason, or ask you to make changes. Review or approval of a product does not mean that FindBuilders endorses or guarantees it.
+          Submitted products may be reviewed by administrators before they are listed. We may approve a submission, reject it with a reason, or ask you to make changes. Review or approval of a product does not mean that FindTheBuilders endorses or guarantees it.
         </p>
         <p className="text-white/70 leading-relaxed">
-          An approved product may later be unpublished or removed when we believe it violates these Terms or applicable rules. This applies both before and after a product has been approved, and helps keep FindBuilders useful and safe for everyone.
+          An approved product may later be unpublished or removed when we believe it violates these Terms or applicable rules. This applies both before and after a product has been approved, and helps keep FindTheBuilders useful and safe for everyone.
         </p>
       </>
     ),
@@ -112,7 +112,7 @@ const sections = [
     iconClass: "text-indigo-400",
     content: (
       <p className="text-white/70 leading-relaxed">
-        FindBuilders allows you to submit content, including your profile information, products, images, and comments. You retain ownership of the content you submit, and you remain responsible for it at all times. Public content — such as approved products, comments, and parts of your profile — may be visible to other users.
+        FindTheBuilders allows you to submit content, including your profile information, products, images, and comments. You retain ownership of the content you submit, and you remain responsible for it at all times. Public content — such as approved products, comments, and parts of your profile — may be visible to other users.
       </p>
     ),
   },
@@ -161,7 +161,7 @@ const sections = [
     iconClass: "text-zinc-300",
     content: (
       <p className="text-white/70 leading-relaxed">
-        You can follow other users on FindBuilders. Following relationships — including follower and following lists — are visible on public profiles. You can unfollow a user at any time.
+        You can follow other users on FindTheBuilders. Following relationships — including follower and following lists — are visible on public profiles. You can unfollow a user at any time.
       </p>
     ),
   },
@@ -173,7 +173,7 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          You must not use FindBuilders to:
+          You must not use FindTheBuilders to:
         </p>
         <ul className="list-disc list-inside text-white/70 space-y-2 ml-4">
           <li>Submit content that is illegal, fraudulent, malicious, infringing, abusive, or misleading.</li>
@@ -195,7 +195,7 @@ const sections = [
     iconClass: "text-orange-400",
     content: (
       <p className="text-white/70 leading-relaxed">
-        You keep all ownership of the content you submit to FindBuilders — your products, images, comments, and profile content. Posting content on FindBuilders does not transfer ownership of that content to us.
+        You keep all ownership of the content you submit to FindTheBuilders — your products, images, comments, and profile content. Posting content on FindTheBuilders does not transfer ownership of that content to us.
       </p>
     ),
   },
@@ -206,7 +206,7 @@ const sections = [
     iconClass: "text-green-400",
     content: (
       <p className="text-white/70 leading-relaxed">
-        When you submit content, you grant FindBuilders a worldwide, non-exclusive, royalty-free license to host, store, reproduce, and display that content as needed to operate the service — for example, to show your product page, your profile, or your images to other users. This license exists only for running and displaying FindBuilders; we do not use your content for other purposes. The license ends when you delete your content, except for residual copies in backups for a limited period and content that other users already had access to.
+        When you submit content, you grant FindTheBuilders a worldwide, non-exclusive, royalty-free license to host, store, reproduce, and display that content as needed to operate the service — for example, to show your product page, your profile, or your images to other users. This license exists only for running and displaying FindTheBuilders; we do not use your content for other purposes. The license ends when you delete your content, except for residual copies in backups for a limited period and content that other users already had access to.
       </p>
     ),
   },
@@ -218,10 +218,10 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          Products and profiles on FindBuilders may contain links to external websites. These links are controlled by their respective owners, not by FindBuilders. We do not control and are not responsible for any external website, including its content, safety, or privacy practices.
+          Products and profiles on FindTheBuilders may contain links to external websites. These links are controlled by their respective owners, not by FindTheBuilders. We do not control and are not responsible for any external website, including its content, safety, or privacy practices.
         </p>
         <p className="text-white/70 leading-relaxed">
-          FindBuilders does not guarantee that any listed product is safe, accurate, legitimate, available, or endorsed by FindBuilders. You use external links and interact with other users at your own risk, and we encourage you to review the terms and privacy policy of any website you visit.
+          FindTheBuilders does not guarantee that any listed product is safe, accurate, legitimate, available, or endorsed by FindTheBuilders. You use external links and interact with other users at your own risk, and we encourage you to review the terms and privacy policy of any website you visit.
         </p>
       </>
     ),
@@ -234,10 +234,10 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          We may suspend or terminate your access to FindBuilders if you violate these Terms, including by repeatedly submitting prohibited content or by harming the platform or its users. We may also remove your content as described in these Terms.
+          We may suspend or terminate your access to FindTheBuilders if you violate these Terms, including by repeatedly submitting prohibited content or by harming the platform or its users. We may also remove your content as described in these Terms.
         </p>
         <p className="text-white/70 leading-relaxed">
-          You may stop using FindBuilders at any time. If you would like your account closed, you can contact us at support@findbuilders.app. Upon termination, your right to use the service ends, and content associated with your account may be removed.
+          You may stop using FindTheBuilders at any time. If you would like your account closed, you can contact us at support@findbuilders.app. Upon termination, your right to use the service ends, and content associated with your account may be removed.
         </p>
       </>
     ),
@@ -250,10 +250,10 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          FindBuilders is provided on an "as is" and "as available" basis, with all faults and defects, without warranty of any kind. To the maximum extent permitted by law, we make no guarantees that the service will be uninterrupted, error-free, or secure, or that product listings, descriptions, or other content on the platform will be accurate, complete, or reliable.
+          FindTheBuilders is provided on an "as is" and "as available" basis, with all faults and defects, without warranty of any kind. To the maximum extent permitted by law, we make no guarantees that the service will be uninterrupted, error-free, or secure, or that product listings, descriptions, or other content on the platform will be accurate, complete, or reliable.
         </p>
         <p className="text-white/70 leading-relaxed">
-          FindBuilders does not endorse, verify, or guarantee any user, product, or external link on the platform. Any dealings between users — or reliance on product information — are entirely at your own risk.
+          FindTheBuilders does not endorse, verify, or guarantee any user, product, or external link on the platform. Any dealings between users — or reliance on product information — are entirely at your own risk.
         </p>
       </>
     ),
@@ -266,7 +266,7 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          To the maximum extent permitted by applicable law, FindBuilders and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of profits, data, goodwill, or business opportunity, arising out of or in connection with your use of — or inability to use — the service, any content on the platform, or any external websites linked from it, even if we have been advised of the possibility of such damages.
+          To the maximum extent permitted by applicable law, FindTheBuilders and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of profits, data, goodwill, or business opportunity, arising out of or in connection with your use of — or inability to use — the service, any content on the platform, or any external websites linked from it, even if we have been advised of the possibility of such damages.
         </p>
         <p className="text-white/70 leading-relaxed">
           Where liability cannot be excluded, our total liability shall be limited to the maximum extent permitted by applicable law. Some jurisdictions do not allow certain limitations of liability, so these limitations may not apply to you — in which case they apply to the greatest extent permitted.
@@ -285,7 +285,7 @@ const sections = [
           We may update these Terms from time to time. When we do, we will update the "Last Updated" date at the top of this page. If a change is material, we will make reasonable efforts to draw your attention to it — for example, by a notice on the site.
         </p>
         <p className="text-white/70 leading-relaxed">
-          Your continued use of FindBuilders after updated Terms take effect means you accept the updated Terms. If you do not agree with the updated Terms, please stop using the service.
+          Your continued use of FindTheBuilders after updated Terms take effect means you accept the updated Terms. If you do not agree with the updated Terms, please stop using the service.
         </p>
       </>
     ),
@@ -318,8 +318,8 @@ export default function Terms() {
   return (
     <main className="flex-1 w-full flex flex-col bg-[#0B100E] pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 md:px-12 lg:px-24 font-[Inter,system-ui,sans-serif] antialiased">
       <SEO
-        title="Terms & Conditions | FindBuilders"
-        description="Terms and conditions for using the FindBuilders platform to showcase and discover software products."
+        title="Terms & Conditions | FindTheBuilders"
+        description="Terms and conditions for using the FindTheBuilders platform to showcase and discover software products."
         canonical="/terms"
         breadcrumbs={[
           { name: "Home", url: "/" },
@@ -340,7 +340,7 @@ export default function Terms() {
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">Terms &amp; Conditions</h1>
             <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto">
-              Rules for using FindBuilders.
+              Rules for using FindTheBuilders.
             </p>
             <p className="text-white/50 text-xs sm:text-sm">
               Last Updated: September 24, 2026
@@ -351,7 +351,7 @@ export default function Terms() {
           <div className="space-y-8">
             <section className="space-y-4">
               <p className="text-white/70 leading-relaxed">
-                Please read these Terms carefully before using FindBuilders. These Terms govern your access to and use of FindBuilders — the website <a href="https://findbuilders.pages.dev" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] hover:underline">findbuilders.pages.dev</a> and its related services.
+                Please read these Terms carefully before using FindTheBuilders. These Terms govern your access to and use of FindTheBuilders — our official website and its related services.
               </p>
             </section>
 

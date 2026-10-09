@@ -65,11 +65,11 @@ export default function Navbar() {
                         <Link to="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0 group">
                             <img
                                 src="/findbuilderslogo.png"
-                                alt="FindBuilders Logo"
+                                alt="FindTheBuilders Logo"
                                 className="w-6 h-6 sm:w-8 sm:h-8 object-contain shrink-0"
                             />
                             <span className={`text-base sm:text-xl md:text-2xl font-bold tracking-tight ${isHome ? "text-white" : "text-[#F5F1E8]"}`}>
-                                <span className={isHome ? "text-white" : "text-[#D8C7A5]"}>F</span>ind<span className={isHome ? "text-white" : "text-[#D8C7A5]"}>B</span>uilders
+                                <span className={isHome ? "text-white" : "text-[#D8C7A5]"}>F</span>ind<span className={isHome ? "text-white" : "text-[#D8C7A5]"}>T</span>he<span className={isHome ? "text-white" : "text-[#D8C7A5]"}>B</span>uilders
                             </span>
                         </Link>
 

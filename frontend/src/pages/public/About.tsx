@@ -40,8 +40,8 @@ export default function AboutPage() {
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen">
             <SEO
-                title="About FindBuilders - The Product Discovery Platform for Makers"
-                description="Learn about FindBuilders, our mission to help indie makers get their products discovered, and founder Bharath Thommandru."
+                title="About FindTheBuilders - The Product Discovery Platform for Makers"
+                description="Learn about FindTheBuilders, our mission to help indie makers get their products discovered, and founder Bharath Thommandru."
                 canonical="/about"
                 breadcrumbs={[
                     { name: "Home", url: "/" },
@@ -63,7 +63,7 @@ export default function AboutPage() {
                         ABOUT
                     </span>
                     <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.02em] leading-[1.08] bg-linear-to-b from-[#F5F1E8] to-[#C5C8C1] bg-clip-text text-transparent mb-4 sm:mb-6">
-                        About FindBuilders
+                        About FindTheBuilders
                     </h1>
                     <p className="text-lg sm:text-xl md:text-2xl text-[#D8C7A5] font-(family-name:--font-body)">
                         Built by builders, for builders.
@@ -75,7 +75,7 @@ export default function AboutPage() {
                     transition={{ duration: 0.6, delay: 0.15 }}
                     className="text-base sm:text-lg md:text-xl text-[#8C958E] font-(family-name:--font-body) leading-relaxed max-w-3xl mx-auto mt-6 sm:mt-8"
                 >
-                    FindBuilders is a platform created to give builders a place to showcase the products they create and get them in front of people looking for what's new.
+                    FindTheBuilders is a platform created to give builders a place to showcase the products they create and get them in front of people looking for what's new.
                 </motion.p>
                 <motion.p
                     initial={{ opacity: 0, y: 14 }}
@@ -87,7 +87,7 @@ export default function AboutPage() {
                 </motion.p>
             </section>
 
-            {/* The Person Behind FindBuilders */}
+            {/* The Person Behind FindTheBuilders */}
             <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 border-t border-[#202A25]">
                 <div className="max-w-4xl mx-auto">
                     <Reveal>
@@ -96,7 +96,7 @@ export default function AboutPage() {
                                 THE FOUNDER
                             </span>
                             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-linear-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent">
-                                The Person Behind FindBuilders
+                                The Person Behind FindTheBuilders
                             </h2>
                         </div>
                     </Reveal>
@@ -113,7 +113,7 @@ export default function AboutPage() {
                                     <div className="w-full aspect-4/3 max-h-[360px] bg-[#101814] border-b border-[#202A25] flex items-center justify-center overflow-hidden">
                                         <img
                                             src="/bharath.png"
-                                            alt="Bharath Thommandru - Founder & AI Engineer at FindBuilders"
+                                            alt="Bharath Thommandru - Founder & AI Engineer at FindTheBuilders"
                                             className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                                         />
                                     </div>
@@ -122,10 +122,10 @@ export default function AboutPage() {
                                         <p className="text-xs sm:text-sm text-[#D8C7A5] font-semibold uppercase tracking-wider mb-4">Founder & AI Engineer</p>
                                         <div className="space-y-3 text-[#8C958E] leading-relaxed font-(family-name:--font-body) text-sm sm:text-[15px]">
                                             <p>
-                                                I’m Bharath Thommandru, the Founder & AI Engineer behind FindBuilders.
+                                                I’m Bharath Thommandru, the Founder & AI Engineer behind FindTheBuilders.
                                             </p>
                                             <p>
-                                                I enjoy turning ideas into real products and building tools that are useful to the people who use them. FindBuilders came from that same mindset — creating a place where builders can discover products, showcase what they’re building, and connect with other people who are building.
+                                                I enjoy turning ideas into real products and building tools that are useful to the people who use them. FindTheBuilders came from that same mindset — creating a place where builders can discover products, showcase what they’re building, and connect with other people who are building.
                                             </p>
                                         </div>
                                         <div className="pt-4 mt-5 border-t border-[#202A25]/60 flex items-center justify-between">
@@ -155,7 +155,7 @@ export default function AboutPage() {
                             <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.02em] leading-tight bg-linear-to-br from-[#F5F1E8] via-[#C5C8C1] to-[#8C958E] bg-clip-text text-transparent mb-4 sm:mb-6">
                                 Builders build the products.
                                 <br />
-                                FindBuilders helps them get discovered.
+                                FindTheBuilders helps them get discovered.
                             </h2>
                         </div>
                     </Reveal>

@@ -30,10 +30,10 @@ const founderJsonLd = {
       "@type": "ProfilePage",
       "@id": `${FOUNDER_PAGE_URL}#profile`,
       url: FOUNDER_PAGE_URL,
-      name: "About Bharath Thommandru — Founder of FindBuilders",
+      name: "About Bharath Thommandru — Founder of FindTheBuilders",
       isPartOf: {
         "@type": "WebSite",
-        name: "FindBuilders",
+        name: "FindTheBuilders",
         url: SITE_URL
       },
       mainEntity: {
@@ -58,7 +58,7 @@ const founderJsonLd = {
       worksFor: {
         "@type": "Organization",
         "@id": `${SITE_URL}#organization`,
-        name: "FindBuilders",
+        name: "FindTheBuilders",
         url: SITE_URL
       },
       knowsAbout: [
@@ -89,8 +89,8 @@ const milestones = [
   },
   {
     year: "2026",
-    title: "FindBuilders Production Launch",
-    event: "Launched FindBuilders as a dedicated product discovery platform with curated categories, maker profiles, voting, and verified SEO indexing."
+    title: "FindTheBuilders Production Launch",
+    event: "Launched FindTheBuilders as a dedicated product discovery platform with curated categories, maker profiles, voting, and verified SEO indexing."
   }
 ];
 
@@ -112,8 +112,8 @@ export default function AboutFounder() {
   return (
     <div className="bg-[#0B100E] text-[#F5F1E8] font-[family-name:var(--font-heading)] min-h-screen">
       <SEO
-        title="About Bharath Thommandru — Founder of FindBuilders"
-        description="Learn about Bharath Thommandru, Founder & Lead Developer of FindBuilders. Full-stack developer building platforms where indie makers get discovered."
+        title="About Bharath Thommandru — Founder of FindTheBuilders"
+        description="Learn about Bharath Thommandru, Founder & Lead Developer of FindTheBuilders. Full-stack developer building platforms where indie makers get discovered."
         canonical="/about-founder"
         ogType="profile"
         ogImage={`${SITE_URL}/bharath.png`}
@@ -145,7 +145,7 @@ export default function AboutFounder() {
               <div className="w-36 h-36 sm:w-52 sm:h-52 md:w-64 md:h-64 rounded-3xl overflow-hidden border-2 border-[#29342E] bg-[#151D19] shadow-[0_0_40px_rgba(33,76,55,0.25)] relative group">
                 <img
                   src="/bharath.png"
-                  alt="Bharath Thommandru — Founder & Lead Developer of FindBuilders"
+                  alt="Bharath Thommandru — Founder & Lead Developer of FindTheBuilders"
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B100E]/60 via-transparent to-transparent pointer-events-none" />
@@ -172,7 +172,7 @@ export default function AboutFounder() {
               </h1>
 
               <p className="text-sm sm:text-base md:text-lg text-[#D8C7A5] font-semibold mb-3 sm:mb-4 tracking-wide">
-                Founder &amp; Lead Developer at FindBuilders
+                Founder &amp; Lead Developer at FindTheBuilders
               </p>
 
               <p className="text-xs sm:text-sm md:text-base text-[#8C958E] leading-relaxed max-w-2xl font-[family-name:var(--font-body)] mb-6 sm:mb-8">
@@ -246,13 +246,13 @@ export default function AboutFounder() {
             </h2>
             <div className="space-y-6 text-[#C5C8C1] font-[family-name:var(--font-body)] text-base sm:text-lg leading-relaxed">
               <p>
-                Bharath Thommandru is a full-stack developer, software engineer, and the founder behind FindBuilders. He creates software centered around product discovery, user experience design, and giving indie creators an equal opportunity to reach an appreciative audience.
+                Bharath Thommandru is a full-stack developer, software engineer, and the founder behind FindTheBuilders. He creates software centered around product discovery, user experience design, and giving indie creators an equal opportunity to reach an appreciative audience.
               </p>
               <p>
                 With expertise spanning React, TypeScript, UI/UX architecture, full-stack systems, and modern AI integration, Bharath approaches software engineering from a maker's perspective: identifying where builders spend unnecessary energy and replacing that friction with clean, intuitive software.
               </p>
               <p>
-                Before launching FindBuilders, he developed <a href="https://cvfoliox.in" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] underline decoration-[#2E6549] hover:text-[#F5F1E8] transition-colors">CVFolioX</a> — an AI-powered resume intelligence and portfolio generation platform designed to transform traditional career documents into shareable digital identities.
+                Before launching FindTheBuilders, he developed <a href="https://cvfoliox.in" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] underline decoration-[#2E6549] hover:text-[#F5F1E8] transition-colors">CVFolioX</a> — an AI-powered resume intelligence and portfolio generation platform designed to transform traditional career documents into shareable digital identities.
               </p>
             </div>
           </motion.div>
@@ -272,14 +272,14 @@ export default function AboutFounder() {
               <Rocket className="w-3.5 h-3.5 text-[#D8C7A5]" /> Origin
             </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 text-[#F5F1E8]">
-              The Story Behind FindBuilders
+              The Story Behind FindTheBuilders
             </h2>
             <div className="space-y-6 text-[#C5C8C1] font-[family-name:var(--font-body)] text-base sm:text-lg leading-relaxed">
               <p>
-                FindBuilders originated from a direct observation in the maker community. Countless independent creators, engineers, and designers spend weeks or months pouring creativity and code into exceptional projects, only to hit a wall when attempting to get their work discovered.
+                FindTheBuilders originated from a direct observation in the maker community. Countless independent creators, engineers, and designers spend weeks or months pouring creativity and code into exceptional projects, only to hit a wall when attempting to get their work discovered.
               </p>
               <p>
-                Bharath set out to build a platform that serves as a launchpad for products of all sizes. FindBuilders was created not as another cluttered link directory, but as an engaging discovery environment where makers can display their creations with pride, gather authentic feedback, and connect with early adopters searching for the next breakthrough tool.
+                Bharath set out to build a platform that serves as a launchpad for products of all sizes. FindTheBuilders was created not as another cluttered link directory, but as an engaging discovery environment where makers can display their creations with pride, gather authentic feedback, and connect with early adopters searching for the next breakthrough tool.
               </p>
             </div>
           </motion.div>
@@ -299,14 +299,14 @@ export default function AboutFounder() {
               <Lightbulb className="w-3.5 h-3.5 text-[#D8C7A5]" /> Motivation
             </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 text-[#F5F1E8]">
-              Why was FindBuilders built?
+              Why was FindTheBuilders built?
             </h2>
             <div className="space-y-6 text-[#C5C8C1] font-[family-name:var(--font-body)] text-base sm:text-lg leading-relaxed">
               <p>
                 Traditional discovery mechanisms are heavily weighted toward well-funded corporations with massive marketing teams. Solo builders and independent teams are often overlooked by mainstream platforms.
               </p>
               <p>
-                Our core philosophy is that <strong className="text-[#F5F1E8]">building a great product is only half the journey; getting it discovered is the other half</strong>. FindBuilders levels the playing field, making sure that what matters is the quality, utility, and craftsmanship of the product itself.
+                Our core philosophy is that <strong className="text-[#F5F1E8]">building a great product is only half the journey; getting it discovered is the other half</strong>. FindTheBuilders levels the playing field, making sure that what matters is the quality, utility, and craftsmanship of the product itself.
               </p>
             </div>
           </motion.div>
@@ -326,7 +326,7 @@ export default function AboutFounder() {
               <Target className="w-3.5 h-3.5 text-[#D8C7A5]" /> Process
             </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-8 text-[#F5F1E8]">
-              How does FindBuilders work?
+              How does FindTheBuilders work?
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -379,7 +379,7 @@ export default function AboutFounder() {
               Technology &amp; Architecture
             </h2>
             <p className="text-[#C5C8C1] text-base sm:text-lg mb-8 leading-relaxed font-[family-name:var(--font-body)]">
-              FindBuilders is engineered as a modern, high-performance web application utilizing modern edge infrastructure, client-side reactivity, and search-engine indexable metadata.
+              FindTheBuilders is engineered as a modern, high-performance web application utilizing modern edge infrastructure, client-side reactivity, and search-engine indexable metadata.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -459,7 +459,7 @@ export default function AboutFounder() {
             </h2>
             <div className="space-y-4 text-[#C5C8C1] leading-relaxed font-[family-name:var(--font-body)] text-base sm:text-lg">
               <p>
-                FindBuilders continues to expand its feature set to empower makers and early adopters. Current roadmap priorities include:
+                FindTheBuilders continues to expand its feature set to empower makers and early adopters. Current roadmap priorities include:
               </p>
               <ul className="space-y-3 pt-2">
                 {roadmapItems.map((item, i) => (
@@ -487,7 +487,7 @@ export default function AboutFounder() {
               Get in Touch
             </h2>
             <p className="text-[#8C958E] mb-8 sm:mb-10 max-w-lg mx-auto text-xs sm:text-sm md:text-base leading-relaxed font-[family-name:var(--font-body)]">
-              Have an idea, collaboration inquiry, or want to feature your product on FindBuilders? Reach out directly.
+              Have an idea, collaboration inquiry, or want to feature your product on FindTheBuilders? Reach out directly.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-4">

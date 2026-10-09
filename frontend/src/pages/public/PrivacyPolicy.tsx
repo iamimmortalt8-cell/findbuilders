@@ -34,7 +34,7 @@ const sections = [
 
         <h3 className="text-xl font-semibold text-white/90 mt-6">Technical Information</h3>
         <p className="text-white/70 leading-relaxed">
-          Like most web services, FindBuilders automatically receives your IP address when your browser makes a request. We use IP addresses for security purposes only, such as rate limiting and preventing abuse. We store sign-in tokens in your browser's local storage so that you stay signed in, and a small flag in session storage that is used once for the loading screen. FindBuilders does not use advertising or analytics cookies, and we do not run third-party analytics or tracking tools.
+          Like most web services, FindTheBuilders automatically receives your IP address when your browser makes a request. We use IP addresses for security purposes only, such as rate limiting and preventing abuse. We store sign-in tokens in your browser's local storage so that you stay signed in, and a small flag in session storage that is used once for the loading screen. FindTheBuilders does not use advertising or analytics cookies, and we do not run third-party analytics or tracking tools.
         </p>
       </>
     ),
@@ -47,7 +47,7 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          FindBuilders is a public platform. Some information is meant to be seen by others:
+          FindTheBuilders is a public platform. Some information is meant to be seen by others:
         </p>
         <ul className="list-disc list-inside text-white/70 space-y-2 ml-4">
           <li>Your public profile — display name, username, headline, bio, avatar, links, interests, and any contact details you choose to add.</li>
@@ -72,12 +72,12 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          Builders can submit products to be listed on FindBuilders. Submissions are handled as follows:
+          Builders can submit products to be listed on FindTheBuilders. Submissions are handled as follows:
         </p>
         <ul className="list-disc list-inside text-white/70 space-y-2 ml-4">
           <li>You can save a product as a draft. Drafts stay private to you until you submit them.</li>
           <li>When you submit a product, it enters review. Administrators may review your submission before it appears publicly.</li>
-          <li>Approved products become publicly discoverable on FindBuilders.</li>
+          <li>Approved products become publicly discoverable on FindTheBuilders.</li>
           <li>If a product is rejected, we provide a reason. Rejected products are not listed publicly, and you can edit and submit them again for review.</li>
           <li>Administrators may remove products that violate platform rules, including after approval.</li>
         </ul>
@@ -100,7 +100,7 @@ const sections = [
           <li>Review product submissions and moderate content on the platform.</li>
           <li>Enable votes, comments, and follows.</li>
           <li>Protect the service, prevent abuse, and enforce platform rules.</li>
-          <li>Maintain and improve FindBuilders.</li>
+          <li>Maintain and improve FindTheBuilders.</li>
           <li>Respond to support requests and questions.</li>
         </ul>
         <p className="text-white/70 leading-relaxed">
@@ -118,7 +118,7 @@ const sections = [
       <ul className="list-disc list-inside text-white/70 space-y-2 ml-4">
         <li><strong>Publicly.</strong> The profile, product, and community information described above is visible to other users and visitors by design, because you chose to publish it.</li>
         <li><strong>With our service providers.</strong> We rely on Supabase to operate our database, authentication, and file storage, and on Google if you sign in with Google. These providers process data only to run the service for us.</li>
-        <li><strong>When required by law.</strong> We may disclose information if we are required to do so by law, or where necessary to protect the rights, safety, and property of FindBuilders, our users, or others.</li>
+        <li><strong>When required by law.</strong> We may disclose information if we are required to do so by law, or where necessary to protect the rights, safety, and property of FindTheBuilders, our users, or others.</li>
       </ul>
     ),
   },
@@ -130,14 +130,14 @@ const sections = [
     content: (
       <>
         <p className="text-white/70 leading-relaxed">
-          FindBuilders uses the following services to operate:
+          FindTheBuilders uses the following services to operate:
         </p>
         <ul className="list-disc list-inside text-white/70 space-y-2 ml-4">
           <li><strong>Supabase</strong> — provides our database, user authentication, and file storage. Your account, profile, products, and uploaded images are stored on Supabase.</li>
           <li><strong>Google</strong> — if you choose to sign in with Google, Google handles the sign-in on your behalf according to its privacy policy.</li>
         </ul>
         <p className="text-white/70 leading-relaxed">
-          Images you upload — your avatar, product logos, and screenshots — are stored so they can be displayed on FindBuilders. If your profile or product is public, its images are public too. We do not send marketing emails; any account-related email you receive comes from our authentication provider or Google.
+          Images you upload — your avatar, product logos, and screenshots — are stored so they can be displayed on FindTheBuilders. If your profile or product is public, its images are public too. We do not send marketing emails; any account-related email you receive comes from our authentication provider or Google.
         </p>
       </>
     ),
@@ -181,7 +181,7 @@ const sections = [
     iconClass: "text-pink-400",
     content: (
       <p className="text-white/70 leading-relaxed">
-        FindBuilders is not intended for young children, and we do not knowingly collect personal information from children. If you believe a child has provided personal information to us, contact us at support@findbuilders.app and we will take steps to remove it.
+        FindTheBuilders is not intended for young children, and we do not knowingly collect personal information from children. If you believe a child has provided personal information to us, contact us at support@findbuilders.app and we will take steps to remove it.
       </p>
     ),
   },
@@ -192,7 +192,7 @@ const sections = [
     iconClass: "text-rose-400",
     content: (
       <p className="text-white/70 leading-relaxed">
-        Products and profiles on FindBuilders can contain links to external websites — for example, a builder's own product site. These links are provided by users. We do not control these websites and are not responsible for their content or privacy practices. We encourage you to review the privacy policy of any website you visit.
+        Products and profiles on FindTheBuilders can contain links to external websites — for example, a builder's own product site. These links are provided by users. We do not control these websites and are not responsible for their content or privacy practices. We encourage you to review the privacy policy of any website you visit.
       </p>
     ),
   },
@@ -235,8 +235,8 @@ export default function PrivacyPolicy() {
   return (
     <main className="flex-1 w-full flex flex-col bg-[#0B100E] pt-28 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 md:px-12 lg:px-24 font-[Inter,system-ui,sans-serif] antialiased">
       <SEO
-        title="Privacy Policy | FindBuilders"
-        description="Learn how FindBuilders collects, protects, and respects your account, product, and profile information."
+        title="Privacy Policy | FindTheBuilders"
+        description="Learn how FindTheBuilders collects, protects, and respects your account, product, and profile information."
         canonical="/privacy-policy"
         breadcrumbs={[
           { name: "Home", url: "/" },
@@ -268,10 +268,10 @@ export default function PrivacyPolicy() {
           <div className="space-y-8">
             <section className="space-y-4">
               <p className="text-white/70 leading-relaxed">
-                FindBuilders is a platform where builders can create profiles and showcase their products, and visitors can discover products and the people who build them. It is available at <a href="https://findbuilders.pages.dev" target="_blank" rel="noopener noreferrer" className="text-[#D8C7A5] hover:underline">findbuilders.pages.dev</a>.
+                FindTheBuilders is a platform where builders can create profiles and showcase their products, and visitors can discover products and the people who build them. It is available on our official website.
               </p>
               <p className="text-white/70 leading-relaxed">
-                This Privacy Policy explains what information we collect when you use FindBuilders, how we use and protect it, and the choices you have. By using FindBuilders, you agree to the practices described here. If you do not agree, please do not use the service.
+                This Privacy Policy explains what information we collect when you use FindTheBuilders, how we use and protect it, and the choices you have. By using FindTheBuilders, you agree to the practices described here. If you do not agree, please do not use the service.
               </p>
             </section>
 

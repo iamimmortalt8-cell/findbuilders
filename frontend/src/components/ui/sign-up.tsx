@@ -144,7 +144,7 @@ const modalSteps = [
 ];
 const TEXT_LOOP_INTERVAL = 1.5;
 
-const DefaultLogo = () => ( <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="h-7 w-7 object-contain" /> );
+const DefaultLogo = () => ( <img src="/findbuilderslogo.png" alt="FindTheBuilders Logo" className="h-7 w-7 object-contain" /> );
 
 interface AuthComponentProps {
   logo?: React.ReactNode;
@@ -155,7 +155,7 @@ interface AuthComponentProps {
   onSignUpSuccess?: () => void;
 }
 
-export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindBuilders", onSignUp, onGoogleSignIn, onNavigateToLogin, onSignUpSuccess }: AuthComponentProps) => {
+export const AuthComponent = ({ logo = <DefaultLogo />, brandName = "FindTheBuilders", onSignUp, onGoogleSignIn, onNavigateToLogin, onSignUpSuccess }: AuthComponentProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

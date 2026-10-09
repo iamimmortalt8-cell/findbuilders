@@ -34,14 +34,14 @@ if (typeof document !== 'undefined' && !document.getElementById(STYLE_ID)) {
 }
 
 const SUGGESTED_PROMPTS = [
-  { text: "How does FindBuilders work?", icon: "📄" },
+  { text: "How does FindTheBuilders work?", icon: "📄" },
   { text: "How do I submit a product?", icon: "🚀" },
   { text: "How do I find builders?", icon: "🔍" },
   { text: "Can I contact the team?", icon: "❓" }
 ];
 
 const MESSAGES = [
-  "👋 Hi there! I'm FindBuilders AI. How can I help you today?",
+  "👋 Hi there! I'm FindTheBuilders AI. How can I help you today?",
   "✨ Looking to launch a product? I'm here to help!",
   "🚀 Ready to showcase your skills to the world?",
   "💬 Got a question about finding builders? Ask away!",
@@ -198,12 +198,12 @@ export default function FBAssistant() {
               <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative">
                   <div className="relative w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center">
-                    <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-6 h-6 sm:w-8 sm:h-8 object-contain relative z-10" />
+                    <img src="/findbuilderslogo.png" alt="FindTheBuilders Logo" className="w-6 h-6 sm:w-8 sm:h-8 object-contain relative z-10" />
                   </div>
                   <div className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#7FAF8D] border-2 border-[#1B2520] rounded-full"></div>
                 </div>
                 <div>
-                  <h3 className="text-[#F5F1E8] font-semibold text-sm">FindBuilders AI</h3>
+                  <h3 className="text-[#F5F1E8] font-semibold text-sm">FindTheBuilders AI</h3>
                   <div className="flex items-center text-xs text-[#8C958E]">
                     <span>Your Project Guide</span>
                     <span className="mx-1.5">•</span>
@@ -230,7 +230,7 @@ export default function FBAssistant() {
                   className="bg-[#1B2520] border border-white/5 rounded-xl p-3.5 sm:p-5 text-xs sm:text-sm shadow-md"
                 >
                   <p className="font-medium text-[#F5F1E8] mb-3 sm:mb-4">
-                    👋 Hi! Welcome to FindBuilders.
+                    👋 Hi! Welcome to FindTheBuilders.
                   </p>
                   <p className="text-[#8C958E] mb-2 text-xs">I can help you get started:</p>
                   <ul className="space-y-1.5 sm:space-y-2 text-[#F5F1E8] mb-4 sm:mb-6 text-xs sm:text-sm">
@@ -297,7 +297,7 @@ export default function FBAssistant() {
                     <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D8C7A5]" />
                     Contact Team 🤝
                   </h4>
-                  <p className="text-[11px] sm:text-xs text-[#8C958E] mb-3">Send a message directly to the FindBuilders founders.</p>
+                  <p className="text-[11px] sm:text-xs text-[#8C958E] mb-3">Send a message directly to the FindTheBuilders founders.</p>
                   
                   {supportStatus === 'success' ? (
                     <div className="text-center py-3 text-[#7FAF8D]">
@@ -361,7 +361,7 @@ export default function FBAssistant() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask FindBuilders AI..."
+                  placeholder="Ask FindTheBuilders AI..."
                   className="flex-1 max-h-24 sm:max-h-32 min-h-8.5 sm:min-h-9 bg-transparent text-xs sm:text-sm text-[#F5F1E8] placeholder-[#69736C] px-2.5 sm:px-3 py-1.5 sm:py-2 focus:outline-none resize-none"
                   rows={1}
                 />

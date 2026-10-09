@@ -1,6 +1,6 @@
 // scripts/generate-sitemap.mjs
-// Generates a search-engine compliant XML sitemap for FindBuilders frontend
-import { writeFileSync, existsSync } from 'fs';
+// Generates a search-engine compliant XML sitemap for FindTheBuilders frontend
+import { writeFileSync, readFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createClient } from '@supabase/supabase-js';
@@ -8,7 +8,7 @@ import { createClient } from '@supabase/supabase-js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const BASE_URL = process.env.VITE_APP_URL || 'https://findbuilders.pages.dev';
+const BASE_URL = process.env.VITE_APP_URL || 'http://localhost:5173';
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://xnlyxnffxmfsxlehsxps.supabase.co';
 const SUPABASE_ANON_KEY = process.env.VITE_SUPABASE_ANON_KEY || 'sb_publishable_dBkR0WUad2kLgX9BqJpoYA_LhYtnEY9';
 
@@ -125,6 +125,15 @@ ${urls.join('\n')}
 
   const targetPath = resolve(__dirname, '../public/sitemap.xml');
   writeFileSync(targetPath, xml, 'utf8');
+  const robotsPath = resolve(__dirname, '../public/robots.txt');
+  if (existsSync(robotsPath)) {
+    let txt = readFileSync(robotsPath, 'utf8');
+    txt = txt.replace(/^Sitemap: .*$/gm, '').trim();
+    txt += '\n\nSitemap: ' + BASE_URL + '/sitemap.xml\n';
+    writeFileSync(robotsPath, txt);
+    console.log(`[SEO] robots.txt updated with Sitemap URL: ${BASE_URL}/sitemap.xml`);
+  }
+
   console.log(`[SEO] sitemap.xml generated successfully (${urls.length} URLs) at ${targetPath}`);
 }
 

@@ -1,6 +1,6 @@
-export const SITE_URL = "https://findbuilders.pages.dev";
+export const SITE_URL = (typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_APP_URL : process?.env?.VITE_APP_URL) || "http://localhost:5173";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/findbuilderslogo.png`;
-export const SITE_NAME = "FindBuilders";
+export const SITE_NAME = "FindTheBuilders";
 
 export interface BreadcrumbItem {
   name: string;
@@ -43,11 +43,11 @@ export const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE_URL}#organization`,
-  name: "FindBuilders",
+  name: "FindTheBuilders",
   url: SITE_URL,
   logo: `${SITE_URL}/findbuilderslogo.png`,
   description:
-    "FindBuilders is a curated product discovery platform where indie makers showcase their products and connect with early adopters.",
+    "FindTheBuilders is a curated product discovery platform where indie makers showcase their products and connect with early adopters.",
   founders: [
     {
       "@type": "Person",
@@ -66,7 +66,7 @@ export const ORGANIZATION_SCHEMA = {
       ],
       worksFor: {
         "@type": "Organization",
-        name: "FindBuilders",
+        name: "FindTheBuilders",
         url: SITE_URL
       },
       knowsAbout: [
@@ -89,7 +89,7 @@ export const ORGANIZATION_SCHEMA = {
 export const WEBSITE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "FindBuilders",
+  name: "FindTheBuilders",
   url: SITE_URL,
   description:
     "Discover new startup products, developer tools, AI tools, and SaaS apps built by indie makers.",

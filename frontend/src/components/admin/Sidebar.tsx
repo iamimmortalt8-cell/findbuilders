@@ -44,10 +44,10 @@ export default function Sidebar() {
             <div className="px-5 py-6 border-b border-[#202A25]">
                 <div className="flex items-center justify-between">
                     <NavLink to="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight group">
-                        <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-7 h-7 object-contain shrink-0" />
+                        <img src="/findbuilderslogo.png" alt="FindTheBuilders Logo" className="w-7 h-7 object-contain shrink-0" />
                         <span>
                             <span className="text-[#D8C7A5] group-hover:text-[#E5D5B5] transition-colors font-serif">Find</span>
-                            <span className="text-[#F5F1E8]">Builders</span>
+                            <span className="text-[#F5F1E8]">TheBuilders</span>
                         </span>
                     </NavLink>
                     <button onClick={() => setMobileOpen(false)} className="lg:hidden p-1.5 rounded-lg text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#151D19] transition-all duration-300">
@@ -110,7 +110,7 @@ export default function Sidebar() {
             {/* Mobile Top Bar */}
             <div className="lg:hidden fixed top-0 left-0 right-0 z-50 h-14 bg-[#0B100E]/95 backdrop-blur-2xl border-b border-[#202A25] flex items-center justify-between px-4">
                 <NavLink to="/" className="text-base font-bold tracking-tight">
-                    <span className="text-[#D8C7A5] font-serif">Find</span><span className="text-[#F5F1E8]">Builders</span>
+                    <span className="text-[#D8C7A5] font-serif">Find</span><span className="text-[#F5F1E8]">TheBuilders</span>
                 </NavLink>
                 <button onClick={() => setMobileOpen(true)} className="p-2 rounded-lg text-[#8C958E] hover:text-[#F5F1E8] hover:bg-[#151D19] transition-all duration-300">
                     <Menu className="w-5 h-5" />

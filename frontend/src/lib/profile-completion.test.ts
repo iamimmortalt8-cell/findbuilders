@@ -171,7 +171,7 @@ test('shouldShowProfileOnboarding: complete scenario tests', () => {
     id: 'user-b',
     display_name: 'User B',
     avatar_url: 'https://example.com/pic.jpg',
-    bio: JSON.stringify({ headline: 'Founder at FindBuilders' }),
+    bio: JSON.stringify({ headline: 'Founder at FindTheBuilders' }),
     role: 'user',
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),

@@ -24,14 +24,14 @@ export function Footer() {
                 {/* LOGO + BRAND */}
                 <AnimatedContainer className="space-y-4 lg:w-1/3">
                     <div className="flex items-center gap-2.5">
-                        <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="w-7 h-7 object-contain shrink-0" />
+                        <img src="/findbuilderslogo.png" alt="FindTheBuilders Logo" className="w-7 h-7 object-contain shrink-0" />
                         <span className="text-xl sm:text-2xl font-bold tracking-tight text-[#F5F1E8]">
-                            <span className="text-[#D8C7A5]">F</span>ind<span className="text-[#D8C7A5]">B</span>uilders
+                            <span className="text-[#D8C7A5]">F</span>ind<span className="text-[#D8C7A5]">T</span>he<span className="text-[#D8C7A5]">B</span>uilders
                         </span>
                     </div>
 
                     <p className="text-[#8C958E] text-xs sm:text-sm max-w-sm leading-relaxed">
-                        FindBuilders is a product discovery platform where indie makers, developers, and creators showcase their products and connect with early adopters.
+                        FindTheBuilders is a product discovery platform where indie makers, developers, and creators showcase their products and connect with early adopters.
                     </p>
                 </AnimatedContainer>
 
@@ -72,7 +72,7 @@ export function Footer() {
                         <ul className="space-y-2 text-xs sm:text-sm text-[#8C958E]">
                             <li>
                                 <Link to="/about" className="hover:text-[#F5F1E8] transition-colors">
-                                    About FindBuilders
+                                    About FindTheBuilders
                                 </Link>
                             </li>
                             <li>
@@ -103,7 +103,7 @@ export function Footer() {
 
             <div className="w-full max-w-6xl mx-auto mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-[#202A25]/50 relative z-10 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
                 <p className="text-[#69736C] text-xs font-medium text-center md:text-left">
-                    &copy; {new Date().getFullYear()} FindBuilders. All Rights Reserved.
+                    &copy; {new Date().getFullYear()} FindTheBuilders. All Rights Reserved.
                 </p>
                 <p className="text-[#69736C] text-xs font-medium text-center md:text-right">
                     Founded by{" "}

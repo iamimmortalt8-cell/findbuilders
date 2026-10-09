@@ -54,8 +54,8 @@ export default function Support() {
     return (
         <main className="bg-[#0B100E] text-[#F5F1E8] px-4 sm:px-6 md:px-12 py-16 sm:py-24 min-h-screen">
             <SEO
-                title="Support & Help Center | FindBuilders"
-                description="Contact the FindBuilders team directly for platform help, feedback, or inquiries."
+                title="Support & Help Center | FindTheBuilders"
+                description="Contact the FindTheBuilders team directly for platform help, feedback, or inquiries."
                 canonical="/support"
                 breadcrumbs={[
                     { name: "Home", url: "/" },
@@ -90,7 +90,7 @@ export default function Support() {
                             </h2>
 
                             <p className="text-[#8C958E] text-xs sm:text-sm md:text-base leading-relaxed mb-6 sm:mb-8">
-                                Have a question, need help, or want to get in touch with the FindBuilders team? Reach out to us directly.
+                                Have a question, need help, or want to get in touch with the FindTheBuilders team? Reach out to us directly.
                             </p>
 
                             <div className="space-y-4">

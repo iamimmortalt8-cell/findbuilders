@@ -152,8 +152,8 @@ export default function ProductDetail() {
         if (navigator.share) {
             try {
                 await navigator.share({
-                    title: product?.name ? `${product.name} on FindBuilders` : "FindBuilders Product",
-                    text: product?.tagline || `Check out ${product?.name} on FindBuilders!`,
+                    title: product?.name ? `${product.name} on FindTheBuilders` : "FindTheBuilders Product",
+                    text: product?.tagline || `Check out ${product?.name} on FindTheBuilders!`,
                     url,
                 });
                 return;
@@ -226,8 +226,8 @@ export default function ProductDetail() {
         return (
             <div className="min-h-screen bg-[#0B100E] flex flex-col items-center justify-center text-[#F5F1E8]">
                 <SEO
-                    title="Product Not Found | FindBuilders"
-                    description="The requested product could not be found. Discover other startup products and tools built by indie makers on FindBuilders."
+                    title="Product Not Found | FindTheBuilders"
+                    description="The requested product could not be found. Discover other startup products and tools built by indie makers on FindTheBuilders."
                     noindex={true}
                 />
                 <div className="w-16 h-16 rounded-2xl bg-[#151D19] border border-[#202A25] flex items-center justify-center mb-5">
@@ -263,7 +263,7 @@ export default function ProductDetail() {
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] min-h-screen">
             <SEO
-                title={`${product.name} - ${product.tagline} | FindBuilders`}
+                title={`${product.name} - ${product.tagline} | FindTheBuilders`}
                 description={`${product.tagline}. ${product.description ? product.description.slice(0, 140) + '...' : ''}`}
                 canonical={`/product/${product.id}`}
                 ogImage={product.image_url || undefined}

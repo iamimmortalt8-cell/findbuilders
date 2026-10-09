@@ -25,37 +25,37 @@ import type { Product, Category, Profile } from "@/lib/types";
 
 const CATEGORY_DESCRIPTIONS: Record<string, { title: string; metaDescription: string; intro: string }> = {
     ai: {
-        title: "AI Tools & Machine Learning Products | FindBuilders",
-        metaDescription: "Discover top AI products, machine learning applications, and generative AI software built by indie makers on FindBuilders.",
+        title: "AI Tools & Machine Learning Products | FindTheBuilders",
+        metaDescription: "Discover top AI products, machine learning applications, and generative AI software built by indie makers on FindTheBuilders.",
         intro: "Explore cutting-edge artificial intelligence products, intelligent automation apps, and developer-first ML tools created by independent makers and startup founders."
     },
     "developer-tools": {
-        title: "Developer Tools, APIs & CLI Utilities | FindBuilders",
+        title: "Developer Tools, APIs & CLI Utilities | FindTheBuilders",
         metaDescription: "Discover curated developer tools, SDKs, open-source libraries, and engineering utilities built by developers for developers.",
         intro: "A curated collection of developer tools, CLI utilities, libraries, and frameworks built to streamline coding, debugging, testing, and shipping."
     },
     productivity: {
-        title: "Productivity Apps & Workflow Software | FindBuilders",
+        title: "Productivity Apps & Workflow Software | FindTheBuilders",
         metaDescription: "Find innovative productivity tools, task managers, and workflow utilities created by makers to help you accomplish more.",
         intro: "Modern productivity software designed to organize your personal workflows, automate repetitive tasks, and keep teams and creators focused on what matters."
     },
     education: {
-        title: "Education & Learning Software | FindBuilders",
+        title: "Education & Learning Software | FindTheBuilders",
         metaDescription: "Explore educational platforms, interactive learning apps, and skill-building software built by indie educators and developers.",
         intro: "Educational platforms, interactive coding exercises, and study tools created to empower learners, self-taught engineers, and educators worldwide."
     },
     design: {
-        title: "Design Tools, UI Kits & Creative Assets | FindBuilders",
-        metaDescription: "Discover design tools, UI resources, prototyping apps, and creative utilities crafted by indie designers on FindBuilders.",
+        title: "Design Tools, UI Kits & Creative Assets | FindTheBuilders",
+        metaDescription: "Discover design tools, UI resources, prototyping apps, and creative utilities crafted by indie designers on FindTheBuilders.",
         intro: "Creative software, prototyping tools, icon libraries, and design systems built to empower digital designers and creative professionals."
     },
     business: {
-        title: "Business Software & Micro-SaaS Products | FindBuilders",
+        title: "Business Software & Micro-SaaS Products | FindTheBuilders",
         metaDescription: "Discover business software, micro-SaaS products, and startup tools designed by indie founders to run and grow modern businesses.",
         intro: "Software solutions and utilities tailored for founders, operators, and small businesses—spanning analytics, customer growth, and billing."
     },
     other: {
-        title: "Unique Tools & Experimental Projects | FindBuilders",
+        title: "Unique Tools & Experimental Projects | FindTheBuilders",
         metaDescription: "Explore unique experiments, creative tech projects, and unconventional products built by indie makers across the web.",
         intro: "Interesting and experimental software projects that challenge conventional categories, built by makers exploring new creative boundaries."
     }
@@ -210,12 +210,12 @@ export default function Products() {
     const categoryDetails = activeCategory ? (CATEGORY_DESCRIPTIONS[activeCategory.slug.toLowerCase()] || null) : null;
 
     const seoTitle = activeCategory
-        ? (categoryDetails?.title || `${activeCategory.name} Products & Tools | FindBuilders`)
-        : (search ? `Results for "${search}" | FindBuilders` : "Discover Products & Developer Tools Built by Indie Makers | FindBuilders");
+        ? (categoryDetails?.title || `${activeCategory.name} Products & Tools | FindTheBuilders`)
+        : (search ? `Results for "${search}" | FindTheBuilders` : "Discover Products & Developer Tools Built by Indie Makers | FindTheBuilders");
 
     const seoDescription = activeCategory
-        ? (categoryDetails?.metaDescription || `Explore emerging ${activeCategory.name} products, tools, and apps built by indie makers on FindBuilders.`)
-        : "Explore the directory of new startup products, developer tools, AI apps, and SaaS projects launched by indie makers on FindBuilders.";
+        ? (categoryDetails?.metaDescription || `Explore emerging ${activeCategory.name} products, tools, and apps built by indie makers on FindTheBuilders.`)
+        : "Explore the directory of new startup products, developer tools, AI apps, and SaaS projects launched by indie makers on FindTheBuilders.";
 
     const canonicalUrl = activeCategory
         ? `/categories/${activeCategory.slug}`
@@ -233,7 +233,7 @@ export default function Products() {
           ];
 
     const collectionSchema = buildCollectionSchema(
-        activeCategory ? `${activeCategory.name} Products` : "FindBuilders Products Directory",
+        activeCategory ? `${activeCategory.name} Products` : "FindTheBuilders Products Directory",
         seoDescription,
         canonicalUrl
     );
@@ -423,7 +423,7 @@ export default function Products() {
                                                                     </p>
                                                                 ) : (
                                                                     <p className="text-xs text-[#69736C] truncate mt-0.5">
-                                                                        Builder on FindBuilders
+                                                                        Builder on FindTheBuilders
                                                                     </p>
                                                                 )}
                                                             </div>

@@ -12,8 +12,8 @@ export default function NotFound() {
   return (
     <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen relative flex items-center justify-center py-16 sm:py-20 px-4 sm:px-6">
       <SEO
-        title="Page Not Found (404) | FindBuilders"
-        description="The requested page could not be found. Explore top indie products, developer tools, or return to FindBuilders."
+        title="Page Not Found (404) | FindTheBuilders"
+        description="The requested page could not be found. Explore top indie products, developer tools, or return to FindTheBuilders."
         noindex={true}
       />
 

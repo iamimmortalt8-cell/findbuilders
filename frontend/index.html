@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FindBuilders - Discover Products Built by Makers</title>
+    <title>FindTheBuilders - Discover Products Built by Makers</title>
     <meta name="description" content="A curated product discovery platform where indie makers showcase their products. Discover developer tools, AI apps, and startup products built by creators." />
     <meta name="theme-color" content="#0B100E" />
     <meta name="robots" content="index, follow" />
-    <meta name="google-site-verification" content="mgQtE51FYIgc9y50su0RM8hymrbs_3ypTVyiKs1i60A" />
+    <meta name="google-site-verification" content="" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://findbuilders.pages.dev/" />
+    <link rel="canonical" href="%VITE_APP_URL%/" />
 
     <!-- Favicons & App Icons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -20,18 +20,18 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="FindBuilders" />
-    <meta property="og:url" content="https://findbuilders.pages.dev/" />
-    <meta property="og:title" content="FindBuilders - Discover Products Built by Makers" />
+    <meta property="og:site_name" content="FindTheBuilders" />
+    <meta property="og:url" content="%VITE_APP_URL%/" />
+    <meta property="og:title" content="FindTheBuilders - Discover Products Built by Makers" />
     <meta property="og:description" content="A curated product discovery platform where indie makers showcase their products. Discover developer tools, AI apps, and startup products built by creators." />
-    <meta property="og:image" content="https://findbuilders.pages.dev/findbuilderslogo.png" />
+    <meta property="og:image" content="%VITE_APP_URL%/findbuilderslogo.png" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://findbuilders.pages.dev/" />
-    <meta name="twitter:title" content="FindBuilders - Discover Products Built by Makers" />
+    <meta name="twitter:url" content="%VITE_APP_URL%/" />
+    <meta name="twitter:title" content="FindTheBuilders - Discover Products Built by Makers" />
     <meta name="twitter:description" content="A curated product discovery platform where indie makers showcase their products. Discover developer tools, AI apps, and startup products built by creators." />
-    <meta name="twitter:image" content="https://findbuilders.pages.dev/findbuilderslogo.png" />
+    <meta name="twitter:image" content="%VITE_APP_URL%/findbuilderslogo.png" />
 
     <!-- Initial Organization & WebSite Structured Data -->
     <script type="application/ld+json">
@@ -40,21 +40,21 @@
       "@graph": [
         {
           "@type": "Organization",
-          "@id": "https://findbuilders.pages.dev#organization",
-          "name": "FindBuilders",
-          "url": "https://findbuilders.pages.dev",
-          "logo": "https://findbuilders.pages.dev/findbuilderslogo.png",
-          "description": "FindBuilders is a curated product discovery platform where indie makers showcase their products and connect with early adopters.",
+          "@id": "%VITE_APP_URL%#organization",
+          "name": "FindTheBuilders",
+          "url": "%VITE_APP_URL%",
+          "logo": "%VITE_APP_URL%/findbuilderslogo.png",
+          "description": "FindTheBuilders is a curated product discovery platform where indie makers showcase their products and connect with early adopters.",
           "founders": [
             {
               "@type": "Person",
-              "@id": "https://findbuilders.pages.dev#/schema/person/bharath-thommandru",
+              "@id": "%VITE_APP_URL%#/schema/person/bharath-thommandru",
               "name": "Bharath Thommandru",
               "givenName": "Bharath",
               "familyName": "Thommandru",
               "jobTitle": "Founder & Lead Developer",
-              "url": "https://findbuilders.pages.dev/about",
-              "image": "https://findbuilders.pages.dev/bharath.png",
+              "url": "%VITE_APP_URL%/about",
+              "image": "%VITE_APP_URL%/bharath.png",
               "email": "bharathtommandru1@gmail.com",
               "sameAs": [
                 "https://github.com/bharath-dev8668",
@@ -63,8 +63,8 @@
               ],
               "worksFor": {
                 "@type": "Organization",
-                "name": "FindBuilders",
-                "url": "https://findbuilders.pages.dev"
+                "name": "FindTheBuilders",
+                "url": "%VITE_APP_URL%"
               },
               "knowsAbout": [
                 "React",
@@ -84,14 +84,14 @@
         },
         {
           "@type": "WebSite",
-          "name": "FindBuilders",
-          "url": "https://findbuilders.pages.dev",
+          "name": "FindTheBuilders",
+          "url": "%VITE_APP_URL%",
           "description": "Discover new startup products, developer tools, AI tools, and SaaS apps built by indie makers.",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://findbuilders.pages.dev/products?search={search_term_string}"
+              "urlTemplate": "%VITE_APP_URL%/products?search={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }

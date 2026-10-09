@@ -122,16 +122,16 @@ export default function FeaturesPage() {
     return (
         <div className="bg-[#0B100E] text-[#F5F1E8] font-(family-name:--font-heading) min-h-screen">
             <SEO
-                title="Platform Features - Product Discovery, Upvotes & Maker Showcase | FindBuilders"
-                description="Explore FindBuilders platform features: curated product discovery, community upvotes, maker profiles, category navigation, and quality moderation."
+                title="Platform Features - Product Discovery, Upvotes & Maker Showcase | FindTheBuilders"
+                description="Explore FindTheBuilders platform features: curated product discovery, community upvotes, maker profiles, category navigation, and quality moderation."
                 canonical="/features"
                 breadcrumbs={[
                     { name: "Home", url: "/" },
                     { name: "Features", url: "/features" }
                 ]}
                 structuredData={buildCollectionSchema(
-                    "FindBuilders Platform Features",
-                    "Explore product discovery, community upvoting, maker profiles, and categories on FindBuilders.",
+                    "FindTheBuilders Platform Features",
+                    "Explore product discovery, community upvoting, maker profiles, and categories on FindTheBuilders.",
                     "/features"
                 )}
             />

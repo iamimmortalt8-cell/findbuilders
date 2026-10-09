@@ -82,7 +82,7 @@ export function Web3HeroAnimated() {
                             transition={{ duration: 0.6, delay: 0.25 }}
                             className="mx-auto max-w-2xl text-[#F5F5F2] text-xs sm:text-base md:text-lg font-(family-name:--font-body) leading-relaxed px-2"
                         >
-                            FindBuilders is a product discovery platform where indie makers showcase developer tools, AI apps, and software to get discovered by early adopters looking for what's new.
+                            FindTheBuilders is a product discovery platform where indie makers showcase developer tools, AI apps, and software to get discovered by early adopters looking for what's new.
                         </motion.p>
 
                         <motion.div

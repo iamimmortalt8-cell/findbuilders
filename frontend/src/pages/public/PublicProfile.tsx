@@ -124,8 +124,8 @@ export default function PublicProfile() {
         return (
             <div className="bg-[#0B100E] min-h-screen pt-32 pb-20 flex flex-col items-center justify-center text-center px-4">
                 <SEO
-                    title="Profile Not Found | FindBuilders"
-                    description="The requested maker profile could not be found. Discover other creators and their products on FindBuilders."
+                    title="Profile Not Found | FindTheBuilders"
+                    description="The requested maker profile could not be found. Discover other creators and their products on FindTheBuilders."
                     noindex={true}
                 />
                 <h2 className="text-2xl font-bold text-[#F5F1E8] mb-2">Profile Not Found</h2>
@@ -184,8 +184,8 @@ export default function PublicProfile() {
     return (
         <div className="bg-[#0B100E] min-h-screen pt-28 md:pt-32 pb-24 relative text-[#F5F1E8]">
             <SEO
-                title={`${profile.display_name}${extendedBio.username ? ` (@${extendedBio.username})` : ""} - Maker Profile | FindBuilders`}
-                description={`${profile.display_name} is an indie maker on FindBuilders. ${extendedBio.headline || cleanBioText || `Discover products created by ${profile.display_name}.`}`}
+                title={`${profile.display_name}${extendedBio.username ? ` (@${extendedBio.username})` : ""} - Maker Profile | FindTheBuilders`}
+                description={`${profile.display_name} is an indie maker on FindTheBuilders. ${extendedBio.headline || cleanBioText || `Discover products created by ${profile.display_name}.`}`}
                 canonical={`/profile/${profile.id}`}
                 ogImage={profile.avatar_url || undefined}
                 ogType="profile"

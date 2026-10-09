@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
 import { AuthComponent } from "@/components/ui/sign-up";
 
-const FindBuildersLogo = () => (
-  <img src="/findbuilderslogo.png" alt="FindBuilders Logo" className="h-7 w-7 object-contain" />
+const FindTheBuildersLogo = () => (
+  <img src="/findbuilderslogo.png" alt="FindTheBuilders Logo" className="h-7 w-7 object-contain" />
 );
 
 export default function SignUp() {
@@ -37,8 +37,8 @@ export default function SignUp() {
 
   return (
     <AuthComponent
-      logo={<FindBuildersLogo />}
-      brandName="FindBuilders"
+      logo={<FindTheBuildersLogo />}
+      brandName="FindTheBuilders"
       onSignUp={handleSignUp}
       onGoogleSignIn={handleGoogleSignIn}
       onNavigateToLogin={() => navigate("/login")}

@@ -85,7 +85,7 @@ export default function BuilderDashboard() {
             <div className="border-b border-[#202A25] bg-[#101814]/90 backdrop-blur-2xl sticky top-0 z-40">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
                     <Link to="/" className="text-base sm:text-lg font-bold tracking-tight text-[#F5F1E8]">
-                        <span className="text-[#D8C7A5]">Find</span>Builders
+                        <span className="text-[#D8C7A5]">Find</span>TheBuilders
                     </Link>
                     <div className="flex items-center gap-2 sm:gap-4">
                         <Link
