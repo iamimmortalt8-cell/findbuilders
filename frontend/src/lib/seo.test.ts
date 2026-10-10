@@ -147,7 +147,7 @@ test('robots.txt exists and disallows private areas while referencing sitemap', 
   assert.ok(content.includes('Disallow: /settings/'));
   assert.ok(content.includes('Disallow: /login'));
   assert.ok(content.includes('Disallow: /signup'));
-  assert.ok(content.includes('Sitemap: http://localhost:5173/sitemap.xml'));
+  assert.ok(content.includes('Sitemap: https://findthebuilders.pages.dev/sitemap.xml'));
 });
 
 test('sitemap.xml exists, is valid XML, uses production domain and excludes private pages', () => {
@@ -157,23 +157,23 @@ test('sitemap.xml exists, is valid XML, uses production domain and excludes priv
 
   assert.ok(content.includes('<?xml version="1.0" encoding="UTF-8"?>'), 'Must have correct XML declaration');
   assert.ok(content.includes('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'), 'Must have sitemaps.org xmlns');
-  assert.ok(content.includes('<loc>http://localhost:5173/</loc>'), 'Must include root path');
-  assert.ok(content.includes('<loc>http://localhost:5173/products</loc>'), 'Must include products path');
-  assert.ok(content.includes('<loc>http://localhost:5173/features</loc>'));
-  assert.ok(content.includes('<loc>http://localhost:5173/about</loc>'));
-  assert.ok(content.includes('<loc>http://localhost:5173/about-founder</loc>'));
-  assert.ok(content.includes('<loc>http://localhost:5173/faq</loc>'));
-  assert.ok(content.includes('<loc>http://localhost:5173/categories/ai</loc>'));
+  assert.ok(content.includes('<loc>https://findthebuilders.pages.dev/</loc>'), 'Must include root path');
+  assert.ok(content.includes('<loc>https://findthebuilders.pages.dev/products</loc>'), 'Must include products path');
+  assert.ok(content.includes('<loc>https://findthebuilders.pages.dev/features</loc>'));
+  assert.ok(content.includes('<loc>https://findthebuilders.pages.dev/about</loc>'));
+  assert.ok(content.includes('<loc>https://findthebuilders.pages.dev/about-founder</loc>'));
+  assert.ok(content.includes('<loc>https://findthebuilders.pages.dev/faq</loc>'));
+  assert.ok(content.includes('<loc>https://findthebuilders.pages.dev/categories/ai</loc>'));
 
   // Ensure lastmod exists and follows YYYY-MM-DD
   assert.ok(content.match(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/), 'Must contain valid lastmod dates');
 
   // Ensure no private pages
-  assert.ok(!content.includes('<loc>http://localhost:5173/admin'), 'Must not include admin');
-  assert.ok(!content.includes('<loc>http://localhost:5173/builder'), 'Must not include builder');
-  assert.ok(!content.includes('<loc>http://localhost:5173/login'), 'Must not include login');
-  assert.ok(!content.includes('<loc>http://localhost:5173/signup'), 'Must not include signup');
-  assert.ok(!content.includes('<loc>http://localhost:5173/settings'), 'Must not include settings');
+  assert.ok(!content.includes('<loc>https://findthebuilders.pages.dev/admin'), 'Must not include admin');
+  assert.ok(!content.includes('<loc>https://findthebuilders.pages.dev/builder'), 'Must not include builder');
+  assert.ok(!content.includes('<loc>https://findthebuilders.pages.dev/login'), 'Must not include login');
+  assert.ok(!content.includes('<loc>https://findthebuilders.pages.dev/signup'), 'Must not include signup');
+  assert.ok(!content.includes('<loc>https://findthebuilders.pages.dev/settings'), 'Must not include settings');
   // we now fallback to localhost in dev so it may contain localhost
   assert.ok(!content.includes('findbuilders.app'), 'Must not contain old findbuilders.app domain');
 });
